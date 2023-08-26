@@ -1,12 +1,81 @@
+using Application.Interfaces.Generic;
+using Application.Interfaces.Repositories;
+using Application.Middlewares;
+using Application.Repositories;
+using Application.Repositories.Generic;
+using Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography;
+using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<QADb>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        b => b.AllowAnyHeader()
+            .AllowAnyOrigin()
+            .AllowAnyMethod());
+});
+
+//Generics
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+//Services
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//Repositories
 
 builder.Services.AddControllers();
-//builder.Services.AddSingleton<IMyService, MyService>(); Replace Service Te,plate
+//builder.Services.AddSingleton<IMyService, MyService>(); Replace Service Template
+
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// JWT Configuration
+var keyBytes = new byte[64];
+
+using (RandomNumberGenerator rng = RandomNumberGenerator.Create()) { rng.GetBytes(keyBytes); }
+string secretKey = Convert.ToBase64String(keyBytes);
+
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+
+var tokenValidationParameters = new TokenValidationParameters
+{
+    ValidateIssuerSigningKey = true,
+    IssuerSigningKey = key,
+    ValidateIssuer = false,
+    ValidateAudience = false
+};
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = tokenValidationParameters;
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                // Allow token in query string
+                if (context.Request.Query.ContainsKey("access_token"))
+                    context.Token = context.Request.Query["access_token"];
+
+                return Task.CompletedTask;
+            }
+        };
+    });
+// JWT End
 
 var app = builder.Build();
 
@@ -28,15 +97,16 @@ else
     app.UseHsts();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseCors("AllowAll");
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-//Controllers
-app.MapGet("/", () => "Hello, Minimal API!");
 
 app.Run();
