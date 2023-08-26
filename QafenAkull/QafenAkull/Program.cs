@@ -36,4 +36,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//Controllers
+app.MapGet("/", () => "Hello, Minimal API!");
+
 app.Run();
