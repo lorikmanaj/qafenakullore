@@ -3,6 +3,7 @@ using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Application.Services
@@ -37,9 +38,13 @@ namespace Application.Services
                 Address = registrationDto.Address
             };
 
-            // Hash the password and store the hash in the database
-            var hashedPassword = _passwordHasher.HashPassword(newUser, registrationDto.Password);
-            newUser.PasswordHash = Encoding.UTF8.GetBytes(hashedPassword);
+            // Hash the password and store the hash & salt in the database
+            var salt = GenerateSalt();
+
+            //var hashedPassword = _passwordHasher.HashPassword(newUser, registrationDto.Password);
+            //newUser.PasswordHash = Encoding.UTF8.GetBytes(hashedPassword);
+            newUser.PasswordSalt = salt;
+            newUser.PasswordHash = Encoding.UTF8.GetBytes(_passwordHasher.HashPassword(newUser, registrationDto.Password));
 
             // Add the user to the database
             await _userRepository.CreateUserAsync(newUser);
@@ -53,7 +58,6 @@ namespace Application.Services
             var user = await _userRepository.GetUserByEmailAsync(email);
 
             if (user == null)
-                // User not found
                 return null;
 
             // Verify the password
@@ -62,6 +66,16 @@ namespace Application.Services
 
             // Authentication successful
             return user;
+        }
+
+        private byte[] GenerateSalt()
+        {
+            byte[] saltBytes = new byte[16]; // You can adjust the length as needed
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(saltBytes);
+            }
+            return saltBytes;
         }
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)

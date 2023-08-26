@@ -1,10 +1,14 @@
 using Application.Interfaces.Generic;
 using Application.Interfaces.Repositories;
+using Application.Interfaces.Services;
 using Application.Middlewares;
 using Application.Repositories;
 using Application.Repositories.Generic;
+using Application.Services;
+using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
@@ -28,9 +32,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 //Services
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 //Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddControllers();
 //builder.Services.AddSingleton<IMyService, MyService>(); Replace Service Template

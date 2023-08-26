@@ -1,8 +1,9 @@
-﻿using Domain.Entities;
+﻿using Application.Interfaces.Generic;
+using Domain.Entities;
 
 namespace Application.Interfaces.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IGenericRepository<User>
     {
         Task<User> GetUserByIdAsync(int id);
         Task<User> GetUserByUsernameAsync(string username);

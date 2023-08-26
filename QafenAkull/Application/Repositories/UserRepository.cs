@@ -35,7 +35,9 @@ namespace Application.Repositories
 
         public async Task<User> GetUserByEmailAsync(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var usr = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            //return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return usr;
         }
 
         public async Task<User> GetUserByIdAsync(int id)
