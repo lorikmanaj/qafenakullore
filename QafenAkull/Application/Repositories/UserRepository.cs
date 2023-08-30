@@ -37,7 +37,8 @@ namespace Application.Repositories
         {
             var usr = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             //return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-            return usr;
+            //return usr;
+            return null;
         }
 
         public async Task<User> GetUserByIdAsync(int id)
@@ -47,7 +48,8 @@ namespace Application.Repositories
 
         public async Task<User> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
+            return null;
+            //return await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
         }
 
         public async Task UpdateUserAsync(User user)

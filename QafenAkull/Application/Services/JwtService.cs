@@ -28,7 +28,7 @@ namespace Application.Services
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(JwtRegisteredClaimNames.Birthdate, user.DateOfBirth.ToString("yyyy-MM-dd")),
+            //new Claim(JwtRegisteredClaimNames.Birthdate, user.DateOfBirth ?? user.DateOfBirth.ToString("yyyy-MM-dd")),
             new Claim(JwtRegisteredClaimNames.Iss, user.TokenIssuer),
             new Claim(JwtRegisteredClaimNames.Exp, DateTime.UtcNow.AddDays(7).ToString("yyyy-MM-ddTHH:mm:ssZ"))
             // Add more claims as needed

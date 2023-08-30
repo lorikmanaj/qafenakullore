@@ -11,11 +11,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Cryptography;
+using QafenAkull.Configurations;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection(key: "JwtConfig"));
 // Add services to the container.
 builder.Services.AddDbContext<QADb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -51,36 +52,59 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // JWT Configuration
-var keyBytes = new byte[64];
+//var keyBytes = new byte[64];
 
-using (RandomNumberGenerator rng = RandomNumberGenerator.Create()) { rng.GetBytes(keyBytes); }
-string secretKey = Convert.ToBase64String(keyBytes);
+//using (RandomNumberGenerator rng = RandomNumberGenerator.Create()) { rng.GetBytes(keyBytes); }
+//string secretKey = Convert.ToBase64String(keyBytes);
 
-var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+//var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
-var tokenValidationParameters = new TokenValidationParameters
+//var tokenValidationParameters = new TokenValidationParameters
+//{
+//    ValidateIssuerSigningKey = true,
+//    IssuerSigningKey = key,
+//    ValidateIssuer = false,
+//    ValidateAudience = false
+//};
+
+
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        options.TokenValidationParameters = tokenValidationParameters;
+//        options.Events = new JwtBearerEvents
+//        {
+//            OnMessageReceived = context =>
+//            {
+//                // Allow token in query string
+//                if (context.Request.Query.ContainsKey("access_token"))
+//                    context.Token = context.Request.Query["access_token"];
+
+//                return Task.CompletedTask;
+//            }
+//        };
+//    });
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+    options.SignIn.RequireConfirmedAccount = false) //Change after deploy
+    .AddEntityFrameworkStores<QADb>();
+
+builder.Services.AddAuthentication(options =>
 {
-    ValidateIssuerSigningKey = true,
-    IssuerSigningKey = key,
-    ValidateIssuer = false,
-    ValidateAudience = false
-};
-
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(jwt =>
     {
-        options.TokenValidationParameters = tokenValidationParameters;
-        options.Events = new JwtBearerEvents
+        var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JwtConfig:Secret").Value);
+        jwt.SaveToken = true;
+        jwt.TokenValidationParameters = new TokenValidationParameters()
         {
-            OnMessageReceived = context =>
-            {
-                // Allow token in query string
-                if (context.Request.Query.ContainsKey("access_token"))
-                    context.Token = context.Request.Query["access_token"];
-
-                return Task.CompletedTask;
-            }
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false, //Change when deploy
+            ValidateAudience = false, //Change when deploy
+            RequireExpirationTime = false, //Change when deploy
+            ValidateLifetime = false //Change when deploy
         };
     });
 // JWT End

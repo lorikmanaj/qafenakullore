@@ -12,12 +12,16 @@ namespace Application.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly UserManager<IdentityUser> _userManager;
         // Other dependencies
 
-        public AuthService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher)
+        public AuthService(IUserRepository userRepository,
+            IPasswordHasher<User> passwordHasher,
+            UserManager<IdentityUser> userManager)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
+            _userManager = userManager;
             // Initialize other dependencies
         }
 
@@ -29,12 +33,12 @@ namespace Application.Services
 
             var newUser = new User
             {
-                UserName = registrationDto.UserName,
+                //UserName = registrationDto.UserName,
                 Email = registrationDto.Email,
                 FirstName = registrationDto.FirstName,
                 LastName = registrationDto.LastName,
                 PhoneNumber = registrationDto.PhoneNumber,
-                DateOfBirth = registrationDto.DateOfBirth,
+                //DateOfBirth = registrationDto.DateOfBirth,
                 Address = registrationDto.Address
             };
 
