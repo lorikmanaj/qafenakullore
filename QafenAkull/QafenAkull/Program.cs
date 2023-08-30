@@ -21,12 +21,19 @@ builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection(key: "Jwt
 builder.Services.AddDbContext<QADb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAll",
+//        b => b.AllowAnyHeader()
+//            .AllowAnyOrigin()
+//            .AllowAnyMethod());
+//});
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        b => b.AllowAnyHeader()
-            .AllowAnyOrigin()
-            .AllowAnyMethod());
+    options.AddPolicy("QAClient", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+    });
 });
 
 //Generics
@@ -130,7 +137,8 @@ else
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseCors("AllowAll");
+//app.UseCors("AllowAll");
+app.UseCors("QAClient");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
