@@ -3,15 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Login } from '../models/login';
 import { Register } from '../models/register';
 import { JwtAuth } from '../models/jwtAuth';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  registerUrl = "Auth/Register";
-  loginUrl = "Auth/Login";
+  registerUrl = "Account/Register";
+  loginUrl = "Account/Login";
   weatherUrl = "WeatherForecast";
 
   constructor(private http: HttpClient) { }
@@ -24,7 +24,18 @@ export class AuthenticationService {
     return this.http.post<JwtAuth>(`${environment.apiUrl}/${this.loginUrl}`, user);
   }
 
+  // public getWeather(): Observable<any> {
+  //   console.log(environment.apiUrl + this.weatherUrl);
+  //   return this.http.get<any>(`${environment.apiUrl}/${this.weatherUrl}`);
+  // }
+
   public getWeather(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/${this.weatherUrl}`);
-  }
+    console.log(environment.apiUrl + this.weatherUrl);
+    return this.http.get<any>(`${environment.apiUrl}/${this.weatherUrl}`).pipe(
+        catchError((error) => {
+            console.error('Error:', error);
+            throw error;
+        })
+    );
+}
 }

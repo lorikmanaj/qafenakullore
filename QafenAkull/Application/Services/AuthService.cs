@@ -2,7 +2,12 @@
 using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
 using Domain.Entities;
+using Domain.Models.ResponseModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -11,90 +16,132 @@ namespace Application.Services
     public class AuthService : IAuthService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IPasswordHasher<User> _passwordHasher;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IConfiguration _configuration;
         // Other dependencies
 
         public AuthService(IUserRepository userRepository,
-            IPasswordHasher<User> passwordHasher,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IConfiguration configuration)
         {
             _userRepository = userRepository;
-            _passwordHasher = passwordHasher;
             _userManager = userManager;
+            _configuration = configuration;
             // Initialize other dependencies
+        }
+
+        private async Task<string> GenerateToken(IdentityUser user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Key"]));
+
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x)).ToList();
+
+            var userClaims = await _userManager.GetClaimsAsync(user);
+
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("uid", user.Id)
+            }
+            .Union(userClaims).Union(roleClaims);
+
+            var token = new JwtSecurityToken(
+                    issuer: _configuration["JwtConfig:Issuer"],
+                    audience: _configuration["JwtConfig:Audience"],
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(Convert.ToInt32(_configuration["JwtConfig:DurationInMinutes"])),
+                    signingCredentials: credentials
+                );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public Task<User> AuthenticateUserAsync(string email, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<AuthResult> Login(UserLoginDTO loginDto)
+        {
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            bool isValid = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+
+            if (user == null || isValid == false)
+                return null;
+            
+            var token = await GenerateToken(user);
+
+            return new AuthResult
+            {
+                Token = token,
+                UserId = user.Id
+            };
         }
 
         public async Task<bool> RegisterUserAsync(UserRegistrationDTO registrationDto)
         {
-            // Registration logic
-            if (await _userRepository.UserExistsByEmail(registrationDto.Email))
-                return false;
+            var userExists = await _userManager.FindByEmailAsync(registrationDto.Email);
 
-            var newUser = new User
+            if (userExists != null)
+                return false;
+            
+            var newUser = new IdentityUser()
             {
-                //UserName = registrationDto.UserName,
                 Email = registrationDto.Email,
-                FirstName = registrationDto.FirstName,
-                LastName = registrationDto.LastName,
-                PhoneNumber = registrationDto.PhoneNumber,
-                //DateOfBirth = registrationDto.DateOfBirth,
-                Address = registrationDto.Address
+                UserName = registrationDto.Email
             };
 
-            // Hash the password and store the hash & salt in the database
-            var salt = GenerateSalt();
+            var isCreated = await _userManager.CreateAsync(newUser, registrationDto.Password);
 
-            //var hashedPassword = _passwordHasher.HashPassword(newUser, registrationDto.Password);
-            //newUser.PasswordHash = Encoding.UTF8.GetBytes(hashedPassword);
-            newUser.PasswordSalt = salt;
-            newUser.PasswordHash = Encoding.UTF8.GetBytes(_passwordHasher.HashPassword(newUser, registrationDto.Password));
-
-            // Add the user to the database
-            await _userRepository.CreateUserAsync(newUser);
-
-            return true;
-        }
-
-        public async Task<User> AuthenticateUserAsync(string email, string password)
-        {
-            // Find the user by email
-            var user = await _userRepository.GetUserByEmailAsync(email);
-
-            if (user == null)
-                return null;
-
-            // Verify the password
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-                return null;
-
-            // Authentication successful
-            return user;
-        }
-
-        private byte[] GenerateSalt()
-        {
-            byte[] saltBytes = new byte[16]; // You can adjust the length as needed
-            using (var rng = RandomNumberGenerator.Create())
+            if (isCreated.Succeeded)
             {
-                rng.GetBytes(saltBytes);
+                await _userManager.AddToRoleAsync(newUser, "User");
+                //var token = GenerateJwtToken(newUser);
+
+                //return Ok(new RegistrationResponse()
+                //{
+                //    Result = true,
+                //    Token = token
+                //});
+                return true;
             }
-            return saltBytes;
+
+            return false;
+            // Registration logic
+            //if (await _userRepository.UserExistsByEmail(registrationDto.Email))
+            //    return false;
+
+            //var newUser = new User
+            //{
+            //    //UserName = registrationDto.UserName,
+            //    Email = registrationDto.Email,
+            //    FirstName = registrationDto.FirstName,
+            //    LastName = registrationDto.LastName,
+            //    PhoneNumber = registrationDto.PhoneNumber,
+            //    //DateOfBirth = registrationDto.DateOfBirth,
+            //    Address = registrationDto.Address
+            //};
+
+            //// Hash the password and store the hash & salt in the database
+            //var salt = GenerateSalt();
+
+            ////var hashedPassword = _passwordHasher.HashPassword(newUser, registrationDto.Password);
+            ////newUser.PasswordHash = Encoding.UTF8.GetBytes(hashedPassword);
+            //newUser.PasswordSalt = salt;
+            //newUser.PasswordHash = Encoding.UTF8.GetBytes(_passwordHasher.HashPassword(newUser, registrationDto.Password));
+
+            //// Add the user to the database
+            //await _userRepository.CreateUserAsync(newUser);
+
+            //return true;
         }
 
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-                for (int i = 0; i < computedHash.Length; i++)
-                    if (computedHash[i] != passwordHash[i])
-                        return false;
-            }
-            return true;
-        }
-        // Additional methods as needed
     }
 
 }

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Infrastructure.Configurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence
 {
-    public class QADb : IdentityDbContext
+    public class QADb : IdentityDbContext<IdentityUser>
     {
         public QADb(DbContextOptions<QADb> options)
             : base(options)
@@ -17,6 +19,8 @@ namespace Infrastructure.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+             
         }
     }
 }

@@ -51,69 +51,59 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddControllers();
 //builder.Services.AddSingleton<IMyService, MyService>(); Replace Service Template
 
-
-
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // JWT Configuration
-//var keyBytes = new byte[64];
-
-//using (RandomNumberGenerator rng = RandomNumberGenerator.Create()) { rng.GetBytes(keyBytes); }
-//string secretKey = Convert.ToBase64String(keyBytes);
-
-//var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
-//var tokenValidationParameters = new TokenValidationParameters
-//{
-//    ValidateIssuerSigningKey = true,
-//    IssuerSigningKey = key,
-//    ValidateIssuer = false,
-//    ValidateAudience = false
-//};
-
-
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddJwtBearer(options =>
-//    {
-//        options.TokenValidationParameters = tokenValidationParameters;
-//        options.Events = new JwtBearerEvents
-//        {
-//            OnMessageReceived = context =>
-//            {
-//                // Allow token in query string
-//                if (context.Request.Query.ContainsKey("access_token"))
-//                    context.Token = context.Request.Query["access_token"];
-
-//                return Task.CompletedTask;
-//            }
-//        };
-//    });
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-    options.SignIn.RequireConfirmedAccount = false) //Change after deploy
+builder.Services.AddIdentityCore<IdentityUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<QADb>();
 
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(jwt =>
+}).AddJwtBearer(options => {
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JwtConfig:Secret").Value);
-        jwt.SaveToken = true;
-        jwt.TokenValidationParameters = new TokenValidationParameters()
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false, //Change when deploy
-            ValidateAudience = false, //Change when deploy
-            RequireExpirationTime = false, //Change when deploy
-            ValidateLifetime = false //Change when deploy
-        };
-    });
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+        ValidIssuer = builder.Configuration["JwtConfig:Issuer"],
+        ValidAudience = builder.Configuration["JwtConfig:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:Key"]))
+    };
+});
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+//    options.SignIn.RequireConfirmedAccount = false) //Change after deploy
+//    .AddEntityFrameworkStores<QADb>();
+
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//}).AddJwtBearer(jwt =>
+//    {
+//        var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JwtConfig:Secret").Value);
+//        jwt.SaveToken = true;
+//        jwt.TokenValidationParameters = new TokenValidationParameters()
+//        {
+//            ValidateIssuerSigningKey = true,
+//            IssuerSigningKey = new SymmetricSecurityKey(key),
+//            ValidateIssuer = true, //Change when deploy
+//            ValidateAudience = true, //Change when deploy
+//            RequireExpirationTime = true, //Change when deploy
+//            ValidateLifetime = true, //Change when deploy
+//            ValidIssuer = "http://localhost:5020",
+//            ValidAudience = "http://localhost:5020",
+//            ClockSkew = TimeSpan.FromMinutes(30)
+//        };
+//    });
 // JWT End
 
 var app = builder.Build();

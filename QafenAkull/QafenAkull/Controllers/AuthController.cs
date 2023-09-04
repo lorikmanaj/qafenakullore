@@ -4,6 +4,7 @@ using Domain.Models.ResponseModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using QafenAkull.Configurations;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,6 +19,7 @@ namespace QafenAkull.Controllers
     {
         //private readonly ILogger<AuthController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IAuthService _authService;
         private readonly IJwtService _jwtService;
         private readonly JwtConfig _jwtConfig;
@@ -26,11 +28,13 @@ namespace QafenAkull.Controllers
             IAuthService authService,
             IJwtService jwtService,
             UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
             IOptionsMonitor<JwtConfig> optionsMonitor)
         {
             _authService = authService;
             _jwtService = jwtService;
             _userManager = userManager;
+            _signInManager = signInManager;
             _jwtConfig = optionsMonitor.CurrentValue;
         }
 
@@ -53,7 +57,7 @@ namespace QafenAkull.Controllers
                     };
 
                     var isCreated = await _userManager.CreateAsync(newUser, registrationDto.Password);
-
+                    
                     if (isCreated.Succeeded)
                     {
                         var token = GenerateJwtToken(newUser);
@@ -100,9 +104,11 @@ namespace QafenAkull.Controllers
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),
-                Expires = DateTime.UtcNow.AddHours(4),//.AddMinutes(5) -> use this when done
+                Expires = DateTime.UtcNow.AddMinutes(30),//.AddMinutes(5) -> use this when done
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                                        SecurityAlgorithms.HmacSha512)
+                                        SecurityAlgorithms.HmacSha256),
+                Issuer = "http://localhost:5020",
+                Audience = "http://localhost:5020"
             };
 
             var token = jwtTokenHandler.CreateToken(tokenDescriptor);
@@ -122,9 +128,10 @@ namespace QafenAkull.Controllers
                     return BadRequest("Invalid authentication.");
 
                 var isPasswordValid = await _userManager.CheckPasswordAsync(existingUser, loginDto.Password);
-
+                
                 if (isPasswordValid) 
                 {
+                    await _signInManager.SignInAsync(existingUser, false);
                     var token = GenerateJwtToken(existingUser);
                     return Ok(new LoginResponse() 
                     {
