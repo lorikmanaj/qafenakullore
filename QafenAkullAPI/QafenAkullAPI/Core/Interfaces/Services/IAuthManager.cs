@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using QafenAkullAPI.Core.DTO;
+using QafenAkullAPI.Core.DTO.ResponseModels;
 
 namespace QafenAkullAPI.Core.Interfaces.Services
 {
     public interface IAuthManager
     {
         Task<IEnumerable<IdentityError>> Register(ApiUserDTO user);
-        Task<bool> Login(LoginDTO login);
+        Task<AuthResponse> Login(LoginDTO login);
     }
 }

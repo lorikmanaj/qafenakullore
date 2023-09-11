@@ -44,12 +44,12 @@ namespace QafenAkullAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> Login([FromBody] LoginDTO login)
         {
-            var isValidUser = await _authManager.Login(login);
+            var authResponse = await _authManager.Login(login);
 
-            if (!isValidUser)
+            if (authResponse == null)
                 return Unauthorized();
 
-            return Ok();
+            return Ok(authResponse);
         }
     }
 }
