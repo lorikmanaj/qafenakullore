@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using QafenAkullAPI.Core.Implementations.Services;
+using QafenAkullAPI.Core.Interfaces.Services;
+using QafenAkullAPI.Domain.Entities;
 using QafenAkullAPI.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +15,11 @@ builder.Services.AddDbContext<QafenAkullDbContext>(options =>
     options.UseSqlServer(connString);
 });
 
-builder.Services.AddIdentityCore<IdentityUser>()
+builder.Services.AddIdentityCore<ApiUser>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<QafenAkullDbContext>();
+
+builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

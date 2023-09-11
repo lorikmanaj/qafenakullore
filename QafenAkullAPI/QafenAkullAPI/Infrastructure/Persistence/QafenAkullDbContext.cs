@@ -8,9 +8,9 @@ namespace QafenAkullAPI.Infrastructure.Persistence
 {
     public class QafenAkullDbContext : IdentityDbContext<ApiUser>
     {
-        public QafenAkullDbContext(DbContextOptions options): base(options)
+        public QafenAkullDbContext(DbContextOptions options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
