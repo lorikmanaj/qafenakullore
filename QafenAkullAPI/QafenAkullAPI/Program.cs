@@ -20,7 +20,9 @@ builder.Services.AddDbContext<QafenAkullDbContext>(options =>
 
 builder.Services.AddIdentityCore<ApiUser>()
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<QafenAkullDbContext>();
+    .AddTokenProvider<DataProtectorTokenProvider<ApiUser>>("QafenAkullApi")
+    .AddEntityFrameworkStores<QafenAkullDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 
@@ -66,6 +68,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
