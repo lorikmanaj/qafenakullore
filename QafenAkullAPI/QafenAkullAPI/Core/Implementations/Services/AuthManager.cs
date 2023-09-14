@@ -96,6 +96,7 @@ namespace QafenAkullAPI.Core.Implementations.Services
         {
             try
             {
+                _user = await _userManager.FindByEmailAsync(_user.Email);
                 var res = await _userManager.RemoveAuthenticationTokenAsync(_user, _loginProvider, _refreshToken);
 
                 var newRefreshToken = await _userManager.GenerateUserTokenAsync(_user, _loginProvider, _refreshToken);
@@ -107,10 +108,10 @@ namespace QafenAkullAPI.Core.Implementations.Services
 
                 return newRefreshToken;
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
-                throw e;
+                throw;
             }
 
         }
