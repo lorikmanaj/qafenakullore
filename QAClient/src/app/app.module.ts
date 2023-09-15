@@ -23,6 +23,13 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { SearchComponent } from './components/search/search.component';
+import { TestimonialsComponent } from './components/testimonials/testimonials.component';
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
+import { NavmenuComponent } from './components/navmenu/navmenu.component';
+import { PromoProductComponent } from './components/promo-product/promo-product.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +48,14 @@ import { ProductFiltersComponent } from './components/product-filters/product-fi
     AdminOrdersComponent,
     LoginComponent,
     RegisterComponent,
-    ProductFiltersComponent
+    ProductFiltersComponent,
+    AlertComponent,
+    SearchComponent,
+    TestimonialsComponent,
+    SubscribeComponent,
+    NavmenuComponent,
+    PromoProductComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
