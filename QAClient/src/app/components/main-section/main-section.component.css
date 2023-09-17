@@ -1,0 +1,143 @@
+/* Style for the main section */
+.main-section {
+    background-color: #f0f0f0; /* Gray background color */
+    padding: 50px; /* Add some padding to create space inside the section */
+    text-align: center; /* Center-align the content horizontally */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow effect */
+    border-radius: 10px; /* Rounded corners for a card-like appearance */
+}
+
+/* Style for the headline text */
+.headline-text {
+    font-size: 24px; /* Adjust the font size as needed */
+    font-weight: bold; /* Make the text bold */
+    color: #333; /* Text color */
+    margin-bottom: 20px; /* Add some spacing below the headline */
+}
+
+/* Style for the promotional products */
+.promo-products {
+    display: flex; /* Display products in a row */
+    justify-content: space-between; /* Space evenly between products */
+    flex-wrap: wrap; /* Wrap products to the next row if needed */
+}
+
+/* Style for individual product items */
+.product-item {
+    width: calc(33.33% - 20px); /* Adjust the width based on the number of products per row */
+    margin-bottom: 20px; /* Add spacing between products */
+    padding: 10px; /* Add some padding for each product */
+    background-color: #fff; /* White background for product items */
+    border: 1px solid #ddd; /* Add a border around each product */
+    border-radius: 5px; /* Rounded corners for product items */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+    text-align: center; /* Center-align the product content */
+}
+
+/* Style for product images */
+.product-image {
+    max-width: 100%; /* Ensure product images don't exceed their container */
+    height: auto; /* Maintain aspect ratio of product images */
+}
+
+/* Style for product titles */
+.product-title {
+    font-size: 16px; /* Adjust the font size for product titles */
+    font-weight: bold; /* Make the titles bold */
+    margin-top: 10px; /* Add spacing above product titles */
+}
+
+/* Style for product descriptions */
+.product-description {
+    font-size: 14px; /* Adjust the font size for product descriptions */
+    color: #777; /* Text color for descriptions */
+    margin-top: 5px; /* Add spacing above descriptions */
+}
+
+
+/* Add CSS for the carousel container and animation */
+.carousel-container {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+ }
+ 
+ .product-carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+ }
+ 
+ .product-item {
+    flex: 0 0 33.33%; /* Display 3 items at a time */
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+ }
+ 
+ /* Add Angular animations */
+ @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+ }
+ 
+ @keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+ }
+ 
+ @keyframes slideIn {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+ }
+ 
+ @keyframes slideOut {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+ }
+
+ @keyframes rotate {
+    0% { transform: translateX(0%); }
+    20% { transform: translateX(-100%); }
+    40% { transform: translateX(-200%); }
+    60% { transform: translateX(-300%); }
+    80% { transform: translateX(-400%); }
+    100% { transform: translateX(0%); }
+ }
+ 
+ .product-item.ng-animating {
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+ }
+ 
+ .product-item.ng-leave,
+ .product-item.ng-enter {
+    display: block;
+    position: absolute;
+    width: 33.33%;
+ }
+ 
+ .product-item.ng-leave {
+    animation: fadeOut 0.5s ease-in-out;
+    z-index: 1;
+ }
+ 
+ .product-item.ng-enter {
+    animation: fadeIn 0.5s ease-in-out;
+    z-index: 2;
+ }
+ 
+ .product-item.ng-enter.ng-enter-active {
+    animation-name: slideIn;
+ }
+ 
+ .product-item.ng-leave.ng-leave-active {
+    animation-name: slideOut;
+ }
+ 
+ .product-carousel {
+    display: flex;
+    width: 600%; /* Set to accommodate 6 items (adjust as needed) */
+    animation: rotate 20s linear infinite; /* Adjust duration and timing as needed */
+ }

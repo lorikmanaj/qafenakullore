@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { fapeo  } from '@fortawesome/free/';
 
 @Component({
   selector: 'app-navbar',

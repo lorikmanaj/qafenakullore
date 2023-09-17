@@ -1,0 +1,70 @@
+/* Style for the product showcase container */
+.product-showcase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff; /* Background color for the showcase */
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out; /* Add a smooth transform animation */
+}
+
+/* Style for the product image */
+.product-image {
+    width: 200px; /* Set the desired image size */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px; /* Spacing between image and details */
+}
+
+/* Style for the product details */
+.product-details {
+    text-align: center;
+    margin-bottom: 10px; /* Spacing between details and buttons */
+}
+
+/* Style for the product title */
+.product-title {
+    font-size: 18px; /* Adjust font size as needed */
+    font-weight: bold;
+}
+
+/* Style for the product description */
+.product-description {
+    font-size: 14px; /* Adjust font size as needed */
+    color: #888; /* Text color for description */
+}
+
+/* Style for the product price */
+.product-price {
+    font-size: 16px; /* Adjust font size as needed */
+    font-weight: bold;
+    color: #007bff; /* Text color for price */
+}
+
+/* Style for the action buttons */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Style for the Buy Now button */
+.buy-button,
+.cart-button {
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    padding: 10px 20px; /* Button padding */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out; /* Add a smooth background color transition */
+}
+
+/* Hover effect for buttons */
+.buy-button:hover,
+.cart-button:hover {
+    background-color: #0056b3; /* Button background color on hover */
+}
+
+/* Add more styles or animations as needed for a fancy showcase effect */
