@@ -1,31 +1,24 @@
-<app-navbar></app-navbar>
- <!-- This is your top navigation bar -->
+<div class="container-fluid">
+  <!-- Navbar -->
+  <div class="row">
+    <div class="col">
+      <!-- Navbar content goes here -->
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+  <!-- Main Content -->
+  <div class="row">
+    <div class="col-3">
+      <!-- Sidebar -->
+      <app-sidebar></app-sidebar>
+      
+    </div>
+    <div class="col-12">
+      <app-main-section></app-main-section>
 
-<!-- This is the container for the entire page content -->
-<!-- <div class="container"> -->
-  <!-- This is your sidebar/menu -->
-  <!-- <app-sidebar></app-sidebar> -->
+      <h1>Hot Line Bling</h1>
 
-  <!-- This is the main content area -->
-  <!-- <div class="main-content"> -->
-    <!-- <router-outlet></router-outlet> This is where your routed components will be displayed -->
-    <!-- <app-main-section></app-main-section> --><!-- Include your main section component here --> 
-    
-    <!-- Product Filters on the left -->
-    <!-- <app-product-filters></app-product-filters> -->
-
-    <!-- Product List on the right -->
-    <!-- <app-product-listing></app-product-listing> -->
-  <!-- </div> -->
-<!-- </div> -->
-
-<div class="container">
-  <!-- This is your sidebar/menu -->
-  <app-sidebar></app-sidebar>
-
-  <!-- This is the main content area -->
-  <div class="main-content">
-    <router-outlet></router-outlet> <!-- This is where your routed components will be displayed -->
-    <app-main-section></app-main-section> <!-- Include your main section component here -->
+      <app-product-grid [products]="products"></app-product-grid>
+    </div>
   </div>
 </div>

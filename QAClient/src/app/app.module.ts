@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CarouselModule } from 'ngx-owl-carousel-o';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +32,7 @@ import { UserOrdersComponent } from './components/user-orders/user-orders.compon
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProductGridComponent } from './components/product-grid/product-grid.component';
 
 
 @NgModule({
@@ -57,13 +60,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SubscribeComponent,
     TestimonialsComponent,
     UserOrdersComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ProductGridComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    CarouselModule,
     FontAwesomeModule
   ],
   providers: [],

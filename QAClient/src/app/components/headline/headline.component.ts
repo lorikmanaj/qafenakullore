@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Product } from 'src/app/models/product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-headline',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./headline.component.css']
 })
 export class HeadlineComponent {
+  @Input() headlineProduct!: Product;
 
+  constructor(private productService: ProductService) { }
+
+  ngOnInit(): void {
+    this.productService.getHeadlineProduct().subscribe((product) => {
+      this.headlineProduct = product;
+    });
+  }
 }

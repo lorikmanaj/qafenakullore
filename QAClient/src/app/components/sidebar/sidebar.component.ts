@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent implements OnInit {
-  sidebarVisible = false;
+export class SidebarComponent {
+  isCollapsed = false;
 
-  constructor() { }
-
-  ngOnInit(): void { }
+  constructor(private sidebarService: SidebarService) { }
 
   toggleSidebar() {
-    this.sidebarVisible = !this.sidebarVisible;
+    this.isCollapsed = !this.isCollapsed;
   }
 }

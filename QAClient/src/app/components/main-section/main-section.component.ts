@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/services/product.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-main-section',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-section.component.css'],
 })
 export class MainSectionComponent implements OnInit {
+  headlineProduct!: Product;
   carouselOptions = {
     loop: true,
     items: 3, // Display 3 items at a time (adjust as needed)
@@ -13,40 +16,12 @@ export class MainSectionComponent implements OnInit {
     nav: true,
   };
 
-  products = [
-    {
-      title: 'Product 1',
-      description: 'Description of Product 1.',
-      image: 'product1.jpg',
-    },
-    {
-      title: 'Product 2',
-      description: 'Description of Product 2.',
-      image: 'product2.jpg',
-    },
-    {
-      title: 'Product 3',
-      description: 'Description of Product 3.',
-      image: 'product3.jpg',
-    },
-    {
-      title: 'Product 4',
-      description: 'Description of Product 4.',
-      image: 'product4.jpg',
-    },
-    {
-      title: 'Product 5',
-      description: 'Description of Product 5.',
-      image: 'product5.jpg',
-    },
-    {
-      title: 'Product 6',
-      description: 'Description of Product 6.',
-      image: 'product6.jpg',
-    },
-  ];
+  constructor(private productService: ProductService) { }
 
-  constructor() { }
-
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // Fetch the headline product from ProductService
+    this.productService.getHeadlineProduct().subscribe((product) => {
+      this.headlineProduct = product;
+    });
+  }
 }

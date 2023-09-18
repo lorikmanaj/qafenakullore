@@ -1,46 +1,34 @@
-/* Style for the headline container */
+/* headline.component.css */
 .headline {
-    text-align: center;
-}
-
-/* Style for the centered square figure */
-.square-figure {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    width: 200px; /* Set the desired square size */
-    height: 200px; /* Set the desired square size */
-    margin: 0 auto; /* Center horizontally */
-    background-color: #f5f5f5; /* Background color for the square */
-}
-
-/* Style for the product image */
-.product-image {
-    width: 80px; /* Set the desired image size */
-    height: 80px; /* Set the desired image size */
-    margin-bottom: 10px; /* Spacing between image and details */
-}
-
-/* Style for the product details */
-.product-details {
-    text-align: center;
-}
-
-/* Style for the product title */
-.product-title {
-    font-size: 18px; /* Adjust font size as needed */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .headline-left {
+    flex: 1;
+    padding-right: 20px;
+  }
+  
+  .product-title {
+    font-size: 1.5rem; /* Larger font size for the title */
     font-weight: bold;
-}
-
-/* Style for the product description */
-.product-description {
-    font-size: 14px; /* Adjust font size as needed */
-    color: #888; /* Text color for description */
-}
-
-/* Style for the headline text */
-.headline-text {
-    font-size: 24px; /* Adjust font size as needed */
-    margin-top: 20px; /* Spacing between headline and square figure */
-}
+    margin-bottom: 10px;
+  }
+  
+  .dummy-paragraph {
+    margin: 0;
+  }
+  
+  .headline-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  /* Additional styling for the Product Card if needed */
+  

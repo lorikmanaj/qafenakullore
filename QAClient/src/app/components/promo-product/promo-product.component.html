@@ -1,16 +1,24 @@
-<div class="product-showcase">
-    <!-- Product image -->
-    <img class="product-image" src="product1.jpg" alt="Product 1">
-    <!-- Product details -->
-    <div class="product-details">
-        <h2 class="product-title">Product 1</h2>
-        <p class="product-description">Description of Product 1.</p>
-        <p class="product-price">$19.99</p>
-        <!-- Add more product details as needed -->
-    </div>
-    <!-- Action buttons (e.g., Buy Now, Add to Cart) -->
-    <div class="action-buttons">
-        <button class="buy-button">Buy Now</button>
-        <button class="cart-button">Add to Cart</button>
-    </div>
-</div>
+<owl-carousel [options]="carouselOptions">
+    <!-- Repeat this block for each product in carouselProducts -->
+    <ng-container *ngFor="let product of carouselProducts">
+      <div class="item">
+        <!-- Product content -->
+        <div class="product">
+          <!-- Product image -->
+          <img [src]="product.image" alt="{{ product.name }}" class="product-image">
+          <!-- Product title -->
+          <h3 class="product-title">{{ product.name }}</h3>
+          <!-- Product description -->
+          <p class="product-description">{{ product.description }}</p>
+          <!-- Product price -->
+          <div class="product-price">€{{ product.price }}</div>
+          <!-- Buttons -->
+          <div class="product-buttons">
+            <button class="btn btn-primary">Buy Now</button>
+            <button class="btn btn-secondary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </owl-carousel>
+  

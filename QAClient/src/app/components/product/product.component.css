@@ -1,0 +1,57 @@
+/* app-product.component.css */
+.product {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s; /* Transition for hover effect */
+    font-family: 'UrbanFont', sans-serif; /* Use a custom font or choose an urban-style font */
+  }
+  
+  .product:hover {
+    transform: scale(1.2); /* Slight increase in size on hover */
+  }
+  
+  .product-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .product-name {
+    font-weight: bold;
+    font-size: 1.25rem; /* Larger font size */
+    margin: 10px 0;
+    text-align: center; /* Center-align the name */
+  }
+  
+  .product-details {
+    text-align: left; /* Align text to the left */
+    margin: 5px 0;
+  }
+  
+  .product-description {
+    margin: 5px 0;
+  }
+  
+  .product-price {
+    font-size: 1.5rem; /* Larger font size */
+    font-weight: bold;
+    color: #007bff;
+    margin: 10px 0;
+  }
+  
+  .product-buttons {
+    display: flex;
+    justify-content: space-between; /* Position buttons on both sides */
+    margin-top: auto;
+  }
+  
+  /* Customize button styles if needed */
+  .product-buttons button {
+    margin: 5px;
+  }
+  

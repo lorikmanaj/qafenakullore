@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { fapeo  } from '@fortawesome/free/';
+import {
+  faUserAstronaut,
+  faCartShopping,
+  faMagnifyingGlass
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -8,4 +12,7 @@ import { fapeo  } from '@fortawesome/free/';
 })
 export class NavbarComponent {
 
+  faUser = faUserAstronaut;
+  faCart = faCartShopping;
+  faGlass = faMagnifyingGlass;
 }
