@@ -12,28 +12,32 @@ export class ProductService {
       name: 'Product 1',
       description: 'Description for Product 1',
       price: 19.99,
-      image: 'https://example.com/product1.jpg'
+      image: 'https://example.com/product1.jpg',
+      bg: ''
     },
     {
       id: 2,
       name: 'Product 2',
       description: 'Description for Product 2',
       price: 24.99,
-      image: 'https://example.com/product2.jpg'
+      image: 'https://example.com/product2.jpg',
+      bg: ''
     },
     {
       id: 3,
       name: 'Product 3',
       description: 'Description for Product 3',
       price: 29.99,
-      image: 'https://example.com/product3.jpg'
+      image: 'https://example.com/product3.jpg',
+      bg: ''
     },
     {
       id: 4,
       name: 'Product 4',
       description: 'Description for Product 4',
       price: 34.99,
-      image: 'https://example.com/product4.jpg'
+      image: 'https://example.com/product4.jpg',
+      bg: ''
     }
   ];
 

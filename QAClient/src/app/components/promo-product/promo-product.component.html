@@ -1,24 +1,20 @@
-<owl-carousel [options]="carouselOptions">
-    <!-- Repeat this block for each product in carouselProducts -->
-    <ng-container *ngFor="let product of carouselProducts">
-      <div class="item">
-        <!-- Product content -->
-        <div class="product">
-          <!-- Product image -->
-          <img [src]="product.image" alt="{{ product.name }}" class="product-image">
-          <!-- Product title -->
-          <h3 class="product-title">{{ product.name }}</h3>
-          <!-- Product description -->
-          <p class="product-description">{{ product.description }}</p>
-          <!-- Product price -->
-          <div class="product-price">€{{ product.price }}</div>
-          <!-- Buttons -->
-          <div class="product-buttons">
-            <button class="btn btn-primary">Buy Now</button>
-            <button class="btn btn-secondary">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-  </owl-carousel>
-  
+<c-carousel>
+  <c-carousel-indicators></c-carousel-indicators>
+  <c-carousel-inner>
+    <c-carousel-item *ngFor="let product of carouselProducts">
+      <img
+        alt="{{ product.name }}"
+        class="d-block w-100"
+        loading="lazy"
+        [src]="product.bg"
+      />
+      <c-carousel-caption class="d-none d-md-block">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p>Price: ${{ product.price }}</p>
+      </c-carousel-caption>
+    </c-carousel-item>
+  </c-carousel-inner>
+  <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
+  <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+</c-carousel>

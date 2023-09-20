@@ -1,27 +1,46 @@
-.container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-  }
-  
-  .content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  /* Adjust the width as needed for the sidebar and navbar */
-  app-sidebar {
-    width: 250px; /* Adjust to your sidebar width */
-  }
-  
-  app-navbar {
-    flex-grow: 1; /* Allow the navbar to occupy available space */
-  }
-  
-  /* Add styles for your toggle menu button */
-  .toggle-menu-button {
-    color: red;
-    /* Add styles for your toggle button here */
-  }
-  
+.toggle-menu-button {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1001;
+  padding: 10px;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100%;
+  background-color: red;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  transition: left 0.3s;
+  z-index: 1000;
+}
+
+.sidebar.collapsed {
+  left: 0;
+}
+
+.main-section {
+  padding: 50px 0;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+app-navbar {
+  width: 100%;
+  z-index: 1000;
+}
+
+app-navbar nav {
+  margin: 0;
+  padding: 0;
+}

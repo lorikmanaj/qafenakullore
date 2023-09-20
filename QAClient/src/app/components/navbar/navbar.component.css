@@ -1,83 +1,74 @@
-/* Style for the entire navigation bar */
 .navbar {
-    background-color: #c2b5b5; /* Background color for the navbar */
-    color: #fff; /* Text color for the navbar items */
-    display: flex;
-    justify-content: space-between; /* Distribute items evenly along the main axis */
-    align-items: center; /* Vertically center items */
-    padding: 10px 20px; /* Padding to create some space around the items */
-  }
+  background-color: #c2b5b5;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
   
-  /* Style for the left section of the navbar */
-  .navbar-left {
-    display: flex;
-    align-items: center; /* Vertically center items */
-  }
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  font-size: 24px; 
+  margin-right: 10px; 
+  cursor: pointer; 
+}
   
-  /* Style for the search icon */
-  .search-icon {
-    font-size: 24px; /* Adjust the size as needed */
-    margin-right: 10px; /* Space between search icon and search input */
-    cursor: pointer; /* Add a pointer cursor to indicate it's clickable */
-  }
+.search-input {
+  border: none;
+  border-bottom: 1px solid #fff; 
+  background-color: transparent; 
+  color: #fff;
+  font-size: 16px; 
+  padding: 5px;
+  outline: none; 
+  transition: width 0.3s; 
+}
+
+.search-input:focus {
+  width: 150px; 
+}
   
-  /* Style for the search input */
-  .search-input {
-    border: none;
-    border-bottom: 1px solid #fff; /* Add a bottom border for the input */
-    background-color: transparent; /* Make the input transparent */
-    color: #fff; /* Text color for the input */
-    font-size: 16px; /* Adjust the font size as needed */
-    padding: 5px; /* Add some padding for spacing */
-    outline: none; /* Remove the input focus outline */
-    transition: width 0.3s; /* Add a smooth transition for input width */
-  }
+.navbar-center {
+  flex-grow: 1;
+  text-align: center;
+}
   
-  /* Style for the search input when focused */
-  .search-input:focus {
-    width: 150px; /* Expand the input width when focused */
-  }
-  
-  /* Style for the center section of the navbar */
-  .navbar-center {
-    flex-grow: 1; /* Allow the center section to grow and occupy available space */
-    text-align: center; /* Center-align the items in the center section */
-  }
-  
-  .nav-list {
-    list-style-type: none; /* Remove default list styles */
-    padding: 0; /* Remove default list padding */
+.nav-list {
+  list-style-type: none;
+  padding: 0;
 }
 
 .nav-item {
-    display: inline-block; /* Display items horizontally inline */
-    margin-right: 20px; /* Add some space between items (adjust as needed) */
-    cursor: pointer;
-    color: #fff; /* Text color for the nav items */
-    font-size: 16px; /* Adjust the font size as needed */
+  display: inline-block;
+  margin-right: 20px;
+  cursor: pointer;
+  color: #fff; 
+  font-size: 16px; 
 }
 
-  /* Style for the right section of the navbar */
-  .navbar-right {
-    display: flex;
-    align-items: center; /* Vertically center items */
-  }
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.profile-icon,
+.cart-icon {
+  font-size: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+}
   
-  /* Style for profile and cart icons */
-  .profile-icon,
-  .cart-icon {
-    font-size: 24px; /* Adjust the size as needed */
-    margin-left: 10px; /* Space between icons */
-    cursor: pointer; /* Add a pointer cursor to indicate they're clickable */
-  }
+.profile-icon:hover,
+.cart-icon:hover {
+  color: #ffcc00;
+}
   
-  /* Add hover effect to icons */
-  .profile-icon:hover,
-  .cart-icon:hover {
-    color: #ffcc00; /* Change color on hover (e.g., yellow) */
-  }
-  
-  .site-logo {
-    margin: 0 10px; /* Add spacing around the logo */
-    font-weight: bold; /* Make the logo bold, adjust as needed */
+.site-logo {
+  margin: 0 10px;
+  font-weight: bold;
 }

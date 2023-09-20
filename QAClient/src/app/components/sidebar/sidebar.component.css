@@ -1,9 +1,23 @@
-#sidebar {
+/* #sidebar {
   width: 250px;
   transition: width 0.3s;
   background-color: red;
 }
 
 #sidebar.collapsed {
-  width: 60px; /* Adjust as needed */
+  width: 60px; 
+} */
+.sidebar {
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  background-color: red;
+  transition: left 0.3s;
+  z-index: 1000;
+}
+
+.sidebar.collapsed {
+  left: 0;
 }

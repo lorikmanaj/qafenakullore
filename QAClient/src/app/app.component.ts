@@ -23,9 +23,10 @@ import { Product } from './models/product';
   ]
 })
 export class AppComponent {
+  isCollapsed = false;
   title = 'QAClient';
   // sidebarVisible: boolean = false;
-  expanded: boolean = true;
+  expanded: boolean = false;
 
   products: Product[] = [];
 
@@ -42,6 +43,9 @@ export class AppComponent {
     });
   }
 
+  toggleSidebar() {
+    this.isCollapsed = !this.isCollapsed;
+  }
   // Method to toggle sidebar visibility
   // toggleSidebar() {
   //   this.sidebarService.toggleSidebar(!this.sidebarVisible);

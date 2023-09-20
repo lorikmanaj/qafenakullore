@@ -1,15 +1,11 @@
-<div class="container-fluid">
-  <!-- Navbar -->
+<!-- <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <!-- Navbar content goes here -->
       <app-navbar></app-navbar>
     </div>
   </div>
-  <!-- Main Content -->
   <div class="row">
     <div class="col-3">
-      <!-- Sidebar -->
       <app-sidebar></app-sidebar>
       
     </div>
@@ -19,6 +15,72 @@
       <h1>Hot Line Bling</h1>
 
       <app-product-grid [products]="products"></app-product-grid>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="container">
+  <app-sidebar></app-sidebar>
+
+  <div class="content">
+    <app-navbar></app-navbar>
+
+    <button class="toggle-menu-button" type="button" data-toggle="collapse" data-target="#sidebarCollapse">
+      Toggle Sidebar
+    </button>
+
+    <app-main-section></app-main-section>
+
+    <h1>Hot Line Bling</h1>
+
+    <app-product-grid [products]="products"></app-product-grid>
+  </div>
+</div> -->
+
+<!-- <button class="toggle-menu-button" (click)="toggleSidebar()">
+  ☰
+</button>
+
+<div class="container">
+  <app-navbar></app-navbar>
+
+  <div class="main-section">
+    <div class="spotlighted-content">
+      <app-headline></app-headline>
+    </div>
+
+    <div class="spotlighted-content">
+      <div class="promo-product-container">
+        <app-promo-product></app-promo-product>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-sidebar [isCollapsed]="isCollapsed" (toggleSidebar)="toggleSidebar()"></app-sidebar> -->
+
+<button class="toggle-menu-button" (click)="toggleSidebar()">
+  ☰
+</button>
+
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  ALLO
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="row">
+    <div class="main-section">
+      <div class="spotlighted-content">
+        <app-headline></app-headline>
+      </div>
+      <div class="spotlighted-content">
+        <div class="promo-product-container">
+          <app-promo-product></app-promo-product>
+        </div>
+      </div>
     </div>
   </div>
 </div>

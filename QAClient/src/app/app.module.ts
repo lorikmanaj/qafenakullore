@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -34,6 +36,9 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductGridComponent } from './components/product-grid/product-grid.component';
 
+import { ProductService } from './services/product.service';
+
+import { CarouselModule } from '@coreui/angular';
 
 @NgModule({
   declarations: [
@@ -65,11 +70,14 @@ import { ProductGridComponent } from './components/product-grid/product-grid.com
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserAnimationsModule,
+    CarouselModule
   ],
-  providers: [],
+  providers: [
+    ProductService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

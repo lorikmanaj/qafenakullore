@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, HostBinding } from '@angular/core';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { SidebarService } from '../../services/sidebar.service';
 
@@ -8,11 +8,11 @@ import { SidebarService } from '../../services/sidebar.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
-  isCollapsed = false;
+  @Input() isCollapsed: boolean = true;
+  @Output() toggleSidebar = new EventEmitter<void>();
 
   constructor(private sidebarService: SidebarService) { }
 
-  toggleSidebar() {
-    this.isCollapsed = !this.isCollapsed;
+  ngOnInit(): void {
   }
 }

@@ -1,38 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
-import { catchError, throwError } from 'rxjs';
-import { OwlOptions } from 'ngx-owl-carousel-o';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-promo-product',
   templateUrl: './promo-product.component.html',
   styleUrls: ['./promo-product.component.css']
 })
-export class PromoProductComponent {
-  carouselProducts: Product[] = [];
+export class PromoProductComponent implements OnInit {
+  carouselProducts: Product[] = [
+    {
+      id: 1,
+      name: 'Product 1',
+      description: 'Description for Product 1',
+      price: 19.99,
+      image: 'https://example.com/product1.jpg',
+      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp'
+    },
+    {
+      id: 2,
+      name: 'Product 2',
+      description: 'Description for Product 2',
+      price: 24.99,
+      image: 'https://example.com/product2.jpg',
+      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp'
+    },
+    {
+      id: 3,
+      name: 'Product 3',
+      description: 'Description for Product 3',
+      price: 29.99,
+      image: 'https://example.com/product3.jpg',
+      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp'
+    },
+    {
+      id: 4,
+      name: 'Product 4',
+      description: 'Description for Product 4',
+      price: 34.99,
+      image: 'https://example.com/product4.jpg',
+      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp'
+    },
+    {
+      id: 5,
+      name: 'Product 5',
+      description: 'Description for Product 4',
+      price: 34.99,
+      image: 'https://example.com/product4.jpg',
+      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp'
+    },
+    {
+      id: 6,
+      name: 'Product 6',
+      description: 'Description for Product 4',
+      price: 34.99,
+      image: 'https://example.com/product4.jpg',
+      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp'
+    }
+  ];
 
-  carouselOptions: OwlOptions = {
-    items: 4, // Number of items to display at a time
-    loop: true, // Enable loop for continuous rotation
-    nav: true, // Enable navigation arrows
-    autoplay: true, // Enable auto rotation
-    autoplayTimeout: 3000, // Time in milliseconds between rotations (adjust as needed)
-  };
+  currentIndex: number = 0;
 
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.productService.getCarouselProducts()
-      .pipe(
-        catchError((error) => {
-          console.error('Error fetching carousel products:', error);
-          // You can return an empty array or handle the error in a different way
-          return throwError('Failed to fetch carousel products');
-        })
-      )
-      .subscribe((products) => {
-        this.carouselProducts = products;
-      });
+    // this.productService.getCarouselProducts()
+    //   .pipe(
+    //     catchError((error) => {
+    //       console.error('Error fetching carousel products:', error);
+    //       return [];
+    //     })
+    //   )
+    //   .subscribe((products) => {
+    //     console.log(this.carouselProducts);
+    //     this.carouselProducts = products;
+    //   });
+  }
+
+  goToSlide(index: number): void {
+    this.currentIndex = index;
   }
 }
