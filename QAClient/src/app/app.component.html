@@ -68,19 +68,75 @@
 </div>
 
 <div class="container-fluid">
+
   <div class="row">
     <app-navbar></app-navbar>
   </div>
+
   <div class="row">
     <div class="main-section">
+
       <div class="spotlighted-content">
         <app-headline></app-headline>
       </div>
+
       <div class="spotlighted-content">
         <div class="promo-product-container">
           <app-promo-product></app-promo-product>
         </div>
       </div>
+
     </div>
+  </div>
+
+  <div class="col-12">
+
+    <h1>Hot Line Bling</h1>
+
+    <app-product-grid [products]="products"></app-product-grid>
+  </div>
+
+  <div class="container-fluid prod-list">
+    <div class="row">
+      <div class="col-md-3">
+        <!-- Product Filters Component -->
+        <app-product-filters></app-product-filters>
+      </div>
+      <div class="col-md-9">
+        <!-- Product Listing -->
+        <h1>Prod List-+</h1>
+        <app-product-listing></app-product-listing>
+        <!-- Pagination Controls (if using custom pagination) -->
+        <!-- Add pagination controls here -->
+      </div>
+    </div>
+  </div>
+
+  <div class="subscribe-section">
+    <app-subscribe></app-subscribe>
+  </div>
+
+  <div class="testimonials-section">
+    <app-testimonials></app-testimonials>
+  </div>
+
+
+  <div>
+    DUMMY
+  </div>
+  <div>
+    DUMMY
+  </div>
+  <div>
+    DUMMY
+  </div>
+  <div>
+    DUMMY
+  </div>
+  <div>
+    DUMMY
+  </div>
+  <div>
+    DUMMY
   </div>
 </div>

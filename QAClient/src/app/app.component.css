@@ -44,3 +44,11 @@ app-navbar nav {
   margin: 0;
   padding: 0;
 }
+
+.prod-list {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  /* Add margin to separate it from the rest of the page */
+}
