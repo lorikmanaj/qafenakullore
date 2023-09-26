@@ -12,7 +12,7 @@ export class ProductService {
       name: 'Product 1',
       description: 'Description for Product 1',
       price: 19.99,
-      image: 'https://example.com/product1.jpg',
+      image: 'assets/re.png',
       bg: ''
     },
     {
