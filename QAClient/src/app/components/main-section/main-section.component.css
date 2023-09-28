@@ -1,23 +1,30 @@
 /* Style for the entire main section */
 .main-section {
-   padding: 50px 0; /* Add some padding to create space inside the section, but remove top padding */
-   text-align: center; /* Center-align the content horizontally */
-   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow effect */
-   border-radius: 10px; /* Rounded corners for a card-like appearance */
+   padding: 50px 0;
+   /* Add some padding to create space inside the section, but remove top padding */
+   text-align: center;
+   /* Center-align the content horizontally */
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+   /* Add a subtle shadow effect */
+   border-radius: 10px;
+   /* Rounded corners for a card-like appearance */
    background-color: #f9f9f9;
 }
 
 /* Style for the spotlighted content */
 .spotlighted-content {
-   border: 1px solid #ccc; /* Add a border around the spotlighted content */
+   border: 1px solid #ccc;
+   /* Add a border around the spotlighted content */
    padding: 20px;
-   margin-bottom: 20px; /* Add margin to separate it from the promo products */
+   margin-bottom: 20px;
+   /* Add margin to separate it from the promo products */
 }
 
 /* Style for the promo product container */
 .promo-product-container {
-   width: 100%; /* Keep width at 100% */
+   width: 100%;
+   /* Keep width at 100% */
    padding: 20px;
    /* max-height: 300px;
    overflow: auto; */
- }
+}

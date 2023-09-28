@@ -38,6 +38,7 @@ import { ProductGridComponent } from './components/product-grid/product-grid.com
 import { ProductService } from './services/product.service';
 
 import { CarouselModule } from '@coreui/angular';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { CarouselModule } from '@coreui/angular';
     TestimonialsComponent,
     UserOrdersComponent,
     UserProfileComponent,
-    ProductGridComponent
+    ProductGridComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,

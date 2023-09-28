@@ -78,7 +78,7 @@ export class PromoProductComponent implements OnInit {
     //   });
   }
 
-  goToSlide(index: number): void {
-    this.currentIndex = index;
-  }
+  // goToSlide(index: number): void {
+  //   this.currentIndex = index;
+  // }
 }

@@ -1,48 +1,12 @@
-<!-- <div class="testimonial-card" *ngFor="let testimonial of testimonials">
-    <div class="user-avatar">
-        <img [src]="testimonial.avatarUrl" alt="User Avatar">
-    </div>
-
-    <div class="user-name">{{ testimonial.name }}</div>
-
-    <div class="comment">
-        <blockquote>{{ testimonial.comment }}</blockquote>
-    </div>
-
-    <div class="rating">
-        <span>Service Rating:</span>
-        <div class="stars">
-            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-                <span class="star" [class.full]="star <= testimonial.rating"
-                    [class.gray]="star > testimonial.rating"></span>
-            </ng-container>
-        </div>
-    </div>
-</div> -->
-
-<div class="testimonial-carousel" #testimonialcarousel>
-    <div class="testimonial-card" *ngFor="let testimonial of testimonials">
-        <!-- User Avatar -->
-        <div class="user-avatar">
-            <img [src]="testimonial.avatarUrl" alt="User Avatar">
-        </div>
-
-        <!-- User Name -->
-        <div class="user-name">{{ testimonial.name }}</div>
-
-        <!-- Comment -->
-        <div class="comment">
-            <blockquote>{{ testimonial.comment }}</blockquote>
-        </div>
-
-        <!-- Service Rating -->
-        <div class="rating">
-            <span>Service Rating:</span>
-            <div class="stars">
-                <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-                    <span class="star" [class.full]="star <= testimonial.rating"
-                        [class.gray]="star > testimonial.rating"></span>
-                </ng-container>
+<div class="slider">
+    <div *ngFor="let testimonial of testimonials; let i = index" class="card">
+        <div class="card-content">
+            <img [src]="testimonial.avatarUrl" alt="{{ testimonial.name }} Avatar" />
+            <h3>{{ testimonial.name }}</h3>
+            <p>{{ testimonial.comment }}</p>
+            <div class="rating"> <!-- Add the "rating" class here -->
+                <span>Service Rating:</span>
+                <app-star-rating [rating]="testimonial.rating"></app-star-rating>
             </div>
         </div>
     </div>
