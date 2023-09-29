@@ -5,4 +5,5 @@ export interface Product {
     price: number;
     image: string; // You can use a URL or a local path to an image
     bg: string;
+    quantity: number;
 }

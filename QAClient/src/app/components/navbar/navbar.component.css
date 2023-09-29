@@ -6,38 +6,38 @@
   align-items: center;
   padding: 10px 20px;
 }
-  
+
 .navbar-left {
   display: flex;
   align-items: center;
 }
 
 .search-icon {
-  font-size: 24px; 
-  margin-right: 10px; 
-  cursor: pointer; 
+  font-size: 24px;
+  margin-right: 10px;
+  cursor: pointer;
 }
-  
+
 .search-input {
   border: none;
-  border-bottom: 1px solid #fff; 
-  background-color: transparent; 
+  border-bottom: 1px solid #fff;
+  background-color: transparent;
   color: #fff;
-  font-size: 16px; 
+  font-size: 16px;
   padding: 5px;
-  outline: none; 
-  transition: width 0.3s; 
+  outline: none;
+  transition: width 0.3s;
 }
 
 .search-input:focus {
-  width: 150px; 
+  width: 150px;
 }
-  
+
 .navbar-center {
   flex-grow: 1;
   text-align: center;
 }
-  
+
 .nav-list {
   list-style-type: none;
   padding: 0;
@@ -47,8 +47,8 @@
   display: inline-block;
   margin-right: 20px;
   cursor: pointer;
-  color: #fff; 
-  font-size: 16px; 
+  color: #fff;
+  font-size: 16px;
 }
 
 .navbar-right {
@@ -62,13 +62,23 @@
   margin-left: 10px;
   cursor: pointer;
 }
-  
+
 .profile-icon:hover,
 .cart-icon:hover {
   color: #ffcc00;
 }
-  
+
 .site-logo {
   margin: 0 10px;
   font-weight: bold;
+}
+
+.search-icon.ml-auto {
+  margin-right: 0px;
+  /* Adjust the margin as needed */
+}
+
+.profile-icon {
+  margin-right: 30px;
+  /* Adjust the margin as needed */
 }

@@ -1,12 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarNav">
 
     <div class="navbar-left">
-      <div class="search-icon">
+      <div class="search-icon ml-auto">
         <fa-icon [icon]="faGlass"></fa-icon>
       </div>
       <input type="text" class="form-control search-input" placeholder="Search...">
@@ -45,7 +46,7 @@
         <fa-icon [icon]="faUser"></fa-icon>
       </div>
       <div class="cart-icon">
-        <fa-icon [icon]="faCart"></fa-icon>    
+        <app-cart></app-cart><!-- <fa-icon [icon]="faCart"></fa-icon> -->
       </div>
     </div>
   </div>

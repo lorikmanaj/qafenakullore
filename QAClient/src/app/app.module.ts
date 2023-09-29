@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { AlertComponent } from './components/alert/alert.component';
-import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProdCategoriesComponent } from './components/prod-categories/prod-categories.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -31,14 +30,15 @@ import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { TestimonialsComponent } from './components/testimonials/testimonials.component';
 import { UserOrdersComponent } from './components/user-orders/user-orders.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { CartComponent } from './components/cart/cart.component';
 
+import { CarouselModule } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductGridComponent } from './components/product-grid/product-grid.component';
 
 import { ProductService } from './services/product.service';
-
-import { CarouselModule } from '@coreui/angular';
-import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { CartService } from './services/cart.service';
 
 @NgModule({
   declarations: [
@@ -77,7 +77,8 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     CarouselModule
   ],
   providers: [
-    ProductService
+    ProductService,
+    CartService
   ],
   bootstrap: [AppComponent]
 })

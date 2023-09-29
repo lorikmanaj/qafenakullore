@@ -1,1 +1,18 @@
-<p>cart works!</p>
+<div class="cart-icon-container" (mouseenter)="showCartItems()" (mouseleave)="hideCartItems()">
+    <div class="cart-icon">
+        <fa-icon [icon]="faCart"></fa-icon>
+    </div>
+    <div class="cart-dropdown" [hidden]="!isCartOpen">
+        <ng-container *ngIf="cartItems.length > 0; else noItems">
+            <div *ngFor="let item of cartItems" class="cart-item">
+                {{ item.itemName }}
+                <span *ngIf="item.count > 1" class="cart-item-quantity">{{ item.count }}</span>
+                <button (click)="addToCart(item.productId)">+</button>
+                <button (click)="removeFromCart(item.productId)">-</button>
+            </div>
+        </ng-container>
+        <ng-template #noItems>
+            <div class="no-items-message">You have no items in your cart.</div>
+        </ng-template>
+    </div>
+</div>
