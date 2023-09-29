@@ -1,0 +1,15 @@
+<div class="profile-icon-container" (mouseenter)="showProfileOptions()" (mouseleave)="hideProfileOptions()">
+    <div class="profile-icon">
+        <fa-icon [icon]="faUser"></fa-icon>
+    </div>
+    <div class="profile-dropdown" [hidden]="!isProfileOpen">
+        <ng-container *ngIf="profileOptions.length; else noOptions">
+            <div *ngFor="let item of profileOptions" class="option-item">
+                {{ item.option }}
+            </div>
+        </ng-container>
+        <ng-template #noOptions>
+            <div class="no-items-message">Something went wrong.</div>
+        </ng-template>
+    </div>
+</div>
