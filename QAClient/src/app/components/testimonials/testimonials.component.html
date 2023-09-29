@@ -1,4 +1,5 @@
 <div class="slider">
+    <div class="card-container">
     <div *ngFor="let testimonial of testimonials; let i = index" class="card">
         <div class="card-content">
             <img [src]="testimonial.avatarUrl" alt="{{ testimonial.name }} Avatar" />
@@ -10,4 +11,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

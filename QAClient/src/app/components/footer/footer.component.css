@@ -1,0 +1,56 @@
+.footer {
+    background-color: #141d2a;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.company-logo {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.company-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.company-links {
+    font-weight: bold;
+}
+
+.follow-us {
+    font-weight: bold;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.material-icons {
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+.material-icons.instagram {
+    font-size: 24px;
+    /* Adjust the font size for Instagram icon */
+    margin-left: 0;
+    /* Reset the left margin for Instagram icon */
+}

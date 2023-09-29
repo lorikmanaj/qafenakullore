@@ -1,4 +1,4 @@
-/* Add this style to your CSS */
+/* Style for the rating section */
 .rating {
     display: flex;
     flex-direction: column;
@@ -6,12 +6,23 @@
     margin-top: 10px;
 }
 
-/* Add this style to your CSS */
+/* Style for individual cards */
 .card {
     display: inline-block;
     width: calc(20% - 20px);
     /* Adjust the width and margin as needed */
     margin: 10px;
-    vertical-align: top;
-    /* Align cards to the top */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.5s ease-in-out;
+    /* Add transition for smooth movement */
+}
+
+/* Style for the card container */
+.card-container {
+    display: flex;
+    overflow: hidden;
+    /* No animation needed here */
 }
