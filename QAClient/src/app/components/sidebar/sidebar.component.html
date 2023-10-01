@@ -10,7 +10,7 @@
 <div id="sidebar" [class.collapsed]="isCollapsed">
   ALLO
 </div> -->
-
-<div class="sidebar" [class.collapsed]="isCollapsed">
+<!-- [class.collapsed]="isCollapsed" -->
+<div class="sidebar" [ngClass]="{ 'collapsed': isCollapsed }">
   ALLO
 </div>

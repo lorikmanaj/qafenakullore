@@ -40,7 +40,6 @@ import { ProductGridComponent } from './components/product-grid/product-grid.com
 import { ProductService } from './services/product.service';
 import { CartService } from './services/cart.service';
 import { ProfileOptionsComponent } from './components/profile-options/profile-options.component';
-import { ProdPresenterComponent } from './components/prod-presenter/prod-presenter.component';
 import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
@@ -72,7 +71,6 @@ import { HomeComponent } from './components/home/home.component';
     ProductGridComponent,
     StarRatingComponent,
     ProfileOptionsComponent,
-    ProdPresenterComponent,
     HomeComponent
   ],
   imports: [

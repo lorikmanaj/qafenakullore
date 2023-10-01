@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { SidebarService } from './services/sidebar.service';
+import { Component } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { ProductService } from './services/product.service';
-import { Product } from './models/product';
 
 @Component({
   selector: 'app-root',
@@ -25,29 +22,17 @@ import { Product } from './models/product';
 export class AppComponent {
   isCollapsed = false;
   title = 'QAClient';
-  // sidebarVisible: boolean = false;
   expanded: boolean = false;
 
-  products: Product[] = [];
+  selectedType: string = 'Home';
 
-  constructor(private sidebarService: SidebarService,
-    private productService: ProductService) { }
-
-  ngOnInit() {
-    // Initialize sidebar visibility based on the service
-    // this.sidebarService.getSidebarVisibility().subscribe((isVisible) => {
-    //   this.sidebarVisible = isVisible;
-    // });
-    this.productService.getProducts().subscribe((products) => {
-      this.products = products;
-    });
-  }
+  constructor() { }
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
   }
-  // Method to toggle sidebar visibility
-  // toggleSidebar() {
-  //   this.sidebarService.toggleSidebar(!this.sidebarVisible);
-  // }
+
+  selectProductType(type: string) {
+    this.selectedType = type;
+  }
 }

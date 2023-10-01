@@ -5,7 +5,7 @@
             <img [src]="testimonial.avatarUrl" alt="{{ testimonial.name }} Avatar" />
             <h3>{{ testimonial.name }}</h3>
             <p>{{ testimonial.comment }}</p>
-            <div class="rating"> <!-- Add the "rating" class here -->
+            <div class="rating"> 
                 <span>Service Rating:</span>
                 <app-star-rating [rating]="testimonial.rating"></app-star-rating>
             </div>

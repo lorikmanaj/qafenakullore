@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, HostBinding } from '@angular/core';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
 
 @Component({

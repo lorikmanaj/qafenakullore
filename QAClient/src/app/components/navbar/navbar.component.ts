@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductType } from 'src/app/models/productType';
+import { EventEmitter, Output } from '@angular/core';
 
 import {
   faUserAstronaut,
@@ -20,19 +21,25 @@ export class NavbarComponent {
   faGlass = faMagnifyingGlass;
 
   productTypes: ProductType[] = [
-    { typeId: 1, type: 'Qafore' },
-    { typeId: 2, type: 'Unaza' },
-    { typeId: 3, type: 'Byzylyk' },
-    { typeId: 4, type: 'Qafore' },
-    { typeId: 5, type: 'Sete' }
+    { typeId: 1, type: 'Home' },
+    { typeId: 2, type: 'Qafore' },
+    { typeId: 3, type: 'Unaza' },
+    { typeId: 4, type: 'Byzylyk' },
+    { typeId: 5, type: 'Qafore' },
+    { typeId: 6, type: 'Sete' }
   ];
 
+  @Output() selectProductType: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private router: Router) { }
 
   ngOnInit() { }
 
-  selectProductType(prodTypeId: number) {
-    this.router.navigate(['/prod-presenter', prodTypeId]);
+  onSelectProductType(type: string) {
+    // if (type === 'Home') {
+    //   this.router.navigate(['/products', type]);
+    // }
+    // this.router.navigate(['/products', type]);
+    this.selectProductType.emit(type);
   }
 }

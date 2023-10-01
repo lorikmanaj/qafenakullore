@@ -1,65 +1,5 @@
-<!-- <div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <app-navbar></app-navbar>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-3">
-      <app-sidebar></app-sidebar>
-      
-    </div>
-    <div class="col-12">
-      <app-main-section></app-main-section>
-
-      <h1>Hot Line Bling</h1>
-
-      <app-product-grid [products]="products"></app-product-grid>
-    </div>
-  </div>
-</div> -->
-
-<!-- <div class="container">
-  <app-sidebar></app-sidebar>
-
-  <div class="content">
-    <app-navbar></app-navbar>
-
-    <button class="toggle-menu-button" type="button" data-toggle="collapse" data-target="#sidebarCollapse">
-      Toggle Sidebar
-    </button>
-
-    <app-main-section></app-main-section>
-
-    <h1>Hot Line Bling</h1>
-
-    <app-product-grid [products]="products"></app-product-grid>
-  </div>
-</div> -->
-
+<!-- //SAKT -->
 <!-- <button class="toggle-menu-button" (click)="toggleSidebar()">
-  ☰
-</button>
-
-<div class="container">
-  <app-navbar></app-navbar>
-
-  <div class="main-section">
-    <div class="spotlighted-content">
-      <app-headline></app-headline>
-    </div>
-
-    <div class="spotlighted-content">
-      <div class="promo-product-container">
-        <app-promo-product></app-promo-product>
-      </div>
-    </div>
-  </div>
-</div>
-
-<app-sidebar [isCollapsed]="isCollapsed" (toggleSidebar)="toggleSidebar()"></app-sidebar> -->
-
-<button class="toggle-menu-button" (click)="toggleSidebar()">
   ☰
 </button>
 
@@ -104,7 +44,7 @@
       <div class="col-md-9">
         <h1>Prod List-+</h1>
         <app-product-listing></app-product-listing>
-      </div>
+      </div> 
     </div>
   </div>
 
@@ -121,4 +61,68 @@
 
 </div>
 
+<app-footer></app-footer> -->
+
+<!-- <div class="container-fluid">
+  <button class="toggle-menu-button" (click)="toggleSidebar()">
+    ☰
+  </button>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="row">
+    <div class="main-section">
+      <div class="spotlighted-content">
+        <app-headline></app-headline>
+      </div>
+      <div class="spotlighted-content">
+        <div class="promo-product-container">
+          <app-promo-product></app-promo-product>
+        </div>
+      </div>
+      <router-outlet name="mainSection"></router-outlet>
+    </div>
+  </div>
+  <div class="col-12">
+    <h1>Hot Line Bling</h1>
+    <router-outlet name="productListing"></router-outlet>
+  </div>
+  <div class="container-fluid prod-list">
+    <div class="row">
+      <div class="col-md-3">
+        <app-product-filters></app-product-filters>
+      </div>
+      <div class="col-md-9">
+        <h1>Prod List-+</h1>
+        <router-outlet name="productList"></router-outlet>
+      </div>
+    </div>
+  </div>
+  <div class="subscribe-section">
+    <app-subscribe></app-subscribe>
+  </div>
+  <div class="spotlighted-content">
+    <div class="testimonials-section">
+      <app-testimonials></app-testimonials>
+    </div>
+  </div>
+</div> -->
+
+<button class="toggle-menu-button" (click)="toggleSidebar()">
+  ☰
+</button>
+
+<div class="container-fluid">
+  <div class="row">
+    <app-navbar></app-navbar>
+  </div>
+  <router-outlet></router-outlet>
+
+</div>
 <app-footer></app-footer>
