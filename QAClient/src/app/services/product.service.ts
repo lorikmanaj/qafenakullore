@@ -77,4 +77,9 @@ export class ProductService {
   getCarouselProducts(): Observable<Product[]> {
     return of(this.products);
   }
+
+  //NDREQE
+  getProductsByType(typeId: number): Observable<Product[]> {
+    return of(this.products);
+  }
 }
