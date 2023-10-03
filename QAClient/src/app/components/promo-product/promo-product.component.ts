@@ -17,7 +17,8 @@ export class PromoProductComponent implements OnInit {
       price: 19.99,
       image: 'https://example.com/product1.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
-      quantity: 1
+      quantity: 1,
+      varieties: []
     },
     {
       id: 2,
@@ -26,7 +27,8 @@ export class PromoProductComponent implements OnInit {
       price: 24.99,
       image: 'https://example.com/product2.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
-      quantity: 1
+      quantity: 1,
+      varieties: []
     },
     {
       id: 3,
@@ -35,7 +37,8 @@ export class PromoProductComponent implements OnInit {
       price: 29.99,
       image: 'https://example.com/product3.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
-      quantity: 1
+      quantity: 1,
+      varieties: []
     },
     {
       id: 4,
@@ -44,7 +47,8 @@ export class PromoProductComponent implements OnInit {
       price: 34.99,
       image: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
-      quantity: 1
+      quantity: 1,
+      varieties: []
     },
     {
       id: 5,
@@ -53,7 +57,8 @@ export class PromoProductComponent implements OnInit {
       price: 34.99,
       image: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
-      quantity: 1
+      quantity: 1,
+      varieties: []
     },
     {
       id: 6,
@@ -62,7 +67,8 @@ export class PromoProductComponent implements OnInit {
       price: 34.99,
       image: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
-      quantity: 1
+      quantity: 1,
+      varieties: []
     }
   ];
 

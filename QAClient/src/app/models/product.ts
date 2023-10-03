@@ -1,3 +1,5 @@
+import { Variety } from "./variety";
+
 export interface Product {
     id: number;
     name: string;
@@ -6,4 +8,5 @@ export interface Product {
     image: string; // You can use a URL or a local path to an image
     bg: string;
     quantity: number;
+    varieties: Variety[];
 }

@@ -41,6 +41,8 @@ import { ProductService } from './services/product.service';
 import { CartService } from './services/cart.service';
 import { ProfileOptionsComponent } from './components/profile-options/profile-options.component';
 import { HomeComponent } from './components/home/home.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import { HomeComponent } from './components/home/home.component';
     ProductGridComponent,
     StarRatingComponent,
     ProfileOptionsComponent,
-    HomeComponent
+    HomeComponent,
+    ProductCardComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,

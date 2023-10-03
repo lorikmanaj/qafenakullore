@@ -17,7 +17,8 @@ export class ProductGridComponent {
       price: 19.99,
       image: 'assets/item.webp',
       bg: '',
-      quantity: 1
+      quantity: 1,
+      varieties: []
     },
     {
       id: 2,
@@ -26,7 +27,8 @@ export class ProductGridComponent {
       price: 24.99,
       image: 'assets/item.webp',
       bg: '',
-      quantity: 1
+      quantity: 1,
+      varieties: []
     },
     {
       id: 3,
@@ -35,7 +37,8 @@ export class ProductGridComponent {
       price: 29.99,
       image: 'assets/item.webp',
       bg: '',
-      quantity: 1
+      quantity: 1,
+      varieties: []
     },
     {
       id: 4,
@@ -44,7 +47,8 @@ export class ProductGridComponent {
       price: 34.99,
       image: 'assets/item.webp',
       bg: '',
-      quantity: 1
+      quantity: 1,
+      varieties: []
     }
   ];
 }
