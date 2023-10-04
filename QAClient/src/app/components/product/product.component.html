@@ -1,16 +1,15 @@
 <div class="product">
-    <div class="product-image">
-      <!-- Replace with an <img> tag for displaying product images -->
-      <img src="{{ product.image }}" alt="{{ product.name }}">
-    </div>
-    <h4 class="product-name">{{ product.name }}</h4>
-    <div class="product-details">
-      <p class="product-description">{{ product.description }}</p>
-      <div class="product-price">€ {{ product.price.toFixed(2) }}</div>
-    </div>
-    <div class="product-buttons">
-      <button class="btn btn-primary">Buy Now</button>
-      <button class="btn btn-secondary">Add to Cart</button>
-    </div>
+  <div class="product-image">
+    <!-- Replace with an <img> tag for displaying product images -->
+    <img src="{{ product.image }}" alt="{{ product.name }}">
   </div>
-  
+  <a [routerLink]="['/product', product.id]"><h4 class="product-name">{{ product.name }}</h4></a>
+  <div class="product-details">
+    <p class="product-description">{{ product.description }}</p>
+    <div class="product-price">€ {{ product.price.toFixed(2) }}</div>
+  </div>
+  <div class="product-buttons">
+    <button class="btn btn-primary">Buy Now</button>
+    <button class="btn btn-secondary">Add to Cart</button>
+  </div>
+</div>
