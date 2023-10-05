@@ -1,0 +1,15 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace QafenAkullAPI.Domain.Entities
+{
+    public class Slider
+    {
+        [Key]
+        public int SliderId { get; set; }
+
+        [Required]
+        public string Title { get; set; }
+
+        public List<SliderItem> SliderItems { get; set; } // One-to-Many relationship
+    }
+}
