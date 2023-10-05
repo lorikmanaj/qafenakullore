@@ -78,5 +78,12 @@ namespace QafenAkullAPI.Controllers
         {
             return Ok();
         }
+
+        [Authorize]
+        [HttpGet("authed")]
+        public async Task<ActionResult> Test2()
+        {
+            return Ok();
+        }
     }
 }

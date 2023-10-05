@@ -8,7 +8,7 @@ namespace QafenAkullAPI.Core.Interfaces.Services
     {
         Task<IEnumerable<IdentityError>> Register(ApiUserDTO user);
         Task<AuthResponse> Login(LoginDTO login);
-        Task<string> CreateRefreshToken();
+        //Task<string> CreateRefreshToken();
         Task<AuthResponse> VerifyRefreshToken(AuthResponse request);
     }
 }

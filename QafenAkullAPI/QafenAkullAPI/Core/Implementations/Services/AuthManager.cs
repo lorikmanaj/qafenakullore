@@ -16,7 +16,7 @@ namespace QafenAkullAPI.Core.Implementations.Services
         private readonly IConfiguration _configuration;
         private ApiUser _user;
 
-        private const string _loginProvider = "QafenAkullApi";
+        private const string _loginProvider = "QafenAkullAPI";
         private const string _refreshToken = "RefreshToken";
 
         public AuthManager(UserManager<ApiUser> userManager, IConfiguration configuration)
@@ -58,7 +58,7 @@ namespace QafenAkullAPI.Core.Implementations.Services
             {
                 Token = token,
                 UserId = _user.Id,
-                RefreshToken = await CreateRefreshToken()
+                //RefreshToken = await CreateRefreshToken()
             };
         }
 
@@ -92,29 +92,33 @@ namespace QafenAkullAPI.Core.Implementations.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<string> CreateRefreshToken()
-        {
-            try
-            {
-                _user = await _userManager.FindByEmailAsync(_user.Email);
-                var res = await _userManager.RemoveAuthenticationTokenAsync(_user, _loginProvider, _refreshToken);
+        //public async Task<string> CreateRefreshToken()
+        //{
+        //    //try
+        //    //{
+        //    //    _user = await _userManager.FindByEmailAsync(_user.Email);
+        //    //    var res = await _userManager.RemoveAuthenticationTokenAsync(_user, _loginProvider, _refreshToken);
 
-                var newRefreshToken = await _userManager.GenerateUserTokenAsync(_user, _loginProvider, _refreshToken);
+        //    //    var newRefreshToken = await _userManager.GenerateUserTokenAsync(_user, _loginProvider, _refreshToken);
 
-                var result = await _userManager.SetAuthenticationTokenAsync(_user, _loginProvider, _refreshToken, newRefreshToken);
+        //    //    var result = await _userManager.SetAuthenticationTokenAsync(_user, _loginProvider, _refreshToken, newRefreshToken);
 
-                if (!result.Succeeded)
-                    return null;
+        //    //    if (!result.Succeeded)
+        //    //        return null;
 
-                return newRefreshToken;
-            }
-            catch (Exception)
-            {
+        //    //    return newRefreshToken;
+        //    //}
+        //    //catch (Exception)
+        //    //{
 
-                throw;
-            }
+        //    //    throw;
+        //    //}
+        //    await _userManager.RemoveAuthenticationTokenAsync(_user, _loginProvider, _refreshToken);
+        //    var newRefreshToken = await _userManager.GenerateUserTokenAsync(_user, _loginProvider, _refreshToken);
+        //    var result = await _userManager.SetAuthenticationTokenAsync(_user, _loginProvider, _refreshToken, newRefreshToken);
+        //    return newRefreshToken;
 
-        }
+        //}
 
         public async Task<AuthResponse> VerifyRefreshToken(AuthResponse request)
         {
@@ -136,7 +140,7 @@ namespace QafenAkullAPI.Core.Implementations.Services
                 {
                     Token = token,
                     UserId = _user.Id,
-                    RefreshToken = await CreateRefreshToken()
+                    //RefreshToken = await CreateRefreshToken()
                 };
             }
 
