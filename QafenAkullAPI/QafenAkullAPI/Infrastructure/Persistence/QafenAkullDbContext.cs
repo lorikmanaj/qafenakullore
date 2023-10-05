@@ -54,6 +54,12 @@ namespace QafenAkullAPI.Infrastructure.Persistence
             modelBuilder.Entity<Stock>().ToTable("Stocks");
             modelBuilder.Entity<Testimonial>().ToTable("Testimonials");
             modelBuilder.Entity<Variety>().ToTable("Varieties");
+
+            modelBuilder.Entity<ItemGallery>()
+                .HasOne(ig => ig.Product)
+                .WithMany(p => p.ItemGalleries)
+                .HasForeignKey(ig => ig.ProductId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
 
