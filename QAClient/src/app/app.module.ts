@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TokenInterceptor } from './helpers/token.interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -75,18 +77,20 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     ProfileOptionsComponent,
     HomeComponent,
     ProductCardComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     BrowserAnimationsModule,
-    CarouselModule
+    CarouselModule,
+    HttpClientModule
   ],
   providers: [
     ProductService,
-    CartService
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    CartService,
   ],
   bootstrap: [AppComponent]
 })
