@@ -81,5 +81,7 @@ namespace QafenAkullAPI.Infrastructure.Persistence
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<Variety> Varieties { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
+        public DbSet<WishListItem> WishListItems { get; set; }
     }
 }
