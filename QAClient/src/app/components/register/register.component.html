@@ -1,16 +1,22 @@
-<div>
-  <form >
-    <label for="email">Email</label>
-    <input type="email" formControlName="email" >
-    <label>Password</label>
-    <input matInput type="password" formControlName="password" />
+  <div >
+    <form class="registration-form">
+     <label for="firstName">FirstName</label>
+      <input type="text" formControlName="firstName" >
+      <label for="lastName">LastName</label>
+      <input matInput type="text" formControlName="lastName" />
+      <label for="email">Email</label>
+      <input type="email" formControlName="email" >
+      <label>Password</label>
+      <input matInput type="password" formControlName="password" />
 
 
-    <button mat-raised-button color="primary" (click)="onSubmit()">
-      Register
-    </button>
-    <button mat-button routerLink="/login" routerLinkActive="active">
-      Already have an account? Login here.
-    </button>
-  </form>
-</div>
+      <button class="btn-register" (click)="onSubmit()">
+        Register
+      </button>
+      <button class="btn-login" routerLink="/login"  routerLinkActive="active">
+        Already have an account? Login here.
+      </button>
+    </form>
+  </div>
+
+

@@ -18,15 +18,15 @@ export class AuthService  {
   public login(email: string, password: string): void {
     this.authenticationClient.login(email, password).subscribe((token) => {
       localStorage.setItem(this.tokenKey, token)
-      this.router.navigate(['/']);
+      this.router.navigate(['/products/qafore']);
     })
   }
 
-  public register( email: string, password: string): void {
+  public register( email: string, password: string, firstName: string, lastName: string,): void {
     this.authenticationClient
-    .register(email,password).subscribe((token) => {
+    .register(email,password,firstName,lastName).subscribe((token) => {
       localStorage.setItem(this.tokenKey, token)
-      this.router.navigate(['/'])
+      this.router.navigate(['products/home'])
     })
   }
   public logout() {

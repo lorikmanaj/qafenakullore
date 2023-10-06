@@ -13,7 +13,7 @@ export class AuthenticationClient {
 
   public login(email: string, password: string): Observable<string> {
     return this.http.post(
-      environment.apiUrl + '/user/login',
+      environment.apiUrl + '/Account/login',
       {
         email: email,
         password: password,
@@ -25,13 +25,17 @@ export class AuthenticationClient {
   public register(
 
     email: string,
-    password: string
+    password: string,
+    firstName: string,
+        lastName: string
   ): Observable<string> {
     return this.http.post(
-      environment.apiUrl + '/user/register',
+      environment.apiUrl + '/Account/register',
       {
         email: email,
         password: password,
+        firstName: firstName,
+        lastName: lastName
       },
       { responseType: 'text' }
     );
