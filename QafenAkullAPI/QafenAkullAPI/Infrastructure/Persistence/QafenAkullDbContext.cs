@@ -35,11 +35,51 @@ namespace QafenAkullAPI.Infrastructure.Persistence
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");
             modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins").HasKey(p => p.UserId);
             modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserTokens").HasKey(p => p.UserId);
+
+            modelBuilder.Entity<Cart>().ToTable("Carts");
+            modelBuilder.Entity<CartItem>().ToTable("CartItems");
+            modelBuilder.Entity<Discount>().ToTable("Discounts");
+            modelBuilder.Entity<Gallery>().ToTable("Galleries");
+            modelBuilder.Entity<ItemGallery>().ToTable("ItemGalleries");
+            modelBuilder.Entity<Order>().ToTable("Orders");
+            modelBuilder.Entity<OrderProduct>().ToTable("OrderProducts");
+            modelBuilder.Entity<PaymentMethod>().ToTable("PaymentMethods");
+            modelBuilder.Entity<Product>().ToTable("Products");
+            modelBuilder.Entity<ProductReview>().ToTable("ProductReviews");
+            modelBuilder.Entity<ProductType>().ToTable("ProductTypes");
+            modelBuilder.Entity<ProfileOption>().ToTable("ProfileOptions");
+            modelBuilder.Entity<PromoProduct>().ToTable("PromoProducts");
+            modelBuilder.Entity<Slider>().ToTable("Sliders");
+            modelBuilder.Entity<SliderItem>().ToTable("SliderItems");
+            modelBuilder.Entity<Stock>().ToTable("Stocks");
+            modelBuilder.Entity<Testimonial>().ToTable("Testimonials");
+            modelBuilder.Entity<Variety>().ToTable("Varieties");
+
+            modelBuilder.Entity<ItemGallery>()
+                .HasOne(ig => ig.Product)
+                .WithMany(p => p.ItemGalleries)
+                .HasForeignKey(ig => ig.ProductId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
+        public DbSet<Gallery> Galleries { get; set; }
+        public DbSet<ItemGallery> ItemGalleries { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<ProductReview> ProductReviews { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<ProfileOption> ProfileOptions { get; set; }
+        public DbSet<PromoProduct> PromoProducts { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
+        public DbSet<SliderItem> SliderItems { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Testimonial> Testimonials { get; set; }
+        public DbSet<Variety> Varieties { get; set; }
     }
 }
