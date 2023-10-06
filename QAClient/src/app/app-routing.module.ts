@@ -9,7 +9,7 @@ import { RegisterComponent } from './components/register/register.component';
 
 
 const routes: Routes = [
-  { path: 'products/home', component: HomeComponent,   canActivate: [AuthGuard], },
+  { path: 'products/home', component: HomeComponent, },  //canActivate: [AuthGuard], },
   { path: 'products/:type', component: ProductListingComponent },
   { path: 'product/:id', component: ProductDetailsComponent },
   { path: '', redirectTo: '/products/home', pathMatch: 'full' },

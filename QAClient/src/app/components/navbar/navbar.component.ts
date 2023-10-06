@@ -6,7 +6,9 @@ import { EventEmitter, Output } from '@angular/core';
 import {
   faUserAstronaut,
   faCartShopping,
-  faMagnifyingGlass
+  faMagnifyingGlass,
+  faHeart,
+  faBars
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -19,6 +21,8 @@ export class NavbarComponent {
   faUser = faUserAstronaut;
   faCart = faCartShopping;
   faGlass = faMagnifyingGlass;
+  faHeart = faHeart;
+  faBars = faBars;
 
   productTypes: ProductType[] = [
     { typeId: 1, type: 'Home' },
