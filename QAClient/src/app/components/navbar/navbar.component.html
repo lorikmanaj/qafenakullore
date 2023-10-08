@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -16,9 +16,9 @@
     <div class="mx-auto">
       <ul class="navbar-nav">
         <li class="nav-item" *ngFor="let productType of productTypes">
-          <!-- <a class="nav-link" [routerLink]="['/products', productType.typeId]">{{ productType.type }}</a> -->
+           <a class="nav-link" [routerLink]="['/products', productType.typeId]">{{ productType.type }}</a> -->
           <!-- <a class="nav-link" (click)="onSelectProductType(productType.type)">{{ productType.type }}</a> -->
-          <a class="nav-link" [routerLink]="['/products', productType.type.toLowerCase()]">{{ productType.type }}</a>
+          <!-- <a class="nav-link" [routerLink]="['/products', productType.type.toLowerCase()]">{{ productType.type }}</a>
         </li>
       </ul>
     </div>
@@ -30,6 +30,31 @@
       <div class="cart-icon">
         <app-cart></app-cart>
       </div>
+    </div>
+  </div>
+</nav> -->
+
+
+<nav>
+  <div class="main-menu">
+    <div class="logo">
+      <li><a href="logo">Logo</a
+        ></li></div>
+    <div class="menu-links">
+      <ul>
+        <li class="nav-item" *ngFor="let productType of productTypes">
+           <a class="nav-link" [routerLink]="['/products', productType.type.toLowerCase()]">{{ productType.type }}</a>
+      </ul>
+    </div>
+    <div class="menu-service">
+      <ul>
+        <li> <fa-icon [icon]="faGlass"></fa-icon></li>
+        <li><fa-icon [icon]="faHeart"></fa-icon></li>
+        <li><app-cart></app-cart>
+        <li><fa-icon [icon]="faBars"></fa-icon></li>
+      </ul>
+
+
     </div>
   </div>
 </nav>
