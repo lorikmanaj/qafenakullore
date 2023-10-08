@@ -13,6 +13,7 @@ namespace QafenAkullAPI.Domain.Entities
         public string Image { get; set; }
         public string Background { get; set; }
         public int StockId { get; set; }
+        //public 
 
         [InverseProperty("Product")]
         public List<Variety> Varieties { get; set; } // One-to-Many relationship

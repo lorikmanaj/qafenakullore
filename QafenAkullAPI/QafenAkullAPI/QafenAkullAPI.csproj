@@ -19,6 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Assets\Images\Products\1\Gallery\" />
+    <Folder Include="Assets\Images\Products\1\Varieties\" />
     <Folder Include="Core\Implementations\Generics\" />
     <Folder Include="Core\Implementations\Repositories\" />
     <Folder Include="Core\Interfaces\Generics\" />
