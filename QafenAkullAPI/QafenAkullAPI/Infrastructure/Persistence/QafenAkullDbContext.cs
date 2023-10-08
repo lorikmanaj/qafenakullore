@@ -112,6 +112,8 @@ namespace QafenAkullAPI.Infrastructure.Persistence
             //    SeedStocks();
             //}
             //QafenAkullAPI\Assets\Images\Products\10\Gallery\test.png
+            //QafenAkullAPI/Assets/Images/Products/10/background/
+            //QafenAkullAPI\Assets\Images\Products\3\Varieties\test.png
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
