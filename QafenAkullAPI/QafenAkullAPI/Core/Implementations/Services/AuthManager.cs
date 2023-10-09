@@ -51,7 +51,7 @@ namespace QafenAkullAPI.Core.Implementations.Services
 
             if (_user == null || isValidUser == false)
                 return null;
-            
+
             var token = await GenerateToken();
 
             return new AuthResponse
@@ -76,7 +76,8 @@ namespace QafenAkullAPI.Core.Implementations.Services
                 new Claim(JwtRegisteredClaimNames.Sub, _user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, _user.Email),
-                new Claim("uid", _user.Id)
+                new Claim("uid", _user.Id),
+                new Claim("role", roles.FirstOrDefault())// ?? "User"
             }
             .Union(userClaims)
             .Union(roleClaims);
