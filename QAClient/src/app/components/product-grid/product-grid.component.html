@@ -1,10 +1,28 @@
-<div class="container">
-    <div class="product-grid mx-auto">
-      <div class="row">
-        <div class="col-3" *ngFor="let product of products">
-          <app-product [product]="product"></app-product>
-        </div>
-      </div>
+<div class="tabs">
+  <div class="index">
+    <div (click)="tab=1" (keyup.enter)="tab=1"
+      [ngClass]="{active: tab===1}" tabindex="0" role="tab">
+Featured    </div>
+    <div (click)="tab=2"  (keyup.enter)="tab=2"
+      [ngClass]="{active: tab===2}" tabindex="0" role="tab">
+  New Arrivals
     </div>
+    <div (click)="tab=3"  (keyup.enter)="tab=3"
+      [ngClass]="{active: tab===3}"
+      (keyup.enter)="tab=3" tabindex="0" role="tab">
+      Women's
+
+    </div>
+    <div (click)="tab=4"  (keyup.enter)="tab=4"
+    [ngClass]="{active: tab===4}"
+    (keyup.enter)="tab=4" tabindex="0" role="tab">
+   Men's
   </div>
-  
+  </div>
+  <div class="contents">
+    <div *ngIf="tab === 1"> Featured Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque earum, asperiores voluptatem autem velit vitae repudiandae ducimus unde nisi cupiditate et <br>fuga nulla rem reiciendis sed dolorem ad perferendis neque. </div>
+    <div *ngIf="tab === 2"> New Arrivals Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque earum, asperiores voluptatem autem velit vitae repudiandae ducimus unde nisi cupiditate et <br>fuga nulla rem reiciendis sed dolorem ad perferendis neque </div>
+    <div *ngIf="tab === 3">  WOMEN'S Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque earum, asperiores voluptatem autem velit vitae repudiandae ducimus unde nisi cupiditate et <br>fuga nulla rem reiciendis sed dolorem ad perferendis neque </div>
+    <div *ngIf="tab === 4"> Men's ipsum dolor sit amet consectetur adipisicing elit. Doloremque earum, asperiores voluptatem autem velit vitae repudiandae ducimus unde nisi cupiditate et <br>fuga nulla rem reiciendis sed dolorem ad perferendis neque </div>
+  </div>
+</div>

@@ -45,7 +45,7 @@ import { ProfileOptionsComponent } from './components/profile-options/profile-op
 import { HomeComponent } from './components/home/home.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
-
+import { CollectionSectionComponent } from './components/collection-section/collection-section.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +78,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     HomeComponent,
     ProductCardComponent,
     ProductDetailsComponent,
+    CollectionSectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,4 +95,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ }
+

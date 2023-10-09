@@ -1,3 +1,22 @@
-.product-grid {
-    max-width: 80%; /* Adjust the desired maximum width */
+.tabs {
+  .index {
+    display: flex;
+    * {
+      border: 1px solid #ccc;
+      background: #eee;
+      padding: 4px 12px;
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      top: 1px;
+    }
+    .active {
+      background: #fff;
+      border-bottom: 1px solid transparent;
+    }
   }
+  .contents {
+    border: 1px solid #ccc;
+    min-height: 120px;
+    padding: 12px;
+  }
+}
