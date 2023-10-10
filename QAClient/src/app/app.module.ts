@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CarouselModule } from '@coreui/angular';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { TokenInterceptor } from './helpers/token.interceptor';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
@@ -34,17 +36,14 @@ import { UserOrdersComponent } from './components/user-orders/user-orders.compon
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { CartComponent } from './components/cart/cart.component';
-
-import { CarouselModule } from '@coreui/angular';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductGridComponent } from './components/product-grid/product-grid.component';
-
-import { ProductService } from './services/product.service';
-import { CartService } from './services/cart.service';
 import { ProfileOptionsComponent } from './components/profile-options/profile-options.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+
+import { ProductService } from './services/product.service';
+import { CartService } from './services/cart.service';
 
 @NgModule({
   declarations: [
@@ -77,7 +76,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     ProfileOptionsComponent,
     HomeComponent,
     ProductCardComponent,
-    ProductDetailsComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +84,8 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     FontAwesomeModule,
     BrowserAnimationsModule,
     CarouselModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     ProductService,

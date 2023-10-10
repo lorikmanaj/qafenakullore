@@ -1,4 +1,4 @@
-<div class="profile-icon-container" (mouseenter)="showProfileOptions()" (mouseleave)="hideProfileOptions()">
+<!-- <div class="profile-icon-container" (mouseenter)="showProfileOptions()" (mouseleave)="hideProfileOptions()">
     <div class="profile-icon">
         <fa-icon [icon]="faUser"></fa-icon>
     </div>
@@ -10,6 +10,56 @@
         </ng-container>
         <ng-template #noOptions>
             <div class="no-items-message">Something went wrong.</div>
+        </ng-template>
+    </div>
+</div> -->
+
+<!-- <div class="profile-icon-container" (mouseenter)="showProfileOptions()" (mouseleave)="hideProfileOptions()">
+    <div class="profile-icon">
+        <fa-icon [icon]="faUser"></fa-icon>
+    </div>
+    <div class="profile-dropdown" [hidden]="!isProfileOpen || !isLoggedIn">
+        <div *ngIf="isLoggedIn">
+            <ng-container *ngFor="let item of profileOptions" class="option-item">
+                {{ item.option }}
+            </ng-container>
+        </div>
+        <div *ngIf="!isLoggedIn">
+            <div class="login-message">Login to continue</div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="profile-icon-container" [ngClass]="{'open': isProfileOpen}" (mouseenter)="showProfileOptions()"
+    (mouseleave)="hideProfileOptions()">
+    <div class="profile-icon">
+        <fa-icon [icon]="faUser"></fa-icon>
+    </div>
+    <div class="profile-dropdown" [hidden]="!isProfileOpen">
+        <ng-container *ngIf="profileOptions.length; else noOptions">
+            <div *ngFor="let item of profileOptions" class="option-item">
+                {{ item.option }}
+            </div>
+        </ng-container>
+        <ng-template #noOptions>
+            <div class="login-message" (click)="navigateToLogin()">Log in to continue</div>
+        </ng-template>
+    </div>
+</div> -->
+
+<div class="profile-icon-container" (mouseenter)="showProfileOptions()" (mouseleave)="hideProfileOptions()">
+    <div class="profile-icon">
+        <fa-icon [icon]="faUser"></fa-icon>
+    </div>
+    <div class="profile-dropdown" [hidden]="!isProfileOpen">
+        <ng-container *ngIf="profileOptions.length > 0; else noOptions">
+            <div *ngFor="let item of profileOptions" class="option-item">
+                {{ item.option }}
+            </div>
+            <div class="option-item" (click)="logOut()">Log Out</div>
+        </ng-container>
+        <ng-template #noOptions>
+            <div class="login-message" (click)="navigateToLogin()">Log in to continue</div>
         </ng-template>
     </div>
 </div>
