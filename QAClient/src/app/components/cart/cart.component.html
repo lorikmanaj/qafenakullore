@@ -1,18 +1,26 @@
 <div class="cart-icon-container" (mouseenter)="showCartItems()" (mouseleave)="hideCartItems()">
-    <div class="cart-icon">
-        <fa-icon [icon]="faCart"></fa-icon>
-    </div>
-    <div class="cart-dropdown" [hidden]="!isCartOpen">
-        <ng-container *ngIf="cartItems.length > 0; else noItems">
-            <div *ngFor="let item of cartItems" class="cart-item">
-                {{ item.itemName }}
-                <span *ngIf="item.count > 1" class="cart-item-quantity">{{ item.count }}</span>
-                <button (click)="addToCart(item.productId)">+</button>
-                <button (click)="removeFromCart(item.productId)">-</button>
-            </div>
-        </ng-container>
-        <ng-template #noItems>
-            <div class="no-items-message">You have no items in your cart.</div>
-        </ng-template>
-    </div>
+  <div class="cart-icon">
+    <fa-icon [icon]="faCart"></fa-icon>
+  </div>
+  <div class="cart-dropdown" [hidden]="!isCartOpen">
+    <ng-container *ngIf="cartItems.length > 0; else noItems">
+      <div *ngFor="let item of cartItems" class="cart-item">
+        {{ item.itemName }}
+
+        <div class="cart-buttons">
+          <button class="plus-btn" (click)="addToCart(item.productId)">
+            <fa-icon [icon]="faPlus"></fa-icon>
+          </button>
+          <span *ngIf="item.count > 1" class="cart-item-quantity">{{ item.count }}</span>
+          <button class="minus-btn" (click)="removeFromCart(item.productId)">
+            <fa-icon [icon]="faMinus"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noItems>
+      <div class="no-items-message" *ngIf="!isLoggedIn">Login to add items to your cart.</div>
+      <div class="no-items-message" *ngIf="isLoggedIn && cartItems.length === 0">No items in your cart.</div>
+    </ng-template>
+  </div>
 </div>

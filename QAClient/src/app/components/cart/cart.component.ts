@@ -1,7 +1,11 @@
+import { AuthService } from '../../services/authentictaion.service'; // Update the path accordingly
+
 import { Component, OnInit } from '@angular/core';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faPlusSquare,faMinusSquare } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem } from 'src/app/models/cartItem';
+
+
 
 @Component({
   selector: 'app-cart',
@@ -10,19 +14,27 @@ import { CartItem } from 'src/app/models/cartItem';
 })
 export class CartComponent implements OnInit {
   faCart = faCartShopping;
+  faPlus= faPlusSquare;
+  faMinus = faMinusSquare;
+  isCartOpen: boolean = false;
+  isLoggedIn: boolean = false;
+
+
   cartItems: CartItem[] = []; // Define an empty array to store cart items
 
-  isCartOpen: boolean = false;
+
 
   constructor(
-    private cartService: CartService
-  ) { }
+    private cartService: CartService,
+    private AuthService: AuthService // Inject AuthService here
 
+  ) { }
   ngOnInit() {
     // Subscribe to cart items from CartService
     this.cartService.getCartItems().subscribe((cartItems) => {
       this.cartItems = cartItems;
       console.log(cartItems); // Debugging: Check if cartItems are coming from the service
+      this.isLoggedIn = this.AuthService.isLoggedIn(); // Check if the user is logged in
     });
   }
 

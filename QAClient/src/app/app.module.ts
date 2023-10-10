@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -48,6 +49,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { CollectionSectionComponent } from './components/collection-section/collection-section.component';
 @NgModule({
   declarations: [
+
     AppComponent,
     AdminOrdersComponent,
     AdminPanelComponent,
@@ -82,6 +84,7 @@ import { CollectionSectionComponent } from './components/collection-section/coll
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     FontAwesomeModule,
     BrowserAnimationsModule,
