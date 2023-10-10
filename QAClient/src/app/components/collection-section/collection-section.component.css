@@ -1,0 +1,120 @@
+.collection-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.collection-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.first-collection {
+  width: 100%;
+  position: relative;
+}
+.img-first {
+  position: relative;
+  left: 0;
+  opacity: 0.9;
+  transition: opacity 0.2s ease-out;
+  width: 100%;
+}
+.img-first:hover {
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+h5 {
+  position: absolute;
+  inset: auto auto 5rem 5rem;
+  margin: 0;
+  transition: inset 0.3s 0.3s ease-out;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 600;
+  font-size: 3rem;
+  color: #fff;
+}
+h5:hover {
+  color: rgb(218, 165, 32);
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+p {
+  position: absolute;
+  inset: auto auto 4rem 5rem;
+  margin: 0;
+  transition: inset 0.3s 0.3s ease-out;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: normal;
+  color: #fff;
+}
+p:hover {
+  color: rgb(218, 165, 32);
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.personalized {
+  position: relative;
+  background-color: #000;
+  width: 100%;
+}
+.personalized > h5 {
+  position: absolute;
+  inset: auto auto 5rem 5rem;
+  margin: 0;
+  transition: inset 0.3s 0.3s ease-out;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 600;
+  font-size: 3rem;
+  color: #fff;
+}
+.personalized h5:hover {
+  color: rgb(218, 165, 32);
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+.varese {
+  position: relative;
+  background-color: #000;
+  width: 100%;
+}
+.varese > h5 {
+  position: absolute;
+  inset: auto auto 5rem 4.5rem;
+  margin: 0;
+  transition: inset 0.3s 0.3s ease-out;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 600;
+  font-size: 3rem;
+  color: #fff;
+}
+.varese h5:hover {
+  color: rgb(218, 165, 32);
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.promo-product {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #fff;
+}
+h3 {
+  font-family: "Roboto Condensed", sans-serif;
+  padding-top: 5rem;
+  font-size: 3rem;
+}
+h6 {
+  padding-top: 20px;
+}
+button {
+  padding: 10px 30px;
+  color: #000;
+  background-color: transparent;
+  border: 2px solid #000;
+  font-weight: 500;
+}
+button:hover {
+  background-color: rgb(218, 161, 18);
+  transition: all 0.4s ease-in;
+  color: #fff;
+  border: none;
+}

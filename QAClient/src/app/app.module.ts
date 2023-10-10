@@ -45,6 +45,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { ProductService } from './services/product.service';
 import { CartService } from './services/cart.service';
 
+import { CollectionSectionComponent } from './components/collection-section/collection-section.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +77,8 @@ import { CartService } from './services/cart.service';
     ProfileOptionsComponent,
     HomeComponent,
     ProductCardComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    CollectionSectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,4 +96,7 @@ import { CartService } from './services/cart.service';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ }
+

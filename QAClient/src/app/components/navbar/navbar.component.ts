@@ -8,7 +8,7 @@ import {
   faCartShopping,
   faMagnifyingGlass,
   faHeart,
-  faBars
+  faBars,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -23,6 +23,7 @@ export class NavbarComponent {
   faGlass = faMagnifyingGlass;
   faHeart = faHeart;
   faBars = faBars;
+
 
   productTypes: ProductType[] = [
     { typeId: 1, type: 'Home' },
