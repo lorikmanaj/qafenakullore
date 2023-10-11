@@ -72,12 +72,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 //Seed the data
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var dbContext = services.GetRequiredService<QafenAkullDbContext>();
-    dbContext.SeedData();
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var dbContext = services.GetRequiredService<QafenAkullDbContext>();
+//    dbContext.SeedData();
+//}
 
 app.MapControllers();
 

@@ -15,7 +15,9 @@ namespace QafenAkullAPI.Domain.Entities
         public DateTime Date { get; set; }
 
         [Required]
-        public bool Approved { get; set; }
+        public int OrderStatusId { get; set; }
+        //[Required]
+        //public bool Approved { get; set; }
 
         [Required]
         public string ShippingAddress { get; set; }
@@ -33,5 +35,8 @@ namespace QafenAkullAPI.Domain.Entities
 
         [ForeignKey("PaymentMethodId")]
         public PaymentMethod PaymentMethod { get; set; }
+
+        [ForeignKey("OrderStatusId")]
+        public OrderStatus OrderStatus { get; set; }
     }
 }

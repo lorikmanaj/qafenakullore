@@ -171,6 +171,7 @@ namespace QafenAkullAPI.Infrastructure.Persistence
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
@@ -180,6 +181,7 @@ namespace QafenAkullAPI.Infrastructure.Persistence
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<ProductReview> ProductReviews { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<ProductTag> ProductTags { get; set; }
         public DbSet<ProfileOption> ProfileOptions { get; set; }
         public DbSet<PromoProduct> PromoProducts { get; set; }
         public DbSet<Slider> Sliders { get; set; }

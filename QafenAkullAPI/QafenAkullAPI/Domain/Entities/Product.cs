@@ -13,8 +13,7 @@ namespace QafenAkullAPI.Domain.Entities
         public string Image { get; set; }
         public string Background { get; set; }
         public int StockId { get; set; }
-        //public 
-
+        
         [InverseProperty("Product")]
         public List<Variety> Varieties { get; set; } // One-to-Many relationship
         [InverseProperty("Product")]
@@ -23,7 +22,8 @@ namespace QafenAkullAPI.Domain.Entities
         public List<ProductReview> ProductReviews { get; set; } // One-to-Many relationship
         [InverseProperty("Product")]
         public List<ItemGallery> ItemGalleries { get; set; }
-
+        [InverseProperty("Product")]
+        public List<ProductTag> ProductTags { get; set; }
         //public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }
