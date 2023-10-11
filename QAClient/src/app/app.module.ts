@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TokenInterceptor } from './helpers/token.interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +17,6 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProdCategoriesComponent } from './components/prod-categories/prod-categories.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeadlineComponent } from './components/headline/headline.component';
-import { LoginComponent } from './components/login/login.component';
 import { MainSectionComponent } from './components/main-section/main-section.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NavmenuComponent } from './components/navmenu/navmenu.component';
@@ -26,7 +24,6 @@ import { ProductComponent } from './components/product/product.component';
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 import { ProductListingComponent } from './components/product-listing/product-listing.component';
 import { PromoProductComponent } from './components/promo-product/promo-product.component';
-import { RegisterComponent } from './components/register/register.component';
 import { SearchComponent } from './components/search/search.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
@@ -47,6 +44,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CollectionSectionComponent } from './components/collection-section/collection-section.component';
+
+
 @NgModule({
   declarations: [
 
@@ -59,7 +58,6 @@ import { CollectionSectionComponent } from './components/collection-section/coll
     ProdCategoriesComponent,
     FooterComponent,
     HeadlineComponent,
-    LoginComponent,
     MainSectionComponent,
     NavbarComponent,
     NavmenuComponent,
@@ -67,7 +65,6 @@ import { CollectionSectionComponent } from './components/collection-section/coll
     ProductFiltersComponent,
     ProductListingComponent,
     PromoProductComponent,
-    RegisterComponent,
     SearchComponent,
     SidebarComponent,
     SubscribeComponent,
@@ -93,7 +90,9 @@ import { CollectionSectionComponent } from './components/collection-section/coll
   ],
   providers: [
     ProductService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+
+    // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+
     CartService,
   ],
   bootstrap: [AppComponent]

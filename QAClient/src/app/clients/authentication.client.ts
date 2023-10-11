@@ -31,11 +31,11 @@ export class AuthenticationClient {
   ): Observable<string> {
     return this.http.post(
       environment.apiUrl + '/Account/register',
-      {
+      {firstName: firstName,
+        lastName: lastName,
         email: email,
         password: password,
-        firstName: firstName,
-        lastName: lastName
+
       },
       { responseType: 'text' }
     );
