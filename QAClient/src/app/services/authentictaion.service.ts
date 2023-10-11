@@ -17,7 +17,7 @@ export class AuthService  {
 
   public login(email: string, password: string): void {
     this.authenticationClient.login(email, password).subscribe((token) => {
-      localStorage.setItem(this.tokenKey, token)
+      localStorage.setItem(this.tokenKey, token.token)
       this.router.navigate(['/products/qafore']);
     })
   }
