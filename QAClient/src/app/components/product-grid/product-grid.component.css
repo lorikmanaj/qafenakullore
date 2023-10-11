@@ -16,7 +16,26 @@
   }
   .contents {
     border: 1px solid #ccc;
-    min-height: 120px;
     padding: 12px;
+    background-color: #fff;
   }
+}
+.index {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-bottom: 5px;
+  padding-right: 1rem;
+  font-size: 1rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.active:hover {
+  color: rgb(218, 165, 32);
+  transition: all 0.4s ease-in;
+}
+div.active {
+  border-bottom: 2px solid #000;
+}
+div.active:hover {
+  border-bottom: 2px solid rgb(218, 165, 32);
 }
