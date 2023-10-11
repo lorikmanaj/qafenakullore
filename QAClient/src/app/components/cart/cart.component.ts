@@ -1,5 +1,3 @@
-import { AuthService } from '../../services/authentication.service'; // Update the path accordingly
-
 import { Component, OnInit } from '@angular/core';
 import { faCartShopping, faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from 'src/app/services/cart.service';
