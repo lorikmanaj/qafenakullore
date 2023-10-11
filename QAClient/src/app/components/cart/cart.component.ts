@@ -1,7 +1,7 @@
-import { AuthService } from '../../services/authentictaion.service'; // Update the path accordingly
+import { AuthService } from '../../services/authentication.service'; // Update the path accordingly
 
 import { Component, OnInit } from '@angular/core';
-import { faCartShopping, faPlusSquare,faMinusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem } from 'src/app/models/cartItem';
 
@@ -14,7 +14,7 @@ import { CartItem } from 'src/app/models/cartItem';
 })
 export class CartComponent implements OnInit {
   faCart = faCartShopping;
-  faPlus= faPlusSquare;
+  faPlus = faPlusSquare;
   faMinus = faMinusSquare;
   isCartOpen: boolean = false;
   isLoggedIn: boolean = false;
