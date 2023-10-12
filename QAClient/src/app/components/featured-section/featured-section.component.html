@@ -1,0 +1,24 @@
+
+<div class="tabs">
+  <h2>Featured Products</h2>
+
+  <div class="index">
+    <div (click)="tab=1" (keyup.enter)="tab=1"
+      [ngClass]="{active: tab===1}" tabindex="0" role="tab">
+Best Sellers    </div>
+    <div (click)="tab=2"  (keyup.enter)="tab=2"
+      [ngClass]="{active: tab===2}" tabindex="0" role="tab">
+      Featured    </div>
+    <div (click)="tab=3"  (keyup.enter)="tab=3"
+      [ngClass]="{active: tab===3}"
+      (keyup.enter)="tab=3" tabindex="0" role="tab">
+Sales
+    </div>
+
+  </div>
+  <div class="contents">
+    <div *ngIf="tab === 1"> Featured Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque earum, asperiores voluptatem autem velit vitae repudiandae ducimus unde nisi cupiditate et <br>fuga nulla rem reiciendis sed dolorem ad perferendis neque. </div>
+    <div *ngIf="tab === 2"> New Arrivals Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque earum, asperiores voluptatem autem velit vitae repudiandae ducimus unde nisi cupiditate et <br>fuga nulla rem reiciendis sed dolorem ad perferendis neque </div>
+    <div *ngIf="tab === 3">  WOMEN'S Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque earum, asperiores voluptatem autem velit vitae repudiandae ducimus unde nisi cupiditate et <br>fuga nulla rem reiciendis sed dolorem ad perferendis neque </div>
+  </div>
+</div>

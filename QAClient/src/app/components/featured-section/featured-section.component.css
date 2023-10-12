@@ -1,0 +1,46 @@
+.tabs {
+  .index {
+    display: flex;
+    * {
+      border: 1px solid #ccc;
+      background: #eee;
+      padding: 4px 12px;
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      top: 1px;
+    }
+    .active {
+      background: #fff;
+      border-bottom: 1px solid transparent;
+    }
+  }
+  .contents {
+    border: 1px solid #ccc;
+    padding: 12px;
+    background-color: #fff;
+  }
+}
+.index {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 1.5rem;
+  padding-right: 1rem;
+  font-size: 1rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.active:hover {
+  color: rgb(218, 165, 32);
+  transition: all 0.4s ease-in;
+}
+div.active {
+  border-bottom: 2px solid #000;
+}
+div.active:hover {
+  border-bottom: 2px solid rgb(218, 165, 32);
+}
+h2 {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  text-align: center;
+}
