@@ -9,6 +9,7 @@ import {
   faMagnifyingGlass,
   faHeart,
   faBars,
+  faGamepad
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -23,7 +24,7 @@ export class NavbarComponent {
   faGlass = faMagnifyingGlass;
   faHeart = faHeart;
   faBars = faBars;
-
+  faAdmin = faGamepad;
 
   productTypes: ProductType[] = [
     { typeId: 1, type: 'Home' },
@@ -46,5 +47,9 @@ export class NavbarComponent {
     // }
     // this.router.navigate(['/products', type]);
     this.selectProductType.emit(type);
+  }
+
+  navigateToAdmin() {
+    this.router.navigate(['/admin']);
   }
 }
