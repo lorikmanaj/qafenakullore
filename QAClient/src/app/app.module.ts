@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
+import { LoginComponent } from './components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,11 +45,16 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CollectionSectionComponent } from './components/collection-section/collection-section.component';
-
-
+import { JwtModule } from "@auth0/angular-jwt";
+import { AuthGuard } from './guards/auth-guard.service';
+import { ToastrModule } from 'ngx-toastr';
+//function is use to get jwt token from local storage
+export function tokenGetter() {
+  return localStorage.getItem("jwt");
+}
 @NgModule({
   declarations: [
-
+    LoginComponent,
     AppComponent,
     AdminOrdersComponent,
     AdminPanelComponent,
@@ -86,7 +92,19 @@ import { CollectionSectionComponent } from './components/collection-section/coll
     FontAwesomeModule,
     BrowserAnimationsModule,
     CarouselModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: [],
+        disallowedRoutes: []
+      }
+  }),
+
+  ToastrModule.forRoot()
+
   ],
   providers: [
     ProductService,
