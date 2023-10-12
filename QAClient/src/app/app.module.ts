@@ -8,8 +8,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { JwtModule } from "@auth0/angular-jwt";
+import { ToastrModule } from 'ngx-toastr';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CarouselModule } from '@coreui/angular';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+
 import { AppComponent } from './app.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
@@ -34,8 +40,6 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { CartComponent } from './components/cart/cart.component';
 
-import { CarouselModule } from '@coreui/angular';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductGridComponent } from './components/product-grid/product-grid.component';
 
 import { ProductService } from './services/product.service';
@@ -45,10 +49,15 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CollectionSectionComponent } from './components/collection-section/collection-section.component';
-import { JwtModule } from "@auth0/angular-jwt";
+
 import { AuthGuard } from './guards/auth-guard.service';
-import { ToastrModule } from 'ngx-toastr';
-//function is use to get jwt token from local storage
+
+import { ProductHandlerComponent } from './components/product-handler/product-handler.component';
+import { OrderHandlerComponent } from './components/order-handler/order-handler.component';
+import { ProdGalleryEditorComponent } from './components/prod-gallery-editor/prod-gallery-editor.component';
+import { ProdVarietyEditorComponent } from './components/prod-variety-editor/prod-variety-editor.component';
+import { ProdReviewEditorComponent } from './components/prod-review-editor/prod-review-editor.component';
+
 export function tokenGetter() {
   return localStorage.getItem("jwt");
 }
@@ -84,6 +93,11 @@ export function tokenGetter() {
     ProductCardComponent,
     ProductDetailsComponent,
     CollectionSectionComponent,
+    ProductHandlerComponent,
+    OrderHandlerComponent,
+    ProdGalleryEditorComponent,
+    ProdVarietyEditorComponent,
+    ProdReviewEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,17 +107,18 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     CarouselModule,
     HttpClientModule,
+    MatDialogModule,
     ReactiveFormsModule,
-
+    NgxPaginationModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
         allowedDomains: [],
         disallowedRoutes: []
       }
-  }),
+    }),
 
-  ToastrModule.forRoot()
+    ToastrModule.forRoot()
 
   ],
   providers: [
@@ -117,5 +132,5 @@ export function tokenGetter() {
 })
 export class AppModule {
 
- }
+}
 

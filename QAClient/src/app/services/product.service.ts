@@ -18,7 +18,8 @@ export class ProductService {
       varieties: [
         { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
         { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
-      ]
+      ],
+      tags: []
     },
     {
       id: 2,
@@ -31,7 +32,8 @@ export class ProductService {
       varieties: [
         { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
         { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
-      ]
+      ],
+      tags: []
     },
     {
       id: 3,
@@ -44,7 +46,8 @@ export class ProductService {
       varieties: [
         { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
         { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
-      ]
+      ],
+      tags: []
     },
     {
       id: 4,
@@ -57,7 +60,8 @@ export class ProductService {
       varieties: [
         { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
         { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
-      ]
+      ],
+      tags: []
     },
     {
       id: 5,
@@ -70,7 +74,8 @@ export class ProductService {
       varieties: [
         { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
         { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
-      ]
+      ],
+      tags: []
     },
     {
       id: 6,
@@ -83,7 +88,8 @@ export class ProductService {
       varieties: [
         { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
         { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
-      ]
+      ],
+      tags: []
     },
     {
       id: 6,
@@ -96,7 +102,8 @@ export class ProductService {
       varieties: [
         { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
         { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
-      ]
+      ],
+      tags: []
     },
     {
       id: 6,
@@ -109,7 +116,8 @@ export class ProductService {
       varieties: [
         { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
         { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
-      ]
+      ],
+      tags: []
     }
   ];
 

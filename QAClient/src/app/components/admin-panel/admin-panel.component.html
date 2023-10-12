@@ -1,5 +1,19 @@
-<div>
-    <h1>Admin Panel</h1>
-    <p>Welcome to the admin panel. You can manage administrative tasks here.</p>
-    <!-- Add your admin-related content here -->
+<div class="container">
+    <div class="column">
+        <div class="admin-menu">
+            <ul>
+                <li (click)="openModule('products')">Products</li>
+                <li (click)="openModule('orders')">Orders</li>
+                <li (click)="openModule('prodReviews')">Product Reviews</li>
+                <li (click)="openModule('testimonials')">Testimonials</li>
+                <li (click)="openModule('slider')">Slider</li>
+                <li (click)="openModule('tags')">Tags</li>
+                <li (click)="openModule('sales')">Sales</li>
+            </ul>
+        </div>
+    </div>
+    <div class="working-window">
+        <!-- This is where the specific module's component will be loaded dynamically -->
+        <ng-container *ngComponentOutlet="currentModule"></ng-container>
+    </div>
 </div>

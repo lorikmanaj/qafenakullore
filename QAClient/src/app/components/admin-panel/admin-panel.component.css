@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.column {
+    width: 20%;
+    padding: 16px;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ccc;
+}
+
+.admin-menu {
+    list-style: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.admin-menu li {
+    margin-bottom: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.admin-menu li:hover {
+    color: blue;
+}
+
+.working-window {
+    flex-grow: 1;
+    padding: 16px;
+    overflow: auto;
+}

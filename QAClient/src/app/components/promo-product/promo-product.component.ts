@@ -18,7 +18,8 @@ export class PromoProductComponent implements OnInit {
       image: 'https://example.com/product1.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
-      varieties: []
+      varieties: [],
+      tags: []
     },
     {
       id: 2,
@@ -28,7 +29,8 @@ export class PromoProductComponent implements OnInit {
       image: 'https://example.com/product2.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
-      varieties: []
+      varieties: [],
+      tags: []
     },
     {
       id: 3,
@@ -38,7 +40,8 @@ export class PromoProductComponent implements OnInit {
       image: 'https://example.com/product3.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
-      varieties: []
+      varieties: [],
+      tags: []
     },
     {
       id: 4,
@@ -48,7 +51,8 @@ export class PromoProductComponent implements OnInit {
       image: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
-      varieties: []
+      varieties: [],
+      tags: []
     },
     {
       id: 5,
@@ -58,7 +62,8 @@ export class PromoProductComponent implements OnInit {
       image: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
-      varieties: []
+      varieties: [],
+      tags: []
     },
     {
       id: 6,
@@ -68,7 +73,8 @@ export class PromoProductComponent implements OnInit {
       image: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
-      varieties: []
+      varieties: [],
+      tags: []
     }
   ];
 
