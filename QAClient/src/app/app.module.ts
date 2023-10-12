@@ -43,7 +43,19 @@ import { ProfileOptionsComponent } from './components/profile-options/profile-op
 import { HomeComponent } from './components/home/home.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+<<<<<<< Updated upstream
 
+=======
+import { CollectionSectionComponent } from './components/collection-section/collection-section.component';
+import { JwtModule } from "@auth0/angular-jwt";
+import { AuthGuard } from './guards/auth-guard.service';
+import { ToastrModule } from 'ngx-toastr';
+import { FeaturedSectionComponent } from './components/featured-section/featured-section.component';
+//function is use to get jwt token from local storage
+export function tokenGetter() {
+  return localStorage.getItem("jwt");
+}
+>>>>>>> Stashed changes
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +87,13 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     ProfileOptionsComponent,
     HomeComponent,
     ProductCardComponent,
+<<<<<<< Updated upstream
     ProductDetailsComponent
+=======
+    ProductDetailsComponent,
+    CollectionSectionComponent,
+    FeaturedSectionComponent,
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
