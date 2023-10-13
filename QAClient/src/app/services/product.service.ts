@@ -16,8 +16,8 @@ export class ProductService {
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
       varieties: [
-        { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
-        { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
+        { varietyId: 1, productId: 1, description: 'Red', imageUrl: 'assets/red.png' },
+        { varietyId: 2, productId: 1, description: 'Green', imageUrl: 'assets/green.png' }
       ],
       tags: []
     },
@@ -30,8 +30,8 @@ export class ProductService {
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 2,
       varieties: [
-        { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
-        { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
+        { varietyId: 1, productId: 2, description: 'Red', imageUrl: 'assets/red.png' },
+        { varietyId: 2, productId: 2, description: 'Green', imageUrl: 'assets/green.png' }
       ],
       tags: []
     },
@@ -44,8 +44,8 @@ export class ProductService {
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 3,
       varieties: [
-        { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
-        { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
+        { varietyId: 1, productId: 3, description: 'Red', imageUrl: 'assets/red.png' },
+        { varietyId: 2, productId: 3, description: 'Green', imageUrl: 'assets/green.png' }
       ],
       tags: []
     },
@@ -58,8 +58,8 @@ export class ProductService {
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
       varieties: [
-        { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
-        { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
+        { varietyId: 1, productId: 4, description: 'Red', imageUrl: 'assets/red.png' },
+        { varietyId: 2, productId: 4, description: 'Green', imageUrl: 'assets/green.png' }
       ],
       tags: []
     },
@@ -72,8 +72,8 @@ export class ProductService {
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 8,
       varieties: [
-        { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
-        { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
+        { varietyId: 1, productId: 5, description: 'Red', imageUrl: 'assets/red.png' },
+        { varietyId: 2, productId: 5, description: 'Green', imageUrl: 'assets/green.png' }
       ],
       tags: []
     },
@@ -86,36 +86,36 @@ export class ProductService {
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
       varieties: [
-        { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
-        { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
+        { varietyId: 1, productId: 6, description: 'Red', imageUrl: 'assets/red.png' },
+        { varietyId: 2, productId: 6, description: 'Green', imageUrl: 'assets/green.png' }
       ],
       tags: []
     },
     {
-      id: 6,
-      name: 'Product 6',
+      id: 7,
+      name: 'Product 7',
       description: 'Description for Product 4',
       price: 34.99,
       image: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
       varieties: [
-        { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
-        { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
+        { varietyId: 1, productId: 7, description: 'Red', imageUrl: 'assets/red.png' },
+        { varietyId: 2, productId: 7, description: 'Green', imageUrl: 'assets/green.png' }
       ],
       tags: []
     },
     {
-      id: 6,
-      name: 'Product 6',
+      id: 8,
+      name: 'Product 8',
       description: 'Description for Product 4',
       price: 34.99,
       image: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
       varieties: [
-        { varietyId: 1, description: 'Red', imageUrl: 'assets/red.png' },
-        { varietyId: 2, description: 'Green', imageUrl: 'assets/green.png' }
+        { varietyId: 1, productId: 8, description: 'Red', imageUrl: 'assets/red.png' },
+        { varietyId: 2, productId: 8, description: 'Green', imageUrl: 'assets/green.png' }
       ],
       tags: []
     }

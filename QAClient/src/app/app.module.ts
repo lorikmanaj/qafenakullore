@@ -57,6 +57,8 @@ import { OrderHandlerComponent } from './components/order-handler/order-handler.
 import { ProdGalleryEditorComponent } from './components/prod-gallery-editor/prod-gallery-editor.component';
 import { ProdVarietyEditorComponent } from './components/prod-variety-editor/prod-variety-editor.component';
 import { ProdReviewEditorComponent } from './components/prod-review-editor/prod-review-editor.component';
+import { ProdCreateComponent } from './components/prod-create/prod-create.component';
+import { GalleryUploaderComponent } from './components/gallery-uploader/gallery-uploader.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -98,6 +100,8 @@ export function tokenGetter() {
     ProdGalleryEditorComponent,
     ProdVarietyEditorComponent,
     ProdReviewEditorComponent,
+    ProdCreateComponent,
+    GalleryUploaderComponent,
   ],
   imports: [
     BrowserModule,

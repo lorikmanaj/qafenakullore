@@ -1,5 +1,7 @@
 export interface Variety {
-    varietyId: number;
+    varietyId?: number;
+    productId?: number;
     description: string;
-    imageUrl: string; // Add imageUrl property
+    file?: File | null;
+    imageUrl: string | null; // Add imageUrl property
 }

@@ -1,0 +1,119 @@
+<div class="container">
+    <h2>Create a Product</h2>
+    <form [formGroup]="productForm">
+        <!-- Product Type Dropdown -->
+        <div class="form-group">
+            <label for="productType">Product Type:</label>
+            <select id="productType" name="productType" formControlName="productType">
+                <option *ngFor="let type of productTypes" [ngValue]="type.typeId">{{ type.type }}</option>
+            </select>
+        </div>
+
+        <!-- Name Input -->
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" formControlName="name">
+        </div>
+
+        <!-- Price Input -->
+        <div class="form-group">
+            <label for="price">Price (in EUR):</label>
+            <input type="number" id="price" name="price" formControlName="price">
+        </div>
+
+        <!-- Main Image Upload -->
+        <div class="form-group">
+            <label for="mainImage">Main Image (Required):</label>
+            <input type="file" id="mainImage" name="mainImage" accept="image/*" (change)="onMainImageSelected($event)"
+                required>
+        </div>
+
+        <!-- Background Image Upload (Optional) -->
+        <div class="form-group">
+            <label for="backgroundImage">Background Image (Optional):</label>
+            <input type="file" id="backgroundImage" name="backgroundImage" accept="image/*"
+                (change)="onBackgroundImageSelected($event)">
+        </div>
+
+        <!-- Stock Quantity Input -->
+        <div class="form-group">
+            <label for="stock">Stock Quantity (Required):</label>
+            <input type="number" id="stock" name="stock" formControlName="stock" required>
+        </div>
+
+        <!-- Add Gallery Images -->
+        <!-- <div class="form-group">
+            <label for="galleryImages">Add Gallery Images:</label>
+            <input type="file" id="galleryImages" name="galleryImages" accept="image/*"
+                (change)="onGalleryImagesSelected($event)" multiple>
+        </div> -->
+        <!-- Add Gallery Images: Choose Files -->
+        <div class="form-group">
+            <label for="galleryImages">Add Gallery Images:</label>
+            <div>
+                <input type="file" id="galleryImages" name="galleryImages" accept="image/*" multiple
+                    (change)="onGalleryImagesSelected($event)" #galleryImagesInput>
+                <button type="button" (click)="galleryImagesInput.click()">Choose Files</button>
+            </div>
+        </div>
+
+        <!-- Display selected gallery image thumbnails -->
+        <div *ngFor="let image of selectedGalleryImages">
+            <img [src]="image" width="100" height="100">
+        </div>
+
+        <!-- Display Thumbnails of Selected Gallery Images -->
+        <div class="thumbnail-container">
+            <div *ngFor="let image of selectedGalleryImages">
+                <img [src]="image" width="100" height="100">
+            </div>
+        </div>
+
+        <!-- Create Varieties of the Product -->
+        <div class="varieties-container">
+            <label for="variety">Add Variety:</label>
+            <button (click)="addVariety()">+</button>
+            <div *ngFor="let variety of productVarieties; let i = index">
+                <div class="variety-row">
+                    <div class="form-group">
+                        <label for="varietyDescription{{i}}">Variety Description:</label>
+                        <input type="text" id="varietyDescription{{i}}" name="varietyDescription"
+                            formControlName="varietyDescription" placeholder="Enter description" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="varietyImage{{i}}">Variety Image:</label>
+                        <div>
+                            <input type="file" #varietyImageInput id="varietyImage{{i}}" name="varietyImage"
+                                accept="image/*" (change)="onVarietyImageSelected($event, i)" required>
+                            <button type="button" (click)="varietyImageInput.click()">Choose Image</button>
+                        </div>
+                    </div>
+                    <div class="thumbnail-container">
+                        <img [src]="variety.imageUrl" width="100" height="100">
+                    </div>
+                    <button (click)="deleteVariety(variety)">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <button (click)="createProduct()">Create Product</button>
+    </form>
+</div>
+
+
+
+
+<!-- <div>
+        Create varieties of product:
+        <button (click)="openVarietyEditor()">+</button>
+        <div *ngFor="let variety of productVarieties">
+            <div>
+            {{ variety.description }}
+                <div *ngFor="let image of variety.images; let i = index">
+                    <img [src]="image" width="100" height="100">
+                </div>
+            </div>
+            <button (click)="editVariety(variety)">Edit</button>
+            <button (click)="deleteVariety(variety)">Delete</button>
+        </div>
+    </div> -->

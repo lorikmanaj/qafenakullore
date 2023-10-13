@@ -6,6 +6,7 @@ import { ProdVarietyEditorComponent } from '../prod-variety-editor/prod-variety-
 import { ProdReviewEditorComponent } from '../prod-review-editor/prod-review-editor.component';
 import { ProductService } from 'src/app/services/product.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ProdCreateComponent } from '../prod-create/prod-create.component';
 
 @Component({
   selector: 'app-product-handler',
@@ -64,6 +65,19 @@ export class ProductHandlerComponent {
     dialogRef.afterClosed().subscribe((result) => {
       // Handle any actions when the dialog is closed, if needed
     });
+  }
+
+  openProductCreate() {
+    const dialogRef = this.dialog.open(ProdCreateComponent, {
+
+    })
+
+    // dialogRef.afterClosed().subscribe((newProductData) => {
+    //   if (newProductData) {
+    //     // Handle the new product data, which is returned when the modal is closed.
+    //     // You can add the product to your list of products or save it to your backend.
+    //   }
+    // });
   }
 
   editProduct(product: Product) {

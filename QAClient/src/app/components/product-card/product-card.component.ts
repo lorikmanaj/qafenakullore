@@ -21,7 +21,7 @@ export class ProductCardComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe((product) => {
       this.product = product;
       // Initialize currentImage with the first image if product is defined
-      if (this.product) {
+      if (this.product && this.product.varieties[0].imageUrl) {
         this.currentImage = this.product.varieties[0].imageUrl;
       }
     });
@@ -31,7 +31,8 @@ export class ProductCardComponent implements OnInit {
     // Change the image to the second one on hover if product and varieties are defined
     if (this.product && this.product.varieties.length > 1) {
       this.currentImageIndex = 1;
-      this.currentImage = this.product.varieties[1].imageUrl;
+      // Set a default image URL if imageUrl is null (replace 'defaultImageUrl' with your desired URL)
+      this.currentImage = this.product.varieties[1].imageUrl || 'assets/red.png';
     }
   }
 
@@ -39,7 +40,7 @@ export class ProductCardComponent implements OnInit {
     // Reset to the first image on mouse leave if product is defined
     if (this.product) {
       this.currentImageIndex = 0;
-      this.currentImage = this.product.varieties[0].imageUrl;
+      this.currentImage = this.product.varieties[0].imageUrl || 'assets/red.png';
     }
   }
 
@@ -47,14 +48,14 @@ export class ProductCardComponent implements OnInit {
     // Change the image to the selected variety's image if product is defined
     if (this.product) {
       this.currentImageIndex = index;
-      this.currentImage = this.product.varieties[index].imageUrl;
+      this.currentImage = this.product.varieties[index].imageUrl || 'assets/red.png';
     }
   }
 
   resetImage() {
     // Reset to the current image on mouse leave from varieties if product is defined
     if (this.product) {
-      this.currentImage = this.product.varieties[this.currentImageIndex].imageUrl;
+      this.currentImage = this.product.varieties[this.currentImageIndex].imageUrl || 'assets/red.png';
     }
   }
 }
