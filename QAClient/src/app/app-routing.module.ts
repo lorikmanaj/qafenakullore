@@ -13,7 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 
 
 const routes: Routes = [
-  { path: 'products/home', component: HomeComponent,  },//canActivate: [AuthGuard], },
+  { path: 'products/home', component: HomeComponent, },//canActivate: [AuthGuard], },
   { path: 'products/:type', component: ProductListingComponent },
   { path: 'product/:id', component: ProductDetailsComponent },
   { path: 'admin', component: AdminPanelComponent },
@@ -22,30 +22,22 @@ const routes: Routes = [
     path: "register", component: AuthComponent,
   },
   {
-    path: "logins", component:  LoginComponent,
+    path: "logins", component: LoginComponent,
   },
   {
-    path: "login",
-    loadComponent: () =>
-      import("./auth/auth.component").then((m) => m.AuthComponent),
-    canActivate: [
-      () => inject(UserService).isAuthenticated.pipe(map((isAuth) => !isAuth)),
-    ],
+    path: "login", component: AuthComponent, data: { isLogin: true }
   },
   {
-    path: "register",
-    loadComponent: () =>
-      import("./auth/auth.component").then((m) => m.AuthComponent),
-    canActivate: [
-      () => inject(UserService).isAuthenticated.pipe(map((isAuth) => !isAuth)),
-    ],
+    path: "register", component: AuthComponent, data: { isLogin: false }
   },
   { path: '**', redirectTo: '/' },
   { path: '', redirectTo: '/products/home', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    enableTracing: false
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

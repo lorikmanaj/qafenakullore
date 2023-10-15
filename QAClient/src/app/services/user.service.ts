@@ -6,6 +6,7 @@ import { map, distinctUntilChanged, tap, shareReplay } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { User } from "../models/user";
 import { Router } from "@angular/router";
+import { environment } from "../environments/environment";
 
 @Injectable({ providedIn: "root" })
 export class UserService {
@@ -20,24 +21,24 @@ export class UserService {
     private readonly http: HttpClient,
     private readonly jwtService: JwtService,
     private readonly router: Router
-  ) {}
+  ) { }
 
   login(credentials: {
     email: string;
     password: string;
-  }): Observable<{ user: User }> {
+  }): Observable<any> {
     return this.http
-      .post<{ user: User }>("/account/login", { user: credentials })
-      .pipe(tap(({ user }) => this.setAuth(user)));
+      .post(`${environment.apiUrl}/account/login`, { ...credentials })
+      .pipe(tap((res) => this.setAuth(res)));
   }
 
   register(credentials: {
     username: string;
     email: string;
     password: string;
-  }): Observable<{ user: User }> {
+  }): Observable<any> {
     return this.http
-      .post<{ user: User }>("/account/register", { user: credentials })
+      .post<any>(`${environment.apiUrl}/account/register`, { ...credentials })
       .pipe(tap(({ user }) => this.setAuth(user)));
   }
 
@@ -64,9 +65,10 @@ export class UserService {
     );
   }
 
-  setAuth(user: User): void {
-    this.jwtService.saveToken(user.token);
-    this.currentUserSubject.next(user);
+  setAuth(res: any): void {
+    console.log('user', res);
+    this.jwtService.saveToken(res.token);
+    this.currentUserSubject.next(res);
   }
 
   purgeAuth(): void {

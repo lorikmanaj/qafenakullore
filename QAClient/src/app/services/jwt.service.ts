@@ -2,15 +2,21 @@ import { Injectable } from "@angular/core";
 
 @Injectable({ providedIn: "root" })
 export class JwtService {
-  getToken(): string {
-    return window.localStorage["token"];
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
   saveToken(token: string): void {
-    window.localStorage["token"] = token;
+    localStorage.setItem('token', token)
   }
 
   destroyToken(): void {
-    window.localStorage.removeItem("token");
+    localStorage.removeItem('token')
   }
 }
+
+
+
+// AuthGuard per routes
+// AuthService per buttons/lists
+// HttpService 

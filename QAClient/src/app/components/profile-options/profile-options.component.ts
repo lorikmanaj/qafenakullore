@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   faUserAstronaut
 } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +9,7 @@ import { ProfileOption } from 'src/app/models/profileOptions';
   templateUrl: './profile-options.component.html',
   styleUrls: ['./profile-options.component.css']
 })
-export class ProfileOptionsComponent {
+export class ProfileOptionsComponent implements OnInit {
   faUser = faUserAstronaut;
   profileOptions: ProfileOption[] = [
     {
@@ -27,6 +27,10 @@ export class ProfileOptionsComponent {
   ];
 
   isProfileOpen: boolean = false;
+
+  ngOnInit() {
+
+  }
 
   showProfileOptions() {
     this.isProfileOpen = true;

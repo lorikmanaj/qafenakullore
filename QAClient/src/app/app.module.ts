@@ -59,6 +59,7 @@ import { ProdVarietyEditorComponent } from './components/prod-variety-editor/pro
 import { ProdReviewEditorComponent } from './components/prod-review-editor/prod-review-editor.component';
 import { ProdCreateComponent } from './components/prod-create/prod-create.component';
 import { GalleryUploaderComponent } from './components/gallery-uploader/gallery-uploader.component';
+import { AuthComponent } from './auth/auth.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -100,6 +101,7 @@ export function tokenGetter() {
     ProdGalleryEditorComponent,
     ProdVarietyEditorComponent,
     ProdReviewEditorComponent,
+    AuthComponent,
     ProdCreateComponent,
     GalleryUploaderComponent,
   ],
