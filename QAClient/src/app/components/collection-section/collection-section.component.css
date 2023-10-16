@@ -38,7 +38,7 @@ h5:hover {
 }
 p {
   position: absolute;
-  inset: auto auto 4rem 5rem;
+  inset: auto auto 2rem 5rem;
   margin: 0;
   transition: inset 0.3s 0.3s ease-out;
   font-family: "Roboto Condensed", sans-serif;
@@ -98,12 +98,13 @@ p:hover {
   background-color: #fff;
 }
 h3 {
-  font-family: "Roboto Condensed", sans-serif;
   padding-top: 5rem;
-  font-size: 3rem;
+  line-height: 4rem;
+  font-size: 4rem;
 }
 h6 {
   padding-top: 20px;
+  font-size: 1rem;
 }
 button {
   padding: 10px 30px;
