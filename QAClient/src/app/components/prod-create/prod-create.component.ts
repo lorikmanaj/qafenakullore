@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductTypeService } from './../../services/product-type.service';
 import { ProductType } from 'src/app/models/productType';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,21 +11,14 @@ import { Variety } from 'src/app/models/variety';
 })
 export class ProdCreateComponent implements OnInit {
   productTypes: ProductType[] = [];
-  selectedProductType: number | null = null;
+  varieties: Variety[] = [];
 
   productForm: FormGroup;
-
-  mainImage: File | null = null;
-  backgroundImage: File | null = null;
-
-  productVarieties: Variety[] = [];
-
+  mainImage: string | null = null;
+  backgroundImage: string | null = null;
   selectedGalleryImages: string[] = [];
-  varietyImageInputs: ElementRef[] = [];
 
   @ViewChild('galleryImagesInput', { static: false }) galleryImagesInput!: ElementRef;
-
-  @ViewChildren('varietyImageInput') varietyImageInput!: QueryList<ElementRef>;
 
   constructor(
     private productTypeService: ProductTypeService,
@@ -34,7 +27,6 @@ export class ProdCreateComponent implements OnInit {
     this.productForm = this.formBuilder.group({
       productType: [null, Validators.required],
       name: ['', Validators.required],
-      description: [''],
       price: [0, Validators.required],
       mainImage: [null, Validators.required],
       backgroundImage: [null],
@@ -54,85 +46,61 @@ export class ProdCreateComponent implements OnInit {
     );
   }
 
+  onGalleryImagesSelected(event: any) {
+    const files = event.target.files as FileList;
+    this.selectedGalleryImages = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        this.selectedGalleryImages.push(imageUrl);
+      }
+    }
+  }
+
   onMainImageSelected(event: any) {
     const files = event.target.files as FileList;
     if (files.length > 0) {
-      this.mainImage = files[0];
+      this.mainImage = URL.createObjectURL(files[0]);
     }
   }
 
   onBackgroundImageSelected(event: any) {
     const files = event.target.files as FileList;
     if (files.length > 0) {
-      this.backgroundImage = files[0];
+      this.backgroundImage = URL.createObjectURL(files[0]);
     }
   }
 
-  onGalleryImagesSelected(event: any) {
-    const files = event.target.files as FileList;
-    // Convert the selected files to URLs
-    const urls = [];
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      // Create a URL for each selected image
-      if (file) {
-        const imageUrl = URL.createObjectURL(file);
-        urls.push(imageUrl);
-      }
-    }
-    this.selectedGalleryImages = urls;
+  clearMainImage() {
+    this.mainImage = null;
   }
 
-  openVarietyEditor() {
-    // Implement logic to open the variety editor
+  clearBackgroundImage() {
+    this.backgroundImage = null;
   }
-
-  async addVariety() {
-    // Create a new variety and push it to the array
-    const newVariety: Variety = {
-      description: '',
-      file: null,
-      imageUrl: null,
-    };
-    this.productVarieties.push(newVariety);
-  
-    // Reset the input element to allow selecting an image for the new variety
-    const inputIndex = this.productVarieties.length - 1; // The index of the last added variety
-    const inputElement = this.varietyImageInputs.find((el, index) => index === inputIndex);
-    if (inputElement) {
-      inputElement.nativeElement.value = '';
-    }
-  }
-
-  editVariety(variety: Variety) {
-    // Implement logic to edit the variety
-  }
-
-  deleteVariety(variety: Variety) {
-    const index = this.productVarieties.indexOf(variety);
-    if (index > -1) {
-      this.productVarieties.splice(index, 1); // Remove the variety from the array
-    }
-  }
-
-  onVarietyImageSelected(event: any, index: number) {
-    const files = event.target.files as FileList;
-    if (files.length > 0) {
-      // Assuming that the variety at the specified index exists
-      if (this.productVarieties[index]) {
-        this.productVarieties[index].file = files[0];
-      }
-    }
-  }
-
 
   createProduct() {
     if (this.productForm.valid) {
+      // const formValues = this.productForm.value;
+      // const stockQuantity = formValues.stock;
+      // const galleryImages = this.selectedGalleryImages;
+      // console.log(formValues);
       const formValues = this.productForm.value;
-      const stockQuantity = formValues.stock;
-      const galleryImages = this.selectedGalleryImages; // Use the selected gallery images
-      console.log(formValues);
-      // Implement the logic to create a product here
+      
+      const product = {
+        productType: formValues.productType,
+        name: formValues.name,
+        price: formValues.price,
+        mainImage: this.mainImage,
+        backgroundImage: this.backgroundImage,
+        stock: formValues.stock,
+        gallery: this.selectedGalleryImages,
+        varieties: this.varieties, // Include the array of varieties
+      };
+
+      console.log('Product:', product);
     }
   }
 }

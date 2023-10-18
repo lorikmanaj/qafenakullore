@@ -1,0 +1,10 @@
+<div>
+    <button type="button" (click)="addVariety()">Add Variety</button>
+    <div *ngFor="let variety of varieties; let i = index" class="variety-row">
+        <input type="text" [(ngModel)]="variety.description" placeholder="Description">
+        <input type="file" (change)="onImageSelected($event, i)" accept="image/*" *ngIf="!variety.imageUrl">
+        <img *ngIf="variety.imageUrl" [src]="variety.imageUrl" width="100" height="100">
+        <button type="button" (click)="deleteVariety(i)" *ngIf="variety.imageUrl">Delete</button>
+        <button type="button" (click)="submitVariety(i)" *ngIf="variety.imageUrl">Submit</button>
+    </div>
+</div>

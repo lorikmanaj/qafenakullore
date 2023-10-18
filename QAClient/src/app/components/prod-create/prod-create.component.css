@@ -6,22 +6,20 @@
     background-color: #f9f9f9;
 }
 
+.gallery-thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* Adjust the gap between thumbnails as needed */
+}
+
+.gallery-thumbnails img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
 .form-group {
     margin-bottom: 10px;
-}
-
-.variety-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #fff;
-}
-
-.thumbnail-container {
-    display: flex;
 }
 
 button {

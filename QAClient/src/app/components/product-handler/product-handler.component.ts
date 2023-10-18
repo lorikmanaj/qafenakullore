@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { MatDialog } from '@angular/material/dialog';
 import { ProdGalleryEditorComponent } from '../prod-gallery-editor/prod-gallery-editor.component';
-import { ProdVarietyEditorComponent } from '../prod-variety-editor/prod-variety-editor.component';
 import { ProdReviewEditorComponent } from '../prod-review-editor/prod-review-editor.component';
 import { ProductService } from 'src/app/services/product.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProdCreateComponent } from '../prod-create/prod-create.component';
+import { VarietyComponent } from '../variety/variety.component';
 
 @Component({
   selector: 'app-product-handler',
@@ -38,7 +38,7 @@ export class ProductHandlerComponent {
 
   openVarietyEditor(product: Product) {
     // Open the ProdVarietyEditorComponent as a dialog
-    const dialogRef = this.dialog.open(ProdVarietyEditorComponent, {
+    const dialogRef = this.dialog.open(VarietyComponent, {
       data: { product: product },
     });
 

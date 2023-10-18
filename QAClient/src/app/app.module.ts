@@ -55,11 +55,11 @@ import { AuthGuard } from './guards/auth-guard.service';
 import { ProductHandlerComponent } from './components/product-handler/product-handler.component';
 import { OrderHandlerComponent } from './components/order-handler/order-handler.component';
 import { ProdGalleryEditorComponent } from './components/prod-gallery-editor/prod-gallery-editor.component';
-import { ProdVarietyEditorComponent } from './components/prod-variety-editor/prod-variety-editor.component';
 import { ProdReviewEditorComponent } from './components/prod-review-editor/prod-review-editor.component';
 import { ProdCreateComponent } from './components/prod-create/prod-create.component';
 import { GalleryUploaderComponent } from './components/gallery-uploader/gallery-uploader.component';
 import { AuthComponent } from './auth/auth.component';
+import { VarietyComponent } from './components/variety/variety.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -99,11 +99,11 @@ export function tokenGetter() {
     ProductHandlerComponent,
     OrderHandlerComponent,
     ProdGalleryEditorComponent,
-    ProdVarietyEditorComponent,
     ProdReviewEditorComponent,
     AuthComponent,
     ProdCreateComponent,
     GalleryUploaderComponent,
+    VarietyComponent,
   ],
   imports: [
     BrowserModule,
