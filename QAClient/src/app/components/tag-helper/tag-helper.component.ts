@@ -7,26 +7,21 @@ import { ProductTag } from 'src/app/models/productTag';
   styleUrls: ['./tag-helper.component.css']
 })
 export class TagHelperComponent {
-  availableTags: ProductTag[] = [
-    { tagId: 1, tag: '24H', selected: false },
-    { tagId: 2, tag: 'Sale', selected: false },
-    { tagId: 3, tag: 'Discount', selected: false }
+  tags: ProductTag[] = [
+    { tagId: 1, tag: '24H', selected: false, created: false },
+    { tagId: 2, tag: 'Sale', selected: false, created: false },
+    { tagId: 3, tag: 'Discount', selected: false, created: false }
   ];
 
-  tags: ProductTag[] = [];
+  showCreateNewTagForm: boolean = false;
+  newTag: string = '';
 
-  addNewTag() {
-    this.tags.unshift({ tagId: this.availableTags.length + 1, tag: '', selected: true, created: false });
-  }
-
-  createNewTag(tag: ProductTag, index: number) {
-    if (tag.tag.trim() !== '') {
-      this.tags.splice(index, 1);
-
-      const newTagId = this.availableTags.length + 1;
-      this.availableTags.push({ tagId: newTagId, tag: tag.tag, selected: false });
-
-      tag.tag = '';
+  createNewTag() {
+    if (this.newTag.trim() !== '') {
+      const newTagId = this.tags.length + 1;
+      const newTag: ProductTag = { tagId: newTagId, tag: this.newTag, selected: false, created: true };
+      this.tags.push(newTag);
+      this.newTag = '';
     }
   }
 

@@ -1,26 +1,17 @@
 <div>
     <h3>Tags</h3>
-    <button (click)="addNewTag()">Add New Tag +</button>
-    <div *ngFor="let tag of tags; let i = index">
-        <div class="tag">
-            <input [(ngModel)]="tag.tag" [disabled]="!tag.selected && !tag.created">
-            <span class="tag-text" *ngIf="tag.created">{{ tag.tag }}</span>
-            <!-- <button class="toggle-button" (click)="check(tag)">+</button>
-            <button class="toggle-button" (click)="unCheck(tag)">-</button> -->
-            <button (click)="createNewTag(tag, i)">Submit</button>
-            <button class="delete-button" (click)="deleteTag(i)">X</button>
-        </div>
+    <button (click)="showCreateNewTagForm = !showCreateNewTagForm">Add New Tag +</button>
+    <div *ngIf="showCreateNewTagForm" class="tag">
+        <input [(ngModel)]="newTag">
+        <button (click)="createNewTag()">Submit</button>
     </div>
 </div>
 
-<div>
-    <h3>Available Tags</h3>
-    <div *ngFor="let tag of availableTags; let i = index">
-        <div class="tag" [ngClass]="{'selected': tag.selected}">
-            {{ tag.tag }}
-            <button class="toggle-button" (click)="check(tag)">+</button>
-            <button class="toggle-button" (click)="unCheck(tag)">-</button>
-            <button class="delete-button" (click)="deleteTag(i)">X</button>
-        </div>
+<div *ngFor="let tag of tags; let i = index">
+    <div class="tag" [ngClass]="{'selected': tag.selected}">
+        {{ tag.tag }}
+        <button class="toggle-button" (click)="check(tag)">+</button>
+        <button class="toggle-button" (click)="unCheck(tag)">-</button>
+        <button class="delete-button" (click)="deleteTag(i)">X</button>
     </div>
 </div>
