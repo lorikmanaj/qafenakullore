@@ -1,5 +1,6 @@
 export interface ProductTag {
-    tagId: number;
-    productId: number;
+    tagId?: number;
     tag: string;
+    selected?: boolean;
+    created?: boolean;
 }

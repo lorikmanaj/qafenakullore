@@ -60,6 +60,7 @@ import { ProdCreateComponent } from './components/prod-create/prod-create.compon
 import { GalleryUploaderComponent } from './components/gallery-uploader/gallery-uploader.component';
 import { AuthComponent } from './auth/auth.component';
 import { VarietyComponent } from './components/variety/variety.component';
+import { TagHelperComponent } from './components/tag-helper/tag-helper.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -104,6 +105,7 @@ export function tokenGetter() {
     ProdCreateComponent,
     GalleryUploaderComponent,
     VarietyComponent,
+    TagHelperComponent,
   ],
   imports: [
     BrowserModule,

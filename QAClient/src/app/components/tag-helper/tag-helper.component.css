@@ -1,0 +1,23 @@
+/* product-tags.component.css */
+.tag {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.selected {
+    border-color: green;
+}
+
+.toggle-button {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.delete-button {
+    margin-left: 10px;
+    cursor: pointer;
+}
