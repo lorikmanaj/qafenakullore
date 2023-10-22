@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductTag } from 'src/app/models/productTag';
 import { TagsService } from 'src/app/services/tags.service';
+import { TagSelectionService } from './../../services/tag-selection.service';
 
 @Component({
   selector: 'app-tag-helper',
@@ -12,7 +13,8 @@ export class TagHelperComponent implements OnInit {
   showCreateNewTagForm: boolean = false;
   newTag: string = '';
 
-  constructor(private tagsService: TagsService) { }
+  constructor(private tagsService: TagsService,
+    private tagSelectionService: TagSelectionService) { }
 
   ngOnInit() {
     this.tagsService.getAvailableTags().subscribe((tags) => {
@@ -33,11 +35,16 @@ export class TagHelperComponent implements OnInit {
   check(tag: ProductTag) {
     tag.selected = true;
     this.tagsService.updateTag(tag);
+    const selectedTags = this.tagSelectionService.getSelectedTags();
+    this.tagSelectionService.setSelectedTags([...selectedTags, tag]);
   }
 
   unCheck(tag: ProductTag) {
     tag.selected = false;
     this.tagsService.updateTag(tag);
+    const selectedTags = this.tagSelectionService.getSelectedTags();
+    const updatedSelectedTags = selectedTags.filter((selectedTag) => selectedTag.tagId !== tag.tagId);
+    this.tagSelectionService.setSelectedTags(updatedSelectedTags);
   }
 
   deleteTag(tag: ProductTag) {

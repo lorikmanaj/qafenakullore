@@ -3,6 +3,7 @@ import { ProductTypeService } from './../../services/product-type.service';
 import { ProductType } from 'src/app/models/productType';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Variety } from 'src/app/models/variety';
+import { TagSelectionService } from 'src/app/services/tag-selection.service';
 
 @Component({
   selector: 'app-prod-create',
@@ -22,6 +23,7 @@ export class ProdCreateComponent implements OnInit {
 
   constructor(
     private productTypeService: ProductTypeService,
+    private tagSelectionService: TagSelectionService,
     private formBuilder: FormBuilder
   ) {
     this.productForm = this.formBuilder.group({
@@ -32,6 +34,8 @@ export class ProdCreateComponent implements OnInit {
       backgroundImage: [null],
       stock: [0, Validators.required],
       gallery: [],
+      varieties: [],
+      tags: []
     });
   }
 
@@ -82,25 +86,21 @@ export class ProdCreateComponent implements OnInit {
   }
 
   createProduct() {
+    const formValues = this.productForm.value;
+    const product = {
+      productType: formValues.productType,
+      name: formValues.name,
+      price: formValues.price,
+      mainImage: this.mainImage,
+      backgroundImage: this.backgroundImage,
+      stock: formValues.stock,
+      gallery: this.selectedGalleryImages,
+      varieties: formValues.varieties,
+      tags: this.tagSelectionService.getSelectedTags()
+    };
+    console.log('Product:', product);
     if (this.productForm.valid) {
-      // const formValues = this.productForm.value;
-      // const stockQuantity = formValues.stock;
-      // const galleryImages = this.selectedGalleryImages;
-      // console.log(formValues);
-      const formValues = this.productForm.value;
-      
-      const product = {
-        productType: formValues.productType,
-        name: formValues.name,
-        price: formValues.price,
-        mainImage: this.mainImage,
-        backgroundImage: this.backgroundImage,
-        stock: formValues.stock,
-        gallery: this.selectedGalleryImages,
-        varieties: this.varieties, // Include the array of varieties
-      };
 
-      console.log('Product:', product);
     }
   }
 }

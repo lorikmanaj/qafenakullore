@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Variety } from 'src/app/models/variety';
+import { VarietySelectionService } from 'src/app/services/variety-selection.service';
 
 @Component({
   selector: 'app-variety',
@@ -9,32 +10,39 @@ import { Variety } from 'src/app/models/variety';
 export class VarietyComponent {
   varieties: Variety[] = [];
 
+  constructor(private varietySelectionService: VarietySelectionService) { }
+
   addVariety() {
-    this.varieties.push({ description: '', imageUrl: null });
+    this.varietySelectionService.addVariety({ description: '', imageUrl: null });
   }
 
   onImageSelected(event: any, index: number) {
     const file = event.target.files[0];
     if (file) {
-      this.varieties[index].imageUrl = URL.createObjectURL(file);
+      const variety = this.varieties[index];
+      this.varietySelectionService.updateVariety(index, { ...variety, imageUrl: URL.createObjectURL(file) });
     }
   }
 
   deleteVariety(index: number) {
     if (index >= 0 && index < this.varieties.length) {
       this.varieties.splice(index, 1);
+      this.varietySelectionService.removeVariety(this.varieties[index]);
     }
-    console.log(this.varieties)
   }
 
+  // submitVariety(index: number) {
+  //   if (index >= 0 && index < this.varieties.length) {
+  //     const variety = this.varieties[index];
+  //     this.varieties.splice(index, 1);
+  //     this.varietySelectionService.addVariety(variety);
+  //   }
+  // }
   submitVariety(index: number) {
     if (index >= 0 && index < this.varieties.length) {
-      const variety = this.varieties[index];
-      this.varieties.splice(index, 1); // Remove the variety from its current position
-      this.varieties.push(variety); // Add the variety to the end of the array
+      this.varietySelectionService.addVariety(this.varieties[index]);
+      this.varieties.splice(index, 1);
     }
-    console.log('vars', this.varieties);
   }
-
 
 }
