@@ -182,6 +182,7 @@ namespace QafenAkullAPI.Infrastructure.Persistence
         public DbSet<ProductReview> ProductReviews { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<ProductTag> ProductTags { get; set; }
+        public DbSet<Tag> Tags { get; set; }
         public DbSet<ProfileOption> ProfileOptions { get; set; }
         public DbSet<PromoProduct> PromoProducts { get; set; }
         public DbSet<Slider> Sliders { get; set; }

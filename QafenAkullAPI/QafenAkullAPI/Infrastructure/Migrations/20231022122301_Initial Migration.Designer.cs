@@ -12,15 +12,15 @@ using QafenAkullAPI.Infrastructure.Persistence;
 namespace QafenAkullAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(QafenAkullDbContext))]
-    [Migration("20231005144357_Added Entities V1")]
-    partial class AddedEntitiesV1
+    [Migration("20231022122301_Initial Migration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -54,13 +54,13 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fe598952-de8e-4f8d-b5d9-38a0a4812eff",
+                            Id = "468796aa-7af3-4a6e-9dad-547bc3448449",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "97630f85-86de-4157-80d6-1f90e5e39f95",
+                            Id = "4b1b93cc-e0b3-46d2-8197-d9b5d6bba03e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -367,11 +367,14 @@ namespace QafenAkullAPI.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
-                    b.Property<bool>("Approved")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderStatusId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PaymentMethodId")
                         .HasColumnType("int");
@@ -385,6 +388,8 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("OrderId");
+
+                    b.HasIndex("OrderStatusId");
 
                     b.HasIndex("PaymentMethodId");
 
@@ -414,6 +419,22 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderProducts", (string)null);
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.OrderStatus", b =>
+                {
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StatusId"));
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StatusId");
+
+                    b.ToTable("OrderStatuses");
                 });
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.PaymentMethod", b =>
@@ -459,6 +480,9 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.Property<int>("StockId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
+
                     b.HasKey("ProductId");
 
                     b.ToTable("Products", (string)null);
@@ -494,6 +518,29 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ProductReviews", (string)null);
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.ProductTag", b =>
+                {
+                    b.Property<int>("ProductTagId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductTagId"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductTagId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("ProductTags");
                 });
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.ProductType", b =>
@@ -611,6 +658,22 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.ToTable("Stocks", (string)null);
                 });
 
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Tag", b =>
+                {
+                    b.Property<int>("TagId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TagId");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Testimonial", b =>
                 {
                     b.Property<int>("TestimonialId")
@@ -651,7 +714,7 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
@@ -662,6 +725,47 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Varieties", (string)null);
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.WishList", b =>
+                {
+                    b.Property<int>("WishListId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WishListId"));
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("WishListId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WishLists");
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.WishListItem", b =>
+                {
+                    b.Property<int>("WishListItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WishListItemId"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WishListId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WishListItemId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("WishListId");
+
+                    b.ToTable("WishListItems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -784,6 +888,12 @@ namespace QafenAkullAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Order", b =>
                 {
+                    b.HasOne("QafenAkullAPI.Domain.Entities.OrderStatus", "OrderStatus")
+                        .WithMany()
+                        .HasForeignKey("OrderStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("QafenAkullAPI.Domain.Entities.PaymentMethod", "PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentMethodId")
@@ -795,6 +905,8 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("OrderStatus");
 
                     b.Navigation("PaymentMethod");
 
@@ -835,6 +947,25 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.ProductTag", b =>
+                {
+                    b.HasOne("QafenAkullAPI.Domain.Entities.Product", "Product")
+                        .WithMany("ProductTags")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QafenAkullAPI.Domain.Entities.Tag", "Tag")
+                        .WithMany("ProductTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.PromoProduct", b =>
@@ -900,6 +1031,34 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.WishList", b =>
+                {
+                    b.HasOne("QafenAkullAPI.Domain.Entities.ApiUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.WishListItem", b =>
+                {
+                    b.HasOne("QafenAkullAPI.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QafenAkullAPI.Domain.Entities.WishList", "WishList")
+                        .WithMany("WishListItems")
+                        .HasForeignKey("WishListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("WishList");
+                });
+
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.ApiUser", b =>
                 {
                     b.Navigation("Cart");
@@ -929,12 +1088,24 @@ namespace QafenAkullAPI.Infrastructure.Migrations
 
                     b.Navigation("ProductReviews");
 
+                    b.Navigation("ProductTags");
+
                     b.Navigation("Varieties");
                 });
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Slider", b =>
                 {
                     b.Navigation("SliderItems");
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Tag", b =>
+                {
+                    b.Navigation("ProductTags");
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.WishList", b =>
+                {
+                    b.Navigation("WishListItems");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,7 +11,7 @@ export class MainSectionComponent implements OnInit {
   headlineProduct!: Product;
   carouselOptions = {
     loop: true,
-    items: 3, // Display 3 items at a time (adjust as needed)
+    items: 3, //Items Def
     margin: 10,
     nav: true,
   };
@@ -19,7 +19,6 @@ export class MainSectionComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    // Fetch the headline product from ProductService
     this.productService.getHeadlineProduct().subscribe((product) => {
       this.headlineProduct = product;
     });

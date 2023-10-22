@@ -23,8 +23,9 @@ namespace QafenAkullAPI.Domain.Entities
         public List<ProductReview> ProductReviews { get; set; } // One-to-Many relationship
         [InverseProperty("Product")]
         public List<ItemGallery> ItemGalleries { get; set; }
-        //[InverseProperty("Product")]
         public List<ProductTag> ProductTags { get; set; }
         //public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+
+        //[InverseProperty("Product")]
     }
 }

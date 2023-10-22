@@ -51,13 +51,13 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6bdf858d-525b-49b9-957a-396d00b5d5f3",
+                            Id = "468796aa-7af3-4a6e-9dad-547bc3448449",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "e7190409-37e6-4630-9c8e-2d154facf394",
+                            Id = "4b1b93cc-e0b3-46d2-8197-d9b5d6bba03e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -519,21 +519,23 @@ namespace QafenAkullAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.ProductTag", b =>
                 {
-                    b.Property<int>("TagId")
+                    b.Property<int>("ProductTagId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductTagId"));
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Tag")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
 
-                    b.HasKey("TagId");
+                    b.HasKey("ProductTagId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("TagId");
 
                     b.ToTable("ProductTags");
                 });
@@ -651,6 +653,22 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Stocks", (string)null);
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Tag", b =>
+                {
+                    b.Property<int>("TagId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TagId");
+
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Testimonial", b =>
@@ -930,9 +948,21 @@ namespace QafenAkullAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.ProductTag", b =>
                 {
-                    b.HasOne("QafenAkullAPI.Domain.Entities.Product", null)
+                    b.HasOne("QafenAkullAPI.Domain.Entities.Product", "Product")
                         .WithMany("ProductTags")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QafenAkullAPI.Domain.Entities.Tag", "Tag")
+                        .WithMany("ProductTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.PromoProduct", b =>
@@ -1063,6 +1093,11 @@ namespace QafenAkullAPI.Infrastructure.Migrations
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Slider", b =>
                 {
                     b.Navigation("SliderItems");
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Tag", b =>
+                {
+                    b.Navigation("ProductTags");
                 });
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.WishList", b =>

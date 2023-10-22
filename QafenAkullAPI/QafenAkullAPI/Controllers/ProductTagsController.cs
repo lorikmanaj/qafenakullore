@@ -47,7 +47,7 @@ namespace QafenAkullAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProductTag(int id, ProductTag productTag)
         {
-            if (id != productTag.TagId)
+            if (id != productTag.ProductTagId)
             {
                 return BadRequest();
             }
@@ -81,7 +81,7 @@ namespace QafenAkullAPI.Controllers
             _context.ProductTags.Add(productTag);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProductTag", new { id = productTag.TagId }, productTag);
+            return CreatedAtAction("GetProductTag", new { id = productTag.ProductTagId }, productTag);
         }
 
         // DELETE: api/ProductTags/5
@@ -102,7 +102,7 @@ namespace QafenAkullAPI.Controllers
 
         private bool ProductTagExists(int id)
         {
-            return _context.ProductTags.Any(e => e.TagId == id);
+            return _context.ProductTags.Any(e => e.ProductTagId == id);
         }
     }
 }
