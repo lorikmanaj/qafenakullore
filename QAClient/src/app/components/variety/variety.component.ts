@@ -8,46 +8,39 @@ import { VarietySelectionService } from 'src/app/services/variety-selection.serv
   styleUrls: ['./variety.component.css'],
 })
 export class VarietyComponent {
-  varieties: Variety[] = [];
+  varietyForms: Variety[] = [];
 
   constructor(private varietySelectionService: VarietySelectionService) { }
 
-addVariety() {
-  const newVariety: Variety = { description: '', imageUrl: null };
-  this.varieties.push(newVariety);
-}
-
+  addVariety() {
+    this.varietyForms.push({ description: '', imageUrl: null });
+  }
 
   onImageSelected(event: any, index: number) {
     const file = event.target.files[0];
     if (file) {
-      const variety = this.varieties[index];
-      this.varietySelectionService.updateVariety(index, { ...variety, imageUrl: URL.createObjectURL(file) });
+      this.varietyForms[index].imageUrl = URL.createObjectURL(file);
+    }
+  }
+
+  deleteVarietyForm(index: number) {
+    if (index >= 0 && index < this.varietyForms.length) {
+      this.varietyForms.splice(index, 1);
+    }
+  }
+
+  submitVarietyForm(index: number) {
+    if (index >= 0 && index < this.varietyForms.length) {
+      const variety = this.varietyForms[index];
+      this.varietySelectionService.addVariety(variety);
+      this.varietyForms.splice(index, 1);
     }
   }
 
   deleteVariety(index: number) {
-    if (index >= 0 && index < this.varieties.length) {
-      this.varieties.splice(index, 1);
-      this.varietySelectionService.removeVariety(this.varieties[index]);
+    if (index >= 0 && index < this.varietySelectionService.getVarieties().length) {
+      const variety = this.varietySelectionService.getVarieties()[index];
+      this.varietySelectionService.removeVariety(variety);
     }
   }
-
-  // submitVariety(index: number) {
-  //   if (index >= 0 && index < this.varieties.length) {
-  //     const variety = this.varieties[index];
-  //     this.varieties.splice(index, 1);
-  //     this.varietySelectionService.addVariety(variety);
-  //   }
-  // }
-  submitVariety(index: number) {
-    if (index >= 0 && index < this.varieties.length) {
-      const variety = this.varieties[index];
-      this.varietySelectionService.addVariety(variety);
-      // Optionally, clear the variety data or do anything else you need.
-      this.varieties[index] = { description: '', imageUrl: null };
-    }
-  }
-
-
 }

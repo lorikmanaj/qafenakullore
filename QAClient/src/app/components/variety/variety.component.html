@@ -1,27 +1,17 @@
-<button type="button" (click)="addVariety()">Add Variety</button>
+<div>
+    <button type="button" (click)="addVariety()">Add Variety</button>
+    <div *ngFor="let variety of varietyForms; let i = index" class="variety-form">
+        <input type="text" [(ngModel)]="variety.description" placeholder="Description">
+        <input type="file" (change)="onImageSelected($event, i)" accept="image/*">
+        <button type="button" (click)="deleteVarietyForm(i)">Delete</button>
+        <button type="button" (click)="submitVarietyForm(i)">Submit</button>
+    </div>
+</div>
 
-<div *ngFor="let variety of varieties; let i = index" class="variety-row">
-  <input
-    type="text"
-    [(ngModel)]="variety.description"
-    placeholder="Description"
-  />
-  <input
-    type="file"
-    (change)="onImageSelected($event, i)"
-    accept="image/*"
-    *ngIf="!variety.imageUrl"
-  />
-  <img
-    *ngIf="variety.imageUrl"
-    [src]="variety.imageUrl"
-    width="100"
-    height="100"
-  />
-  <button type="button" (click)="deleteVariety(i)" *ngIf="variety.imageUrl">
-    Delete
-  </button>
-  <button type="button" (click)="submitVariety(i)" *ngIf="variety.imageUrl">
-    Submit
-  </button>
+<div *ngFor="let variety of varietyForms; let i = index" class="variety-row">
+    <div>
+        <span>Name: {{ variety.description }}</span>
+        <img *ngIf="variety.imageUrl" [src]="variety.imageUrl" width="100" height="100">
+    </div>
+    <button type="button" (click)="deleteVariety(i)">Delete</button>
 </div>
