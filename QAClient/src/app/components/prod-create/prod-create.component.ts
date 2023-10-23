@@ -31,6 +31,7 @@ export class ProdCreateComponent implements OnInit {
     this.productForm = this.formBuilder.group({
       productType: [null, Validators.required],
       name: ['', Validators.required],
+      description: [''],
       price: [0, Validators.required],
       mainImage: [null, Validators.required],
       backgroundImage: [null],
@@ -94,6 +95,7 @@ export class ProdCreateComponent implements OnInit {
     const product = {
       productType: formValues.productType,
       name: formValues.name,
+      description: formValues.description,
       price: formValues.price,
       mainImage: this.mainImage,
       backgroundImage: this.backgroundImage,
