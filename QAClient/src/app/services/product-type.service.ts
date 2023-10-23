@@ -17,4 +17,5 @@ export class ProductTypeService {
     return this.http.get<ProductType[]>(url);
   }
 
+
 }

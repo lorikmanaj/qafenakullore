@@ -1,72 +1,131 @@
 <div class="container">
-    <h2>Create a Product</h2>
-    <form [formGroup]="productForm">
-        <!-- Product Type Dropdown -->
-        <div class="form-group">
-            <label for="productType">Product Type:</label>
-            <select id="productType" name="productType" formControlName="productType">
-                <option *ngFor="let type of productTypes" [ngValue]="type.typeId">{{ type.type }}</option>
-            </select>
-        </div>
+  <h2>Create a Product</h2>
+  <form [formGroup]="productForm">
+    <div class="form-group">
+      <label for="productType">Product Type:</label>
+      <select id="productType" name="productType" formControlName="productType">
+        <option *ngFor="let type of productTypes" [ngValue]="type.typeId">
+          {{ type.type }}
+        </option>
+      </select>
+    </div>
 
-        <!-- Name Input -->
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" formControlName="name">
-        </div>
+    <!-- Name Input -->
+    <div class="form-group">
+      <label for="name" class="form_label"></label>
+      <input
+        class="form_field"
+        type="text"
+        id="name"
+        name="name"
+        formControlName="name"
+        placeholder="Product Title"
+      />
+    </div>
 
-        <!-- Price Input -->
-        <div class="form-group">
-            <label for="price">Price (in EUR):</label>
-            <input type="number" id="price" name="price" formControlName="price">
-        </div>
+    <!-- Price Input -->
+    <div class="form-group">
+      <label for="price">Price (in EUR):</label>
+      <input type="number" id="price" name="price" formControlName="price" />
+    </div>
 
-        <!-- Main Image Upload -->
-        <div class="form-group">
-            <label for="mainImage">Main Image (Required):</label>
-            <input type="file" id="mainImage" name="mainImage" accept="image/*" (change)="onMainImageSelected($event)"
-                required #mainImageInput style="display: none;">
-            <button *ngIf="!mainImage" type="button" (click)="mainImageInput.click()">Add Image</button>
-            <img *ngIf="mainImage" [src]="mainImage" width="100" height="100">
-            <button *ngIf="mainImage" type="button" (click)="clearMainImage()">-</button>
-        </div>
+    <!-- Main Image Upload -->
+    <div class="form-group">
+      <label for="mainImage">Main Image (Required):</label>
+      <input
+        type="file"
+        id="mainImage"
+        name="mainImage"
+        accept="image/*"
+        (change)="onMainImageSelected($event)"
+        required
+        #mainImageInput
+        style="display: none"
+      />
+      <button *ngIf="!mainImage" type="button" (click)="mainImageInput.click()">
+        Add Image
+      </button>
+      <img *ngIf="mainImage" [src]="mainImage" width="100" height="100" />
+      <button *ngIf="mainImage" type="button" (click)="clearMainImage()">
+        -
+      </button>
+    </div>
 
-        <!-- Background Image Upload (Optional) -->
-        <div class="form-group">
-            <label for="backgroundImage">Background Image (Optional):</label>
-            <input type="file" id="backgroundImage" name="backgroundImage" accept="image/*"
-                (change)="onBackgroundImageSelected($event)" #backgroundImageInput style="display: none;">
-            <button *ngIf="!backgroundImage" type="button" (click)="backgroundImageInput.click()">Add Image</button>
-            <img *ngIf="backgroundImage" [src]="backgroundImage" width="100" height="100">
-            <button *ngIf="backgroundImage" type="button" (click)="clearBackgroundImage()">-</button>
-        </div>
+    <!-- Background Image Upload (Optional) -->
+    <div class="form-group">
+      <label for="backgroundImage">Background Image (Optional):</label>
+      <input
+        type="file"
+        id="backgroundImage"
+        name="backgroundImage"
+        accept="image/*"
+        (change)="onBackgroundImageSelected($event)"
+        #backgroundImageInput
+        style="display: none"
+      />
+      <button
+        *ngIf="!backgroundImage"
+        type="button"
+        (click)="backgroundImageInput.click()"
+      >
+        Add Image
+      </button>
+      <img
+        *ngIf="backgroundImage"
+        [src]="backgroundImage"
+        width="100"
+        height="100"
+      />
+      <button
+        *ngIf="backgroundImage"
+        type="button"
+        (click)="clearBackgroundImage()"
+      >
+        -
+      </button>
+    </div>
 
-        <!-- Stock Quantity Input -->
-        <div class="form-group">
-            <label for="stock">Stock Quantity (Required):</label>
-            <input type="number" id="stock" name="stock" formControlName="stock" required>
-        </div>
+    <!-- Stock Quantity Input -->
+    <div class="form-group">
+      <label for="stock">Stock Quantity (Required):</label>
+      <input
+        type="number"
+        id="stock"
+        name="stock"
+        formControlName="stock"
+        required
+      />
+    </div>
 
-        <!-- Add Gallery Images: Choose Files -->
-        <div class="form-group">
-            <label for="galleryImages">Add Gallery Images:</label>
-            <div>
-                <input type="file" id="galleryImages" name="galleryImages" accept="image/*" multiple
-                    (change)="onGalleryImagesSelected($event)" #galleryImagesInput>
-                <button type="button" (click)="galleryImagesInput.click()">Choose Files</button>
-            </div>
-        </div>
+    <!-- Add Gallery Images: Choose Files -->
+    <div class="form-group">
+      <label for="galleryImages">Add Gallery Images:</label>
+      <div>
+        <input
+          type="file"
+          id="galleryImages"
+          name="galleryImages"
+          accept="image/*"
+          multiple
+          (change)="onGalleryImagesSelected($event)"
+          #galleryImagesInput
+        />
+        <button type="button" (click)="galleryImagesInput.click()">
+          Choose Files
+        </button>
+      </div>
+    </div>
 
-        <!-- Display selected gallery image thumbnails -->
-        <div class="gallery-thumbnails">
-            <div *ngFor="let image of selectedGalleryImages">
-                <img [src]="image" width="100" height="100">
-            </div>
-        </div>
+    <!-- Display selected gallery image thumbnails -->
+    <div class="gallery-thumbnails">
+      <div *ngFor="let image of selectedGalleryImages">
+        <img [src]="image" width="100" height="100" />
+      </div>
+    </div>
 
-        <app-variety></app-variety>
+    <app-variety></app-variety>
 
-        <app-tag-helper></app-tag-helper>
-        <button (click)="createProduct()">Create Product</button>
-    </form>
+    <app-tag-helper></app-tag-helper>
+    <button (click)="createProduct()">Create Product</button>
+  </form>
 </div>

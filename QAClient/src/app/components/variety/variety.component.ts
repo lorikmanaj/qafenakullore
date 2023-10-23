@@ -12,9 +12,11 @@ export class VarietyComponent {
 
   constructor(private varietySelectionService: VarietySelectionService) { }
 
-  addVariety() {
-    this.varietySelectionService.addVariety({ description: '', imageUrl: null });
-  }
+addVariety() {
+  const newVariety: Variety = { description: '', imageUrl: null };
+  this.varieties.push(newVariety);
+}
+
 
   onImageSelected(event: any, index: number) {
     const file = event.target.files[0];
@@ -40,9 +42,12 @@ export class VarietyComponent {
   // }
   submitVariety(index: number) {
     if (index >= 0 && index < this.varieties.length) {
-      this.varietySelectionService.addVariety(this.varieties[index]);
-      this.varieties.splice(index, 1);
+      const variety = this.varieties[index];
+      this.varietySelectionService.addVariety(variety);
+      // Optionally, clear the variety data or do anything else you need.
+      this.varieties[index] = { description: '', imageUrl: null };
     }
   }
+
 
 }

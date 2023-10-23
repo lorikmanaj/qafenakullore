@@ -1,8 +1,8 @@
+import { Variety } from 'src/app/models/variety';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductTypeService } from './../../services/product-type.service';
 import { ProductType } from 'src/app/models/productType';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Variety } from 'src/app/models/variety';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TagSelectionService } from 'src/app/services/tag-selection.service';
 
 @Component({
@@ -33,22 +33,48 @@ export class ProdCreateComponent implements OnInit {
       mainImage: [null, Validators.required],
       backgroundImage: [null],
       stock: [0, Validators.required],
-      gallery: [],
-      varieties: [],
+      gallery: this.formBuilder.array([]),
+      varieties: this.formBuilder.array([]),
       tags: []
     });
   }
+  // Replace the service call with mock data for testing
+  // this.productTypes = [
+  //   { typeId: 1, type: 'Type 1' },
+  //   { typeId: 2, type: 'Type 2' },
+    // Add more data as needed
+  // ];
+// }
 
   ngOnInit() {
     this.productTypeService.getProductTypes().subscribe(
       (prodTypes: ProductType[]) => {
         this.productTypes = prodTypes;
+        console.log('Product Types:', this.productTypes);
       },
       (error) => {
         console.error('Error fetching product types:', error);
       }
     );
   }
+
+//add varieties to the form
+  addVariety() {
+    const varietyControl = this.formBuilder.group({
+      description: ['', Validators.required],
+      imageUrl: [null],
+    });
+
+    (this.productForm.get('varieties') as FormArray).push(varietyControl);
+  }
+
+  // submitVariety function to update the FormArray
+  submitVariety(index: number) {
+    const varietyControl = (this.productForm.get('varieties') as FormArray).at(index);
+    this.varieties.push(varietyControl.value);
+    (this.productForm.get('varieties') as FormArray).removeAt(index);
+  }
+
 
   onGalleryImagesSelected(event: any) {
     const files = event.target.files as FileList;
@@ -96,11 +122,12 @@ export class ProdCreateComponent implements OnInit {
       stock: formValues.stock,
       gallery: this.selectedGalleryImages,
       varieties: formValues.varieties,
-      tags: this.tagSelectionService.getSelectedTags()
+      tags: this.tagSelectionService.getSelectedTags(), // Get selected tags
     };
     console.log('Product:', product);
     if (this.productForm.valid) {
-
+      // You can now use the "product" object for further processing
     }
   }
+
 }
