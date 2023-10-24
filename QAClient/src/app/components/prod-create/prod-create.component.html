@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Create a Product</h2>
   <form [formGroup]="productForm">
-    <div class="form-group">
+    <div class="form-prod-type">
       <label for="productType">Product Type:</label>
       <select id="productType" name="productType" formControlName="productType">
         <option *ngFor="let type of productTypes" [ngValue]="type.typeId">
@@ -10,18 +10,68 @@
       </select>
     </div>
 
-    <!-- Name Input -->
-    <div class="form-group">
-      <label for="name" class="form_label"></label>
-      <input class="form_field" type="text" id="name" name="name" formControlName="name" placeholder="Product Title" />
+    <!-- <div class="form-Title">
+      <label for="name" class="form_label">Title:</label>
+      <input
+        class="form_field"
+        type="text"
+        id="name"
+        name="name"
+        formControlName="name"
+        placeholder="Product Title"
+      />
+      <div class="form-group">
+        <label for="description" class="form_label"></label>
+        <input
+          class="form_field"
+          type="text"
+          id="description"
+          name="description"
+          formControlName="description"
+          placeholder="Product Description"
+        />
+      </div>
+    </div> -->
+    <!-- Name  -->
+    <div class="col-md-8">
+      <form>
+        <div class="form-group row">
+          <label for="name" class="col-12 col-form-label"
+            >Enter Title here</label
+          >
+          <div class="col-12">
+            <input
+              id="name"
+              name="text"
+              placeholder="Enter Title here"
+              class="form-control here"
+              required="required"
+              type="text"
+              formControlName="name"
+            />
+          </div>
+        </div>
+        <!-- Description Input -->
+        <div class="form-group row">
+          <label for="description" class="col-12 col-form-label"
+            >Description</label
+          >
+          <div class="col-12">
+            <textarea
+              id="description"
+              name="description"
+              cols="40"
+              rows="5"
+              class="form-control"
+              formControlName="description"
+              placeholder="Product Description"
+            ></textarea>
+          </div>
+        </div>
+      </form>
     </div>
 
     <!-- Desc Input -->
-    <div class="form-group">
-      <label for="description" class="form_label"></label>
-      <input class="form_field" type="text" id="description" name="description" formControlName="description"
-        placeholder="Product Description" />
-    </div>
 
     <!-- Price Input -->
     <div class="form-group">
@@ -32,8 +82,16 @@
     <!-- Main Image Upload -->
     <div class="form-group">
       <label for="mainImage">Main Image (Required):</label>
-      <input type="file" id="mainImage" name="mainImage" accept="image/*" (change)="onMainImageSelected($event)"
-        required #mainImageInput style="display: none" />
+      <input
+        type="file"
+        id="mainImage"
+        name="mainImage"
+        accept="image/*"
+        (change)="onMainImageSelected($event)"
+        required
+        #mainImageInput
+        style="display: none"
+      />
       <button *ngIf="!mainImage" type="button" (click)="mainImageInput.click()">
         Add Image
       </button>
@@ -46,13 +104,33 @@
     <!-- Background Image Upload (Optional) -->
     <div class="form-group">
       <label for="backgroundImage">Background Image (Optional):</label>
-      <input type="file" id="backgroundImage" name="backgroundImage" accept="image/*"
-        (change)="onBackgroundImageSelected($event)" #backgroundImageInput style="display: none" />
-      <button *ngIf="!backgroundImage" type="button" (click)="backgroundImageInput.click()">
+      <input
+        type="file"
+        id="backgroundImage"
+        name="backgroundImage"
+        accept="image/*"
+        (change)="onBackgroundImageSelected($event)"
+        #backgroundImageInput
+        style="display: none"
+      />
+      <button
+        *ngIf="!backgroundImage"
+        type="button"
+        (click)="backgroundImageInput.click()"
+      >
         Add Image
       </button>
-      <img *ngIf="backgroundImage" [src]="backgroundImage" width="100" height="100" />
-      <button *ngIf="backgroundImage" type="button" (click)="clearBackgroundImage()">
+      <img
+        *ngIf="backgroundImage"
+        [src]="backgroundImage"
+        width="100"
+        height="100"
+      />
+      <button
+        *ngIf="backgroundImage"
+        type="button"
+        (click)="clearBackgroundImage()"
+      >
         -
       </button>
     </div>
@@ -60,15 +138,28 @@
     <!-- Stock Quantity Input -->
     <div class="form-group">
       <label for="stock">Stock Quantity (Required):</label>
-      <input type="number" id="stock" name="stock" formControlName="stock" required />
+      <input
+        type="number"
+        id="stock"
+        name="stock"
+        formControlName="stock"
+        required
+      />
     </div>
 
     <!-- Add Gallery Images: Choose Files -->
     <div class="form-group">
       <label for="galleryImages">Add Gallery Images:</label>
       <div>
-        <input type="file" id="galleryImages" name="galleryImages" accept="image/*" multiple
-          (change)="onGalleryImagesSelected($event)" #galleryImagesInput />
+        <input
+          type="file"
+          id="galleryImages"
+          name="galleryImages"
+          accept="image/*"
+          multiple
+          (change)="onGalleryImagesSelected($event)"
+          #galleryImagesInput
+        />
         <button type="button" (click)="galleryImagesInput.click()">
           Choose Files
         </button>

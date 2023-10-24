@@ -1,22 +1,25 @@
-<button (click)="openProductCreate()">Add New Product</button>
+<button class="btn add-new" (click)="openProductCreate()">
+  Add New Product
+</button>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Product ID</th>
+      <th>ID</th>
       <th>Name</th>
       <th>Description</th>
       <th>Price</th>
       <th>Image</th>
-      <th>Background</th>
-      <th>Stock</th>
+      <th>Quantity</th>
+      <th>Tags</th>
+      <th>Varietes</th>
       <th>Gallery</th>
       <th>Variety</th>
-      <th>Tags</th>
       <th>Reviews</th>
       <th>Actions</th>
     </tr>
   </thead>
+
   <tbody>
     <tr *ngFor="let product of paginatedProducts">
       <!-- Fill in the data from product -->
@@ -24,25 +27,39 @@
       <td>{{ product.name }}</td>
       <td>{{ product.description }}</td>
       <td>{{ product.price }}</td>
+      <td>{{ product.image }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>{{ product.tags }}</td>
+      <td>{{ product.varieties }}</td>
       <!-- ... and so on -->
       <td>
-        <button (click)="openGalleryEditor(product)">Edit Gallery</button>
+        <button class="btn gallery" (click)="openGalleryEditor(product)">
+          Edit Gallery
+        </button>
       </td>
       <td>
-        <button (click)="openVarietyEditor(product)">Edit Variety</button>
+        <button class="btn variety" (click)="openVarietyEditor(product)">
+          Edit Variety
+        </button>
       </td>
-      <td>
+      <!-- <td>
         <div *ngFor="let tag of product.tags">
           {{ tag.tag }}
         </div>
-      </td>
+      </td> -->
       <td>
-        <button (click)="openReviewsModal(product)">Reviews</button>
+        <button class="btn review" (click)="openReviewsModal(product)">
+          Reviews
+        </button>
       </td>
-      <td>
-        <button (click)="editProduct(product)">Edit</button>
-        <button (click)="deleteProduct(product)">Delete</button>
-      </td>
+      <div class="action-btns">
+        <td>
+          <button class="btn-edit" (click)="editProduct(product)">Edit</button>
+          <button class="btn-del" (click)="deleteProduct(product)">
+            Delete
+          </button>
+        </td>
+      </div>
     </tr>
   </tbody>
 </table>

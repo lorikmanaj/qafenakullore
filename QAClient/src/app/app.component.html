@@ -44,7 +44,7 @@
       <div class="col-md-9">
         <h1>Prod List-+</h1>
         <app-product-listing></app-product-listing>
-      </div> 
+      </div>
     </div>
   </div>
 
@@ -114,15 +114,11 @@
   </div>
 </div> -->
 
-<button class="toggle-menu-button" (click)="toggleSidebar()">
-  ☰
-</button>
+<!-- <button class="toggle-menu-button" (click)="toggleSidebar()">☰</button> -->
 
 <div class="container-fluid">
-  <div class="row">
-    <app-navbar></app-navbar>
-  </div>
-  <router-outlet></router-outlet>
+  <app-navbar></app-navbar>
 
+  <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>

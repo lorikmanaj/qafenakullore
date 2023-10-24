@@ -1,34 +1,69 @@
-.container {
-    display: flex;
-    height: 100vh;
+* {
+  margin: 0;
+  padding: 0;
+}
+div.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  position: relative;
+  height: 100vh;
+}
+ul {
+  background: #5bc995;
+  height: 100vh;
+  width: 240px;
+  top: 10;
+  left: 0;
+  outline: none;
+  padding-top: 5em;
+}
+li {
+  padding: 0.5em 1em 0.5em 3em;
+  font-size: 1 rem;
+  font-weight: regular;
+  background-repeat: no-repeat;
+  background-position: left 15px center;
+  background-size: auto 20px;
+  transition: all 0.15s linear;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #fff;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
 
-.column {
-    width: 20%;
-    padding: 16px;
-    background-color: #f4f4f4;
-    border-right: 1px solid #ccc;
+/* .column {
+  padding: 16px;
+  background-color: #6d6d6d;
+  border-right: 1px solid #ccc;
+  display: flex;
+  padding-top: 100px;
 }
 
-.admin-menu {
-    list-style: none;
-    padding: 0;
-    cursor: pointer;
+.column li {
+  padding-bottom: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s;
+  list-style: none;
+  color: #fff;
 }
 
-.admin-menu li {
-    margin-bottom: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
+.column li:hover {
+  color: blue;
+} */
 
-.admin-menu li:hover {
-    color: blue;
+.ng-container {
+  overflow: scroll;
+  padding-top: 20px;
+  display: inline-block;
 }
-
-.working-window {
-    flex-grow: 1;
-    padding: 16px;
-    overflow: auto;
+.table-content {
+  padding: 30px;
 }
