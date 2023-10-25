@@ -1,17 +1,23 @@
 <div>
-    <h3>Tags</h3>
-    <button (click)="showCreateNewTagForm = !showCreateNewTagForm">Add New Tag +</button>
-    <div *ngIf="showCreateNewTagForm" class="tag">
-        <input [(ngModel)]="newTag">
-        <button (click)="createNewTag()">Submit</button>
-    </div>
+  <h3>Tags</h3>
+  <button
+    class="btn add-new"
+    (click)="showCreateNewTagForm = !showCreateNewTagForm"
+  >
+    Add New Tag +
+  </button>
+  <div *ngIf="showCreateNewTagForm" class="tag">
+    <input [(ngModel)]="newTag" />
+    <button class="btn-submit" (click)="createNewTag()">Submit</button>
+  </div>
 </div>
-
-<div *ngFor="let tag of tags; let i = index">
-    <div class="tag" [ngClass]="{'selected': tag.selected}">
-        {{ tag.tag }}
-        <button class="toggle-button" (click)="check(tag)">+</button>
-        <button class="toggle-button" (click)="unCheck(tag)">-</button>
-        <button class="delete-button" (click)="deleteTag(tag)">X</button>
+<div class="btn-main">
+  <div *ngFor="let tag of tags; let i = index">
+    <div class="tag" [ngClass]="{ selected: tag.selected }">
+      {{ tag.tag }}
+      <button class="btn toggle-button" (click)="check(tag)">+</button>
+      <button class="btn toggle-button" (click)="unCheck(tag)">-</button>
+      <i faf class="fa fa-trash-o icon-red" (click)="deleteTag(tag)"></i>
     </div>
+  </div>
 </div>

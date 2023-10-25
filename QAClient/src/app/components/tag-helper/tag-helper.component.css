@@ -1,22 +1,40 @@
 .tag {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-    border: 2px solid #e0e0e0;
-    border-radius: 5px;
-    padding: 5px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .selected {
-    border-color: green;
+  border: 2px solid green;
 }
 
 .toggle-button {
-    margin-left: 5px;
-    cursor: pointer;
+  cursor: pointer;
+}
+.toggle-button:hover {
+  color: rgb(255, 0, 0);
 }
 
 .delete-button {
-    margin-left: 10px;
-    cursor: pointer;
+  cursor: pointer;
+}
+.btn-main {
+  display: flex;
+}
+.btn {
+  background-color: transparent;
+  border: none;
+  color: rgb(6, 6, 250);
+  cursor: pointer;
+}
+.icon-red {
+  color: rgb(255, 0, 0);
+}
+.add-new {
+  font-size: 14px;
+}
+.btn-submit {
+  border: none;
 }
