@@ -5,6 +5,7 @@ import { ProductType } from 'src/app/models/productType';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TagSelectionService } from 'src/app/services/tag-selection.service';
 import { VarietySelectionService } from 'src/app/services/variety-selection.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-prod-create',
@@ -13,7 +14,6 @@ import { VarietySelectionService } from 'src/app/services/variety-selection.serv
 })
 export class ProdCreateComponent implements OnInit {
   productTypes: ProductType[] = [];
-  //varieties: Variety[] = [];
 
   productForm: FormGroup;
   mainImage: string | null = null;
@@ -24,6 +24,7 @@ export class ProdCreateComponent implements OnInit {
 
   constructor(
     private productTypeService: ProductTypeService,
+    private productService: ProductService,
     private tagSelectionService: TagSelectionService,
     private varietySelectionService: VarietySelectionService,
     private formBuilder: FormBuilder
@@ -102,13 +103,22 @@ export class ProdCreateComponent implements OnInit {
       stock: formValues.stock,
       gallery: this.selectedGalleryImages,
       tags: this.tagSelectionService.getSelectedTags(),
-      varieties: this.varietySelectionService.getVarieties(), // Get selected varieties
+      varieties: this.varietySelectionService.getVarieties(),
     };
 
-    console.log('Product:', product);
-    if (this.productForm.valid) {
-      // You can now use the "product" object for further processing
-    }
-  }
+    this.productService.createProduct(product).subscribe(
+      (response) => {
+        console.log('Product created:', response);
+      },
+      (error) => {
+        console.error('Error creating product:', error);
+      }
+    );
 
+    // if (this.productForm.valid) {
+
+    //   console.log('Product:', product);
+    //   // You can now use the "product" object for further processing
+    // }
+  }
 }

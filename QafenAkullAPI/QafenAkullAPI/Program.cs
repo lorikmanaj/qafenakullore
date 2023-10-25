@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using QafenAkullAPI.Core.Implementations.Repositories;
 using QafenAkullAPI.Core.Implementations.Services;
+using QafenAkullAPI.Core.Interfaces.Repositories;
 using QafenAkullAPI.Core.Interfaces.Services;
 using QafenAkullAPI.Domain.Entities;
 using QafenAkullAPI.Infrastructure.Persistence;
@@ -44,6 +46,15 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
     };
 });
+
+//Service Registrations
+builder.Services.AddScoped<IStorageManager>(provider =>
+{
+    // Set the base storage path to "QafenAkullAPI\\Assets"
+    return new StorageManager("QafenAkullAPI\\Assets");
+});
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

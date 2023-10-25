@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QafenAkullAPI.Core.DTO.Product;
+using QafenAkullAPI.Core.Interfaces.Repositories;
 using QafenAkullAPI.Domain.Entities;
 using QafenAkullAPI.Infrastructure.Persistence;
 
@@ -16,10 +17,15 @@ namespace QafenAkullAPI.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly QafenAkullDbContext _context;
+        private readonly IProductRepository _productRepository;
 
-        public ProductsController(QafenAkullDbContext context)
+        public ProductsController(
+            QafenAkullDbContext context,
+            IProductRepository productRepository
+            )
         {
             _context = context;
+            _productRepository = productRepository;
         }
 
         // GET: api/Products
@@ -77,14 +83,10 @@ namespace QafenAkullAPI.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(CreateProductDTO prod)//Product product)
+        public async Task<ActionResult<Product>> PostProduct(CreateProductDTO prod)
         {
-
-            return null;
-            //_context.Products.Add(product);
-            //await _context.SaveChangesAsync();
-
-            //return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+            var createdProduct = await _productRepository.AddProduct(prod);
+            return CreatedAtAction("GetProduct", new { id = createdProduct.ProductId }, createdProduct);
         }
 
         // DELETE: api/Products/5

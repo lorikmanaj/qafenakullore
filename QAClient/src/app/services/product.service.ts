@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { Observable, of, throwError } from 'rxjs';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -121,7 +122,7 @@ export class ProductService {
     }
   ];
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   getProductById(productId: number): Observable<Product> {
     const product = this.products.find((p) => p.id === productId);
@@ -147,5 +148,10 @@ export class ProductService {
   //NDREQE
   getProductsByType(typeId: number): Observable<Product[]> {
     return of(this.products);
+  }
+
+  createProduct(productData: any): Observable<Product> {
+    const path = 'products';
+    return this.apiService.post<Product>(path, productData);
   }
 }
