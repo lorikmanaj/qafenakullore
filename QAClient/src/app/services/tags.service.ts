@@ -7,9 +7,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class TagsService {
   private tagsSubject = new BehaviorSubject<ProductTag[]>([
-    { tagId: 1, tag: '24H', selected: false },
-    { tagId: 2, tag: 'Sale', selected: false },
-    { tagId: 3, tag: 'Discount', selected: false }
+    { tagId: 1, title: '24H', selected: false },
+    { tagId: 2, title: 'Sale', selected: false },
+    { tagId: 3, title: 'Discount', selected: false }
   ]);
   tags$ = this.tagsSubject.asObservable();
 

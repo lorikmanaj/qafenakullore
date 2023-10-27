@@ -83,10 +83,12 @@ namespace QafenAkullAPI.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [RequestSizeLimit(long.MaxValue)]
         public async Task<ActionResult<Product>> PostProduct(CreateProductDTO prod)
         {
             var createdProduct = await _productRepository.AddProduct(prod);
-            return CreatedAtAction("GetProduct", new { id = createdProduct.ProductId }, createdProduct);
+            return Ok();
+            //return CreatedAtAction("GetProduct", new { id = createdProduct.ProductId }, createdProduct);
         }
 
         // DELETE: api/Products/5

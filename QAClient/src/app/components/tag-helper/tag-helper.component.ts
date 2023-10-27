@@ -25,7 +25,7 @@ export class TagHelperComponent implements OnInit {
   createNewTag() {
     if (this.newTag.trim() !== '') {
       const newTagId = this.tags.length + 1;
-      const newTag: ProductTag = { tagId: newTagId, tag: this.newTag, selected: false, created: true };
+      const newTag: ProductTag = { tagId: newTagId, title: this.newTag, selected: false, created: true };
 
       this.tagsService.addNewTag(newTag);
       this.newTag = '';

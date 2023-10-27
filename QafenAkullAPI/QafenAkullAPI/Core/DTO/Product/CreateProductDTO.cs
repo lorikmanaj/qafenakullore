@@ -9,10 +9,14 @@ namespace QafenAkullAPI.Core.DTO.Product
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string MainImage { get; set; }
+        public string MainImg64 { get; set; }
         public string BackgroundImage { get; set; }
+        public string bgImg64 { get; set; }
         public List<string> Gallery { get; set; }
+        public List<string> GalleryBase64 { get; set; }
         public int Stock { get; set; }
         public List<Tag> Tags { get; set; }
         public List<Variety> Varieties { get; set; }
+        public List<string> VarietyBase64 { get; set; }
     }
 }

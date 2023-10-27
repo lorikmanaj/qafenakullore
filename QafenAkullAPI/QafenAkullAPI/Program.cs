@@ -51,7 +51,10 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IStorageManager>(provider =>
 {
     // Set the base storage path to "QafenAkullAPI\\Assets"
-    return new StorageManager("QafenAkullAPI\\Assets");
+    //return new StorageManager("QafenAkullAPI\\Assets");
+    //string baseStoragePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "QafenAkullAPI", "Assets");
+    string baseStoragePath = Path.Combine(@"C:\Lik\Projects\qafenakullore\QafenAkullAPI\QafenAkullAPI", "Assets");
+    return new StorageManager(baseStoragePath);
 });
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();

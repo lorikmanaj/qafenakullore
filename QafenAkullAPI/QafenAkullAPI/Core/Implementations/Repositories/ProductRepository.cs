@@ -34,20 +34,23 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                         Name = prod.Name,
                         Description = prod.Description,
                         Price = prod.Price,
-                        Image = prod.MainImage,
-                        Background = prod.BackgroundImage
                     };
 
                     _context.Products.Add(newProduct);
                     await _context.SaveChangesAsync();
 
-                    // Step 2: Retrieve the ProductId
-                    var productId = newProduct.ProductId;
+                    if (!string.IsNullOrEmpty(prod.MainImage))
+                        newProduct.Image = await _storageManager.HandleImageAsync(prod.MainImg64, newProduct.ProductId, "MainImage");
+                
+                    if (!string.IsNullOrEmpty(prod.BackgroundImage))
+                        newProduct.Background = await _storageManager.HandleImageAsync(prod.bgImg64, newProduct.ProductId, "BackgroundImage");
+
+                    await _context.SaveChangesAsync();
 
                     // Step 3: Insert stock data with the retrieved productId
                     var newStock = new Stock
                     {
-                        ProductId = productId,
+                        ProductId = newProduct.ProductId,
                         Quantity = prod.Stock
                     };
 
@@ -57,39 +60,43 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                     // Step 4: Handle gallery images
                     var gallery = new Gallery
                     {
-                        ProductId = productId
+                        ProductId = newProduct.ProductId
                     };
 
                     _context.Galleries.Add(gallery);
                     await _context.SaveChangesAsync();
 
-                    foreach (var galleryImageSource in prod.Gallery)
+                    foreach (var galleryImageSource in prod.GalleryBase64)
                     {
-                        await _storageManager.HandleImageAsync(galleryImageSource, productId, "Gallery");
+                        string filePath = await _storageManager.HandleImageAsync(galleryImageSource, newProduct.ProductId, "Gallery");
 
                         var itemGallery = new ItemGallery
                         {
                             GalleryId = gallery.GalleryId,
-                            ProductId = productId,
-                            ImageUrl = galleryImageSource
+                            ProductId = newProduct.ProductId,
+                            ImageUrl = filePath
                         };
 
                         _context.ItemGalleries.Add(itemGallery);
                     }
 
                     // Step 5: Handle variety images
-                    foreach (var variety in prod.Varieties)
+                    for (int i = 0; i < prod.Varieties.Count; i++)
                     {
-                        await _storageManager.HandleImageAsync(variety.ImageUrl, productId, "Variety");
+                        var variety = prod.Varieties[i];
+                        var varietyBase64 = prod.VarietyBase64[i];
+
+                        string filePath = await _storageManager.HandleImageAsync(varietyBase64, newProduct.ProductId, "Variety");
 
                         var varietyEntity = new Variety
                         {
-                            ProductId = productId,
+                            ProductId = newProduct.ProductId,
                             Description = variety.Description,
-                            ImageUrl = variety.ImageUrl
+                            ImageUrl = filePath
                         };
                         _context.Varieties.Add(varietyEntity);
                     }
+
 
                     // Step 6: Handle product tags
                     foreach (var tag in prod.Tags)
@@ -105,7 +112,7 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                             // Create a record in ProductTags
                             var productTag = new ProductTag
                             {
-                                ProductId = productId,
+                                ProductId = newProduct.ProductId,
                                 Tag = newTag
                             };
                             _context.ProductTags.Add(productTag);
@@ -115,7 +122,7 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                             // Tag already exists, create a record in ProductTags
                             var productTag = new ProductTag
                             {
-                                ProductId = productId,
+                                ProductId = newProduct.ProductId,
                                 TagId = existingTag.TagId
                             };
                             _context.ProductTags.Add(productTag);

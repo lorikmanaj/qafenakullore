@@ -3,5 +3,8 @@ export interface Variety {
     productId?: number;
     description: string;
     file?: File | null;
-    imageUrl: string | null; // Add imageUrl property
+    imageUrl: string; // Add imageUrl property
+
+    //Change
+    imageBase64?: string[];
 }

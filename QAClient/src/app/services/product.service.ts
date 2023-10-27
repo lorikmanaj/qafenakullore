@@ -13,7 +13,7 @@ export class ProductService {
       name: 'Product 1',
       description: 'Description for Product 1',
       price: 19.99,
-      image: 'https://example.com/product1.jpg',
+      mainImage: 'https://example.com/product1.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
       varieties: [
@@ -27,7 +27,7 @@ export class ProductService {
       name: 'Product 2',
       description: 'Description for Product 2',
       price: 24.99,
-      image: 'https://example.com/product2.jpg',
+      mainImage: 'https://example.com/product2.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 2,
       varieties: [
@@ -41,7 +41,7 @@ export class ProductService {
       name: 'Product 3',
       description: 'Description for Product 3',
       price: 29.99,
-      image: 'https://example.com/product3.jpg',
+      mainImage: 'https://example.com/product3.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 3,
       varieties: [
@@ -55,7 +55,7 @@ export class ProductService {
       name: 'Product 4',
       description: 'Description for Product 4',
       price: 34.99,
-      image: 'https://example.com/product4.jpg',
+      mainImage: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
       varieties: [
@@ -69,7 +69,7 @@ export class ProductService {
       name: 'Product 5',
       description: 'Description for Product 4',
       price: 34.99,
-      image: 'https://example.com/product4.jpg',
+      mainImage: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 8,
       varieties: [
@@ -83,7 +83,7 @@ export class ProductService {
       name: 'Product 6',
       description: 'Description for Product 4',
       price: 34.99,
-      image: 'https://example.com/product4.jpg',
+      mainImage: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
       varieties: [
@@ -97,7 +97,7 @@ export class ProductService {
       name: 'Product 7',
       description: 'Description for Product 4',
       price: 34.99,
-      image: 'https://example.com/product4.jpg',
+      mainImage: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
       varieties: [
@@ -111,7 +111,7 @@ export class ProductService {
       name: 'Product 8',
       description: 'Description for Product 4',
       price: 34.99,
-      image: 'https://example.com/product4.jpg',
+      mainImage: 'https://example.com/product4.jpg',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       quantity: 1,
       varieties: [
@@ -154,4 +154,7 @@ export class ProductService {
     const path = 'products';
     return this.apiService.post<Product>(path, productData);
   }
+
+
+
 }

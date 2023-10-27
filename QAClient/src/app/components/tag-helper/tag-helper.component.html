@@ -9,7 +9,7 @@
 
 <div *ngFor="let tag of tags; let i = index">
     <div class="tag" [ngClass]="{'selected': tag.selected}">
-        {{ tag.tag }}
+        {{ tag.title }}
         <button class="toggle-button" (click)="check(tag)">+</button>
         <button class="toggle-button" (click)="unCheck(tag)">-</button>
         <button class="delete-button" (click)="deleteTag(tag)">X</button>

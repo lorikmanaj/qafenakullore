@@ -90,7 +90,18 @@ export class ProdCreateComponent implements OnInit {
     this.backgroundImage = null;
   }
 
-  createProduct() {
+  async convertImageToBase64(imageUrl: string): Promise<string> {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  createProduct1() {
     const formValues = this.productForm.value;
 
     const product = {
@@ -104,6 +115,9 @@ export class ProdCreateComponent implements OnInit {
       gallery: this.selectedGalleryImages,
       tags: this.tagSelectionService.getSelectedTags(),
       varieties: this.varietySelectionService.getVarieties(),
+      //HERE
+      galleryBase64: [],
+      varietyBase64: [],
     };
 
     this.productService.createProduct(product).subscribe(
@@ -121,4 +135,68 @@ export class ProdCreateComponent implements OnInit {
     //   // You can now use the "product" object for further processing
     // }
   }
+
+  async createProduct() {
+    const formValues = this.productForm.value;
+
+    const product = {
+      productType: formValues.productType,
+      name: formValues.name,
+      description: formValues.description,
+      price: formValues.price,
+      mainImage: this.mainImage,
+      backgroundImage: this.backgroundImage,
+      stock: formValues.stock,
+      gallery: this.selectedGalleryImages,
+      tags: this.tagSelectionService.getSelectedTags(),
+      varieties: this.varietySelectionService.getVarieties(),
+      mainImg64: '',
+      bgImg64: '', // Initialize, this will be assigned later
+      galleryBase64: [''], // Initialize, this will be assigned later
+      varietyBase64: [''], // Initialize, this will be assigned later
+    };
+
+    // Function to convert an image URL to Base64
+    const convertImageToBase64 = async (imageUrl: string) => {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const reader = new FileReader();
+      return new Promise<string>((resolve) => {
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.readAsDataURL(blob);
+      });
+    };
+
+    // Convert mainImage to Base64
+    if (product.mainImage) {
+      product.mainImg64 = await convertImageToBase64(product.mainImage);
+    }
+
+    // Convert backgroundImage to Base64
+    if (product.backgroundImage) {
+      product.bgImg64 = await convertImageToBase64(product.backgroundImage);
+    }
+
+    // Convert gallery images to Base64 using map
+    product.galleryBase64 = await Promise.all(
+      product.gallery.map(async (imageUrl) => await convertImageToBase64(imageUrl))
+    ) as string[];
+
+    // Convert variety images to Base64 using map
+    product.varietyBase64 = await Promise.all(
+      product.varieties.map(async (variety) => await convertImageToBase64(variety.imageUrl))
+    ) as string[];
+
+    console.log(product);
+    //Send the product to your API
+    this.productService.createProduct(product).subscribe(
+      (response) => {
+        console.log('Product created:', response);
+      },
+      (error) => {
+        console.error('Error creating product:', error);
+      }
+    );
+  }
+
 }
