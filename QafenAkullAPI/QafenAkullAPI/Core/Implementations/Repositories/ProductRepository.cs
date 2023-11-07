@@ -21,6 +21,7 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
             this._storageManager = storageManager;
         }
 
+        public async Task<List<Product>> GetProducts()
         public async Task<Product> AddProduct(CreateProductDTO prod)
         {
             using (var transaction = _context.Database.BeginTransaction())
