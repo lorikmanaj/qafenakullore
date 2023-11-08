@@ -1,9 +1,13 @@
 .container {
   margin: 20px;
-  padding: 20px;
+  padding: 20px 100px 20px 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  box-sizing: border-box;
+  width: 1500px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
 }
 
 .gallery-thumbnails {
@@ -48,4 +52,26 @@ button:hover {
 
 input[type="file"] {
   display: none;
+}
+/* .form-prod-type {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 60px;
+}
+label[for="productType"] {
+  margin-right: 10px;
+} */
+.column-desc {
+  display: flex;
+  max-width: 430px;
+}
+
+input[type="button"] {
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  white-space: nowrap;
+}
+label[for="description"] {
+  margin-left: 5px;
 }
