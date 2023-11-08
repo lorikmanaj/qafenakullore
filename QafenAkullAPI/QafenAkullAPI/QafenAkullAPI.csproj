@@ -25,6 +25,7 @@
     <Folder Include="Assets\Images\Products\1\Varieties\" />
     <Folder Include="Core\Implementations\Generics\" />
     <Folder Include="Core\Interfaces\Generics\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

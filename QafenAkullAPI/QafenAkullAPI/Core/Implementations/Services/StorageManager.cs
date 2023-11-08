@@ -69,36 +69,6 @@ namespace QafenAkullAPI.Core.Implementations.Services
             return filePath;
         }
 
-        public async Task<byte[]> ConvertBlobUriToBytes(string blobUri)
-        {
-            if (blobUri.StartsWith("blob:"))
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    byte[] content = await client.GetByteArrayAsync(blobUri);
-
-                    return content;
-                }
-            }
-            return new byte[0];
-        }
-
-        private async Task<byte[]> GetImageBytesFromImageSource(string imageSource)
-        {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                try
-                {
-                    byte[] imageBytes = await httpClient.GetByteArrayAsync(imageSource);
-                    return imageBytes;
-                }
-                catch (HttpRequestException ex)
-                {
-                    throw new Exception("Error downloading image.", ex);
-                }
-            }
-        }
-
         byte[] IStorageManager.ConvertBlobUriToBytes(string blobUri)
         {
             throw new NotImplementedException();
@@ -129,6 +99,5 @@ namespace QafenAkullAPI.Core.Implementations.Services
                 return new byte[0];
             }
         }
-
     }
 }
