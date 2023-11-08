@@ -1,11 +1,11 @@
 import { Variety } from 'src/app/models/variety';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ProductTypeService } from './../../services/product-type.service';
+import { ProductTypeService } from '../../../services/products/product-type.service';
 import { ProductType } from 'src/app/models/productType';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TagSelectionService } from 'src/app/services/tag-selection.service';
 import { VarietySelectionService } from 'src/app/services/variety-selection.service';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/services/products/product.service';
 
 @Component({
   selector: 'app-prod-create',

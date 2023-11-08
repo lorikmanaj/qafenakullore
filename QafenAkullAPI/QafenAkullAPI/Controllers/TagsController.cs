@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using QafenAkullAPI.Core.Interfaces.Repositories;
 using QafenAkullAPI.Domain.Entities;
 using QafenAkullAPI.Infrastructure.Persistence;
 
@@ -13,51 +12,47 @@ namespace QafenAkullAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrdersController : ControllerBase
+    public class TagsController : ControllerBase
     {
         private readonly QafenAkullDbContext _context;
-        private readonly IOrderRepository _orderRepository;
 
-        public OrdersController(QafenAkullDbContext context,
-            IOrderRepository orderRepository
-            )
+        public TagsController(QafenAkullDbContext context)
         {
             _context = context;
-            _orderRepository = orderRepository;
         }
 
-        // GET: api/Orders
+        // GET: api/Tags
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<Tag>>> GetTags()
         {
-            return await _orderRepository.GetOrders();
+            return await _context.Tags.ToListAsync();
         }
 
-        // GET: api/Orders/5
+        // GET: api/Tags/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(int id)
+        public async Task<ActionResult<Tag>> GetTag(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var tag = await _context.Tags.FindAsync(id);
 
-            if (order == null)
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            return order;
+            return tag;
         }
 
-        // PUT: api/Orders/5
+        // PUT: api/Tags/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, Order order)
+        public async Task<IActionResult> PutTag(int id, Tag tag)
         {
-            if (id != order.OrderId)
+            if (id != tag.TagId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(order).State = EntityState.Modified;
+            _context.Entry(tag).State = EntityState.Modified;
 
             try
             {
@@ -65,7 +60,7 @@ namespace QafenAkullAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderExists(id))
+                if (!TagExists(id))
                 {
                     return NotFound();
                 }
@@ -78,36 +73,36 @@ namespace QafenAkullAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Orders
+        // POST: api/Tags
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        public async Task<ActionResult<Tag>> PostTag(Tag tag)
         {
-            _context.Orders.Add(order);
+            _context.Tags.Add(tag);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrder", new { id = order.OrderId }, order);
+            return CreatedAtAction("GetTag", new { id = tag.TagId }, tag);
         }
 
-        // DELETE: api/Orders/5
+        // DELETE: api/Tags/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrder(int id)
+        public async Task<IActionResult> DeleteTag(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null)
+            var tag = await _context.Tags.FindAsync(id);
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            _context.Orders.Remove(order);
+            _context.Tags.Remove(tag);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool OrderExists(int id)
+        private bool TagExists(int id)
         {
-            return _context.Orders.Any(e => e.OrderId == id);
+            return _context.Tags.Any(e => e.TagId == id);
         }
     }
 }

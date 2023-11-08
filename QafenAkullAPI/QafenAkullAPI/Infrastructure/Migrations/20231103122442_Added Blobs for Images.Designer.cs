@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QafenAkullAPI.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using QafenAkullAPI.Infrastructure.Persistence;
 namespace QafenAkullAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(QafenAkullDbContext))]
-    partial class QafenAkullDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231103122442_Added Blobs for Images")]
+    partial class AddedBlobsforImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e70e4f82-adcc-42c7-badc-eb9979a21eb8",
+                            Id = "59a3be12-0ecf-4e09-813e-a889b228fd71",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "509ad108-149f-4230-9099-79591caf05e8",
+                            Id = "2c6f0420-b5dc-44f2-b93c-75ffa6b85f9b",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -383,9 +386,6 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -403,11 +403,11 @@ namespace QafenAkullAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.OrderProduct", b =>
                 {
-                    b.Property<int>("OrderProductId")
+                    b.Property<int>("OPId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderProductId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OPId"));
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -415,7 +415,7 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderProductId");
+                    b.HasKey("OPId");
 
                     b.HasIndex("OrderId");
 

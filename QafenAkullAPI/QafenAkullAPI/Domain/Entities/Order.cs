@@ -26,6 +26,7 @@ namespace QafenAkullAPI.Domain.Entities
         public int PaymentMethodId { get; set; }
 
         public string OrderNotes { get; set; }
+        public decimal Total { get; set; }
 
         public List<OrderProduct> OrderProducts { get; set; } // One-to-Many relationship
         public List<Discount> Discounts { get; set; } // Many-to-Many relationship

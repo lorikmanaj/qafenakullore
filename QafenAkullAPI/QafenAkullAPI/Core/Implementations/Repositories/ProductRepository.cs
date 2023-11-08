@@ -22,6 +22,17 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
         }
 
         public async Task<List<Product>> GetProducts()
+        {
+            var prods = await _context.Products
+                .Include(_ => _.Galleries)
+                .Include(_ => _.Varieties)
+                .Include(_ => _.ProductReviews)
+                .Include(_ => _.ItemGalleries)
+                .Include(_ => _.ProductTags)
+                .ToListAsync();
+            return prods;
+        }
+
         public async Task<Product> AddProduct(CreateProductDTO prod)
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -35,16 +46,25 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                         Name = prod.Name,
                         Description = prod.Description,
                         Price = prod.Price,
+                        MainImageBlob = prod.MainImage,
+                        BgImageBlob = prod.BackgroundImage
                     };
 
                     _context.Products.Add(newProduct);
                     await _context.SaveChangesAsync();
 
                     if (!string.IsNullOrEmpty(prod.MainImage))
+                        newProduct.MainImageBlob = await _storageManager.HandleImageAsync(prod.MainImg64, newProduct.ProductId, "MainImage");
+
+                    if (!string.IsNullOrEmpty(prod.MainImage))
                         newProduct.Image = await _storageManager.HandleImageAsync(prod.MainImg64, newProduct.ProductId, "MainImage");
-                
+
+                    if (!string.IsNullOrEmpty(prod.MainImage))
+                        newProduct.Image = await _storageManager.HandleImageAsync(prod.MainImg64, newProduct.ProductId, "MainImage");
+
+
                     if (!string.IsNullOrEmpty(prod.BackgroundImage))
-                        newProduct.Background = await _storageManager.HandleImageAsync(prod.bgImg64, newProduct.ProductId, "BackgroundImage");
+                        newProduct.Background = await _storageManager.HandleImageAsync(prod.BgImg64, newProduct.ProductId, "BackgroundImage");
 
                     await _context.SaveChangesAsync();
 
@@ -58,6 +78,10 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                     _context.Stocks.Add(newStock);
                     await _context.SaveChangesAsync();
 
+                    //Add StockId POST Creation
+                    newProduct.StockId = newStock.StockId;
+                    await _context.SaveChangesAsync();
+
                     // Step 4: Handle gallery images
                     var gallery = new Gallery
                     {
@@ -67,19 +91,34 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                     _context.Galleries.Add(gallery);
                     await _context.SaveChangesAsync();
 
-                    foreach (var galleryImageSource in prod.GalleryBase64)
+                    for (int i = 0; i < prod.GalleryBase64.Count; i++)
                     {
-                        string filePath = await _storageManager.HandleImageAsync(galleryImageSource, newProduct.ProductId, "Gallery");
+                        string filePath = await _storageManager.HandleImageAsync(prod.GalleryBase64[i], newProduct.ProductId, "Gallery");
 
                         var itemGallery = new ItemGallery
                         {
                             GalleryId = gallery.GalleryId,
                             ProductId = newProduct.ProductId,
-                            ImageUrl = filePath
+                            ImageUrl = filePath,
+                            ImageBlob = prod.Gallery[i]
                         };
 
                         _context.ItemGalleries.Add(itemGallery);
                     }
+
+                    //foreach (var galleryImageSource in prod.GalleryBase64)
+                    //{
+                    //    string filePath = await _storageManager.HandleImageAsync(galleryImageSource, newProduct.ProductId, "Gallery");
+
+                    //    var itemGallery = new ItemGallery
+                    //    {
+                    //        GalleryId = gallery.GalleryId,
+                    //        ProductId = newProduct.ProductId,
+                    //        ImageUrl = filePath
+                    //    };
+
+                    //    _context.ItemGalleries.Add(itemGallery);
+                    //}
 
                     // Step 5: Handle variety images
                     for (int i = 0; i < prod.Varieties.Count; i++)
@@ -93,11 +132,11 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                         {
                             ProductId = newProduct.ProductId,
                             Description = variety.Description,
-                            ImageUrl = filePath
+                            ImageUrl = filePath,
+                            ImageBlob = prod.Varieties[i].ImageUrl
                         };
                         _context.Varieties.Add(varietyEntity);
                     }
-
 
                     // Step 6: Handle product tags
                     foreach (var tag in prod.Tags)

@@ -10,6 +10,7 @@ namespace QafenAkullAPI.Domain.Entities
         public int GalleryId { get; set; }
         public int ProductId { get; set; }
         public string ImageUrl { get; set; }
+        public string ImageBlob { get; set; }
 
         [ForeignKey("GalleryId")]
         public Gallery Gallery { get; set; } // Many-to-One relationship

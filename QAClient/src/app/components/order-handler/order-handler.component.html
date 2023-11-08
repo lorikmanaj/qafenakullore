@@ -1,1 +1,28 @@
-<p>order-handler works!</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Client</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Shipping Address</th>
+            <th>Payment</th>
+            <th>Notes</th>
+            <th>Total</th>
+            <th>Discounts</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders">
+            <td>{{ order.orderId }}</td>
+            <td>{{ order.user?.email + ' | ' + order.user?.firstName + ' ' + order.user?.lastName }}</td>
+            <td>{{ order.date }}</td>
+            <td>{{ order.orderStatus?.status }}</td>
+            <td>{{ order.shippingAddress }}</td>
+            <td>{{ order.paymentMethod?.name }}</td>
+            <td>{{ order.orderNotes }}</td>
+            <td>{{ order.total }}</td>
+            <td>{{ order.discounts?.length }}</td>
+        </tr>
+    </tbody>
+</table>

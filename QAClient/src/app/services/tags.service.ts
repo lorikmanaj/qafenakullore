@@ -1,34 +1,36 @@
 import { Injectable } from '@angular/core';
-import { ProductTag } from '../models/productTag';
+import { Tag } from '../models/tag';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ApiService } from './global/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagsService {
-  private tagsSubject = new BehaviorSubject<ProductTag[]>([
+  private tagsSubject = new BehaviorSubject<Tag[]>([
     { tagId: 1, title: '24H', selected: false },
     { tagId: 2, title: 'Sale', selected: false },
     { tagId: 3, title: 'Discount', selected: false }
   ]);
   tags$ = this.tagsSubject.asObservable();
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
-  getAvailableTags(): Observable<ProductTag[]> {
-    return this.tags$;
+  getAvailableTags(): Observable<Tag[]> {
+    return this.apiService.get<Tag[]>('Tags');
+    //return this.tags$;
   }
 
-  getAvailableTagById(tagId: number): ProductTag | undefined {
-    return this.tagsSubject.value.find((tag: ProductTag) => tag.tagId === tagId);
+  getAvailableTagById(tagId: number): Tag | undefined {
+    return this.tagsSubject.value.find((tag: Tag) => tag.tagId === tagId);
   }
 
-  addNewTag(newTag: ProductTag): void {
+  addNewTag(newTag: Tag): void {
     this.tagsSubject.next([...this.tagsSubject.value, newTag]);
   }
 
-  updateTag(updatedTag: ProductTag): void {
-    const updatedTags = this.tagsSubject.value.map((tag: ProductTag) => {
+  updateTag(updatedTag: Tag): void {
+    const updatedTags = this.tagsSubject.value.map((tag: Tag) => {
       if (tag.tagId === updatedTag.tagId) {
         return { ...tag, selected: updatedTag.selected };
       }
@@ -38,7 +40,7 @@ export class TagsService {
   }
 
   removeTag(tagId: number): void {
-    const updatedTags = this.tagsSubject.value.filter((tag: ProductTag) => tag.tagId !== tagId);
+    const updatedTags = this.tagsSubject.value.filter((tag: Tag) => tag.tagId !== tagId);
     this.tagsSubject.next(updatedTags);
   }
 }

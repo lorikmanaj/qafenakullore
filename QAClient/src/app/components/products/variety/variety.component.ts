@@ -13,7 +13,7 @@ export class VarietyComponent {
   constructor(private varietySelectionService: VarietySelectionService) { }
 
   addVariety() {
-    this.varietyForms.push({ description: '', imageUrl: '' });
+    this.varietyForms.push({ description: '', imageUrl: '', imageBlob: '' });
   }
 
   onImageSelected(event: any, index: number) {

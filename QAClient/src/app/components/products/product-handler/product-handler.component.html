@@ -24,7 +24,7 @@
       <td>{{ product.name }}</td>
       <td>{{ product.description }}</td>
       <td>{{ product.price }}</td>
-      <!-- ... and so on -->
+      <td><img [src]="sanitizeUrl(product.mainImageBlob)" alt="Product Image" width="100" height="100"></td>
       <td>
         <button (click)="openGalleryEditor(product)">Edit Gallery</button>
       </td>

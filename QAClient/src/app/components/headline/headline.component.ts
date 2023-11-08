@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/services/products/product.service';
 import {
 
   faTruck,
@@ -14,7 +14,7 @@ import {
   styleUrls: ['./headline.component.css']
 })
 export class HeadlineComponent {
-  faTruck =faTruck;
+  faTruck = faTruck;
   faMedal = faMedal;
   faHeadset = faHeadset;
   @Input() headlineProduct!: Product;

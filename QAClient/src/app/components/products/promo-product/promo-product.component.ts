@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/services/products/product.service';
 import { Product } from 'src/app/models/product';
 import { catchError } from 'rxjs/operators';
 
@@ -16,7 +16,9 @@ export class PromoProductComponent implements OnInit {
       description: 'Description for Product 1',
       price: 19.99,
       mainImage: 'https://example.com/product1.jpg',
+      mainImageBlob: '',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      bgImageBlob: '',
       quantity: 1,
       varieties: [],
       tags: []
@@ -27,7 +29,9 @@ export class PromoProductComponent implements OnInit {
       description: 'Description for Product 2',
       price: 24.99,
       mainImage: 'https://example.com/product2.jpg',
+      mainImageBlob: '',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      bgImageBlob: '',
       quantity: 1,
       varieties: [],
       tags: []
@@ -38,7 +42,9 @@ export class PromoProductComponent implements OnInit {
       description: 'Description for Product 3',
       price: 29.99,
       mainImage: 'https://example.com/product3.jpg',
+      mainImageBlob: '',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      bgImageBlob: '',
       quantity: 1,
       varieties: [],
       tags: []
@@ -49,7 +55,9 @@ export class PromoProductComponent implements OnInit {
       description: 'Description for Product 4',
       price: 34.99,
       mainImage: 'https://example.com/product4.jpg',
+      mainImageBlob: '',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      bgImageBlob: '',
       quantity: 1,
       varieties: [],
       tags: []
@@ -60,7 +68,9 @@ export class PromoProductComponent implements OnInit {
       description: 'Description for Product 4',
       price: 34.99,
       mainImage: 'https://example.com/product4.jpg',
+      mainImageBlob: '',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      bgImageBlob: '',
       quantity: 1,
       varieties: [],
       tags: []
@@ -71,7 +81,9 @@ export class PromoProductComponent implements OnInit {
       description: 'Description for Product 4',
       price: 34.99,
       mainImage: 'https://example.com/product4.jpg',
+      mainImageBlob: '',
       bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      bgImageBlob: '',
       quantity: 1,
       varieties: [],
       tags: []

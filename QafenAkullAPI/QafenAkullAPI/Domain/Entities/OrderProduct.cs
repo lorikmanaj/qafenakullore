@@ -6,7 +6,7 @@ namespace QafenAkullAPI.Domain.Entities
     public class OrderProduct
     {
         [Key]
-        public int OPId { get; set; }
+        public int OrderProductId { get; set; }
         [ForeignKey(nameof(OrderId))]
         public int OrderId { get; set; }
         [ForeignKey(nameof(ProductId))]

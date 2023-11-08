@@ -3,10 +3,11 @@ import { Product } from 'src/app/models/product';
 import { MatDialog } from '@angular/material/dialog';
 import { ProdGalleryEditorComponent } from '../prod-gallery-editor/prod-gallery-editor.component';
 import { ProdReviewEditorComponent } from '../prod-review-editor/prod-review-editor.component';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/services/products/product.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProdCreateComponent } from '../prod-create/prod-create.component';
 import { VarietyComponent } from '../variety/variety.component';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-handler',
@@ -19,21 +20,29 @@ export class ProductHandlerComponent {
   page: number = 1;
   paginatedProducts: Product[] = [];
 
-  constructor(private productService: ProductService,
+  constructor(private sanitizer: DomSanitizer,
+    private productService: ProductService,
     private dialog: MatDialog) {
 
   }
 
   ngOnInit() {
     this.productService.getProducts().subscribe((products) => {
+      console.log('Products', products)
       this.products = products;
       this.paginatedProducts = this.products.slice(0, this.pageSize); // Initial page
     });
   }
 
+  sanitizeUrl(url: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
   paginateProducts() {
-    const startIndex = (this.page - 1) * this.pageSize;
-    this.paginatedProducts = this.products.slice(startIndex, startIndex + this.pageSize);
+    if (this.products && this.products.length > 0) {
+      const startIndex = (this.page - 1) * this.pageSize;
+      this.paginatedProducts = this.products.slice(startIndex, startIndex + this.pageSize);
+    }
   }
 
   openVarietyEditor(product: Product) {

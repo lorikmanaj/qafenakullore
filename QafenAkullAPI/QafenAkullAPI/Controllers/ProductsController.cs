@@ -32,7 +32,7 @@ namespace QafenAkullAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            return await _productRepository.GetProducts();
         }
 
         // GET: api/Products/5

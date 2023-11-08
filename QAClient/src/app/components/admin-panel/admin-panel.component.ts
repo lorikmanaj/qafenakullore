@@ -1,5 +1,5 @@
 import { Component, Type } from '@angular/core';
-import { ProductHandlerComponent } from './../product-handler/product-handler.component';
+import { ProductHandlerComponent } from '../products/product-handler/product-handler.component';
 import { OrderHandlerComponent } from '../order-handler/order-handler.component';
 
 @Component({

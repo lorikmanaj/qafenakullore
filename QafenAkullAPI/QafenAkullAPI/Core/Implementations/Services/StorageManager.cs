@@ -69,71 +69,6 @@ namespace QafenAkullAPI.Core.Implementations.Services
             return filePath;
         }
 
-        public async Task HandleImageAsync2(string imageSource, int productId, string subdirectory)
-        {
-            byte[] imageBytes;
-
-            if (imageSource.StartsWith("data:image/"))
-            {
-                string base64Data = imageSource.Split(',')[1]; // Remove the data URI prefix
-                imageBytes = ConvertBase64StringToBytes(base64Data);
-            }
-            else if (Uri.TryCreate(imageSource, UriKind.Absolute, out Uri uri) && uri.Scheme == "blob")
-            {
-                imageBytes = await ConvertBlobUriToBytes(imageSource);
-            }
-            else
-            {
-                imageBytes = await GetImageBytesFromImageSource(imageSource);
-            }
-
-            string fileExtension = GetFileExtensionFromImageSource(imageSource);
-            string fileName = $"{Guid.NewGuid()}{fileExtension}";
-            string filePath = await GetProductImagePathAsync(productId, subdirectory, fileName);
-            await SaveFileAsync(filePath, imageBytes);
-        }
-
-        public async Task HandleImageAsync1(string imageSource, int productId, string subdirectory)
-        {
-            
-            // Check if the imageSource uses the "blob" scheme
-            if (Uri.TryCreate(imageSource, UriKind.Absolute, out Uri uri) && uri.Scheme == "blob")
-            {
-                // Handle blob data differently, depending on your requirements
-                // You might need to extract the data from the blob URI or use it in some way
-                // For example, if it's an in-memory image, you can convert it to bytes and save it.
-                byte[] imageBytes = await ConvertBlobUriToBytes(imageSource);
-
-                // Continue with saving the imageBytes to the desired location
-                string fileExtension = GetFileExtensionFromImageSource(imageSource);
-                string fileName = $"{Guid.NewGuid()}{fileExtension}";
-                string filePath = await GetProductImagePathAsync(productId, subdirectory, fileName);
-                await SaveFileAsync(filePath, imageBytes);
-            }
-            else
-            {
-                // Handle other types of image sources (e.g., HTTP URLs) here
-                byte[] imageBytes = await GetImageBytesFromImageSource(imageSource);
-                string fileExtension = GetFileExtensionFromImageSource(imageSource);
-                string fileName = $"{Guid.NewGuid()}{fileExtension}";
-                string filePath = await GetProductImagePathAsync(productId, subdirectory, fileName);
-                await SaveFileAsync(filePath, imageBytes);
-            }
-        }
-
-        //public byte[] ConvertBlobUriToBytes(string blobUri)
-        //{
-        //    // Implement the logic to convert data from the blob URI to a byte array
-        //    // For example, if the blob contains base64-encoded image data, you can decode it
-        //    if (blobUri.StartsWith("blob:"))
-        //    {
-        //        string base64Data = blobUri.Substring(blobUri.IndexOf(',') + 1); // Remove the data URI prefix
-        //        return Convert.FromBase64String(base64Data);
-        //    }
-
-        //    return new byte[0];
-        //}
-
         public async Task<byte[]> ConvertBlobUriToBytes(string blobUri)
         {
             if (blobUri.StartsWith("blob:"))
@@ -173,5 +108,27 @@ namespace QafenAkullAPI.Core.Implementations.Services
         {
             return Convert.FromBase64String(base64String);
         }
+
+        public byte[] GenerateBlobFromImage(string imageBase64, string imagePath)
+        {
+            if (!string.IsNullOrEmpty(imageBase64))
+            {
+                // Handle base64-encoded image
+                return ConvertBase64StringToBytes(imageBase64.Split(',')[1]);
+            }
+            else if (!string.IsNullOrEmpty(imagePath))
+            {
+                // Handle image from file
+                // Read the image from the file and convert it to a byte array
+                byte[] imageBytes = File.ReadAllBytes(imagePath);
+                return imageBytes;
+            }
+            else
+            {
+                // Handle the case when no image data is provided (return null or an empty array)
+                return new byte[0];
+            }
+        }
+
     }
 }

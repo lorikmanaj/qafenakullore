@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ProductTag } from 'src/app/models/productTag';
+import { Tag } from '../models/tag';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TagSelectionService {
-  private selectedTagsSubject = new BehaviorSubject<ProductTag[]>([]);
-  selectedTags$: Observable<ProductTag[]> = this.selectedTagsSubject.asObservable();
+  private selectedTagsSubject = new BehaviorSubject<Tag[]>([]);
+  selectedTags$: Observable<Tag[]> = this.selectedTagsSubject.asObservable();
 
   constructor() { }
 
-  setSelectedTags(tags: ProductTag[]): void {
+  setSelectedTags(tags: Tag[]): void {
     this.selectedTagsSubject.next(tags);
   }
 
-  getSelectedTags(): ProductTag[] {
+  getSelectedTags(): Tag[] {
     return this.selectedTagsSubject.value;
   }
 }

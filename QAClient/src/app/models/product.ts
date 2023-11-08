@@ -1,4 +1,4 @@
-import { ProductTag } from "./productTag";
+import { Tag } from "./tag";
 import { Variety } from "./variety";
 
 export interface Product {
@@ -7,11 +7,13 @@ export interface Product {
     description: string;
     price: number;
     mainImage: string; // You can use a URL or a local path to an image
+    mainImageBlob: string;
     bg: string;
+    bgImageBlob: string;
     quantity: number;
     // galleries: Gallery
     varieties: Variety[];
-    tags: ProductTag[];
+    tags: Tag[];
 
     //Change
     mainImg64?: string;

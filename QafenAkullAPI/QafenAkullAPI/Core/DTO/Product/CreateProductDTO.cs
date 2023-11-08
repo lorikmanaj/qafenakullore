@@ -11,7 +11,7 @@ namespace QafenAkullAPI.Core.DTO.Product
         public string MainImage { get; set; }
         public string MainImg64 { get; set; }
         public string BackgroundImage { get; set; }
-        public string bgImg64 { get; set; }
+        public string BgImg64 { get; set; }
         public List<string> Gallery { get; set; }
         public List<string> GalleryBase64 { get; set; }
         public int Stock { get; set; }

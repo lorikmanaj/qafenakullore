@@ -1,13 +1,10 @@
 import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
-import { ProductListingComponent } from './components/product-listing/product-listing.component';
+import { ProductListingComponent } from './components/products/product-listing/product-listing.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthComponent } from './auth/auth.component'
-import { AuthGuard } from './guards/auth-guard.service';
 
-import { ProductDetailsComponent } from './components/product-details/product-details.component'
-import { UserService } from "./services/user.service";
-import { map } from "rxjs/operators";
+import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { LoginComponent } from './components/login/login.component';
 

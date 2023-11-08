@@ -1,4 +1,4 @@
-export interface ProductTag {
+export interface Tag {
     tagId?: number;
     title: string;
     selected?: boolean;

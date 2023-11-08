@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductTag } from 'src/app/models/productTag';
+import { Tag } from 'src/app/models/tag';
 import { TagsService } from 'src/app/services/tags.service';
 import { TagSelectionService } from './../../services/tag-selection.service';
 
@@ -9,7 +9,7 @@ import { TagSelectionService } from './../../services/tag-selection.service';
   styleUrls: ['./tag-helper.component.css']
 })
 export class TagHelperComponent implements OnInit {
-  tags: ProductTag[] = [];
+  tags: Tag[] = [];
   showCreateNewTagForm: boolean = false;
   newTag: string = '';
 
@@ -25,21 +25,21 @@ export class TagHelperComponent implements OnInit {
   createNewTag() {
     if (this.newTag.trim() !== '') {
       const newTagId = this.tags.length + 1;
-      const newTag: ProductTag = { tagId: newTagId, title: this.newTag, selected: false, created: true };
+      const newTag: Tag = { tagId: newTagId, title: this.newTag, selected: false, created: true };
 
       this.tagsService.addNewTag(newTag);
       this.newTag = '';
     }
   }
 
-  check(tag: ProductTag) {
+  check(tag: Tag) {
     tag.selected = true;
     this.tagsService.updateTag(tag);
     const selectedTags = this.tagSelectionService.getSelectedTags();
     this.tagSelectionService.setSelectedTags([...selectedTags, tag]);
   }
 
-  unCheck(tag: ProductTag) {
+  unCheck(tag: Tag) {
     tag.selected = false;
     this.tagsService.updateTag(tag);
     const selectedTags = this.tagSelectionService.getSelectedTags();
@@ -47,7 +47,7 @@ export class TagHelperComponent implements OnInit {
     this.tagSelectionService.setSelectedTags(updatedSelectedTags);
   }
 
-  deleteTag(tag: ProductTag) {
+  deleteTag(tag: Tag) {
     const index = this.tags.indexOf(tag);
     if (index !== -1) {
       const tagId = tag.tagId as number;
