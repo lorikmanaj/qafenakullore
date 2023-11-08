@@ -1,9 +1,6 @@
 <div>
   <h3>Tags</h3>
-  <button
-    class="btn add-new"
-    (click)="showCreateNewTagForm = !showCreateNewTagForm"
-  >
+  <button class="btn add-new" (click)="showCreateNewTagForm = !showCreateNewTagForm">
     Add New Tag +
   </button>
   <div *ngIf="showCreateNewTagForm" class="tag">
@@ -14,7 +11,7 @@
 <div class="btn-main">
   <div *ngFor="let tag of tags; let i = index">
     <div class="tag" [ngClass]="{ selected: tag.selected }">
-      {{ tag.tag }}
+      {{ tag.title }}
       <button class="btn toggle-button" (click)="check(tag)">+</button>
       <button class="btn toggle-button" (click)="unCheck(tag)">-</button>
       <i faf class="fa fa-trash-o icon-red" (click)="deleteTag(tag)"></i>
