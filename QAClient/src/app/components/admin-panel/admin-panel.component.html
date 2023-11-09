@@ -1,18 +1,16 @@
 <div class="container">
-  <ul>
-    <li (click)="openModule('products')">Products</li>
-    <li (click)="openModule('orders')">Orders</li>
-    <li (click)="openModule('prodReviews')">Product Reviews</li>
-    <li (click)="openModule('testimonials')">Testimonials</li>
-    <li (click)="openModule('slider')">Slider</li>
-    <li (click)="openModule('tags')">Tags</li>
-    <li (click)="openModule('sales')">Sales</li>
-  </ul>
-  <div class="table-content">
-    <ng-container
-      class="ng-container"
-      *ngComponentOutlet="currentModule"
-    ></ng-container>
+  <div class="sidebar">
+    <ul>
+      <li (click)="openModule('products')">Products</li>
+      <li (click)="openModule('orders')">Orders</li>
+      <li (click)="openModule('prodReviews')">Product Reviews</li>
+      <li (click)="openModule('testimonials')">Testimonials</li>
+      <li (click)="openModule('slider')">Slider</li>
+      <li (click)="openModule('tags')">Tags</li>
+      <li (click)="openModule('sales')">Sales</li>
+    </ul>
   </div>
-  <!-- This is where the specific module's component will be loaded dynamically -->
+  <div class="main-content">
+    <ng-container *ngComponentOutlet="currentModule"></ng-container>
+  </div>
 </div>

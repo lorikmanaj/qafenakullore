@@ -16,6 +16,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 import { AppComponent } from './app.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
@@ -44,6 +48,7 @@ import { ProductGridComponent } from './components/products/product-grid/product
 
 import { ProductService } from './services/products/product.service';
 import { CartService } from './services/cart.service';
+
 import { ProfileOptionsComponent } from './components/profile-options/profile-options.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductCardComponent } from './components/products/product-card/product-card.component';
@@ -116,6 +121,9 @@ export function tokenGetter() {
     CarouselModule,
     HttpClientModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     ReactiveFormsModule,
     NgxPaginationModule,
     JwtModule.forRoot({

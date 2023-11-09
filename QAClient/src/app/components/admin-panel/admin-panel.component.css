@@ -1,69 +1,40 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box; /* Add box-sizing for better layout control */
 }
-div.container {
+
+.container {
   display: flex;
-  justify-content: space-between;
-  gap: 50px;
-  position: relative;
   height: 100vh;
 }
-ul {
+
+.sidebar {
   background: #5bc995;
-  height: 100vh;
   width: 240px;
-  top: 10;
-  left: 0;
-  outline: none;
   padding-top: 5em;
+  overflow-y: auto; /* Add this to make the sidebar scrollable if needed */
 }
-li {
-  padding: 0.5em 1em 0.5em 3em;
-  font-size: 1 rem;
-  font-weight: regular;
-  background-repeat: no-repeat;
-  background-position: left 15px center;
-  background-size: auto 20px;
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 0.5em 1em;
+  font-size: 1rem; /* Correct syntax for font size */
+  font-weight: normal; /* Use "normal" for font weight */
   transition: all 0.15s linear;
   cursor: pointer;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    color: #fff;
-  }
-
-  &:focus {
-    outline: none;
-  }
 }
 
-/* .column {
-  padding: 16px;
-  background-color: #6d6d6d;
-  border-right: 1px solid #ccc;
-  display: flex;
-  padding-top: 100px;
-}
-
-.column li {
-  padding-bottom: 20px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: color 0.3s;
-  list-style: none;
+.sidebar li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
   color: #fff;
 }
 
-.column li:hover {
-  color: blue;
-} */
-
-.ng-container {
-  overflow: scroll;
-  padding-top: 20px;
-  display: inline-block;
-}
-.table-content {
+.main-content {
+  flex: 1; /* Allow the main content to take the remaining space */
   padding: 30px;
+  overflow: auto; /* Add this to make the main content scrollable if needed */
 }
