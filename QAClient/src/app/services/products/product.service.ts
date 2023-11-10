@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, map, of, throwError } from 'rxjs';
 import { ApiService } from '../global/api.service';
+import { environment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ProductService {
       price: 19.99,
       mainImage: 'https://example.com/product1.jpg',
       mainImageBlob: '',
-      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
       quantity: 1,
       varieties: [
@@ -31,7 +32,7 @@ export class ProductService {
       price: 24.99,
       mainImage: 'https://example.com/product2.jpg',
       mainImageBlob: '',
-      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
       quantity: 2,
       varieties: [
@@ -47,7 +48,7 @@ export class ProductService {
       price: 29.99,
       mainImage: 'https://example.com/product3.jpg',
       mainImageBlob: '',
-      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
       quantity: 3,
       varieties: [
@@ -63,7 +64,7 @@ export class ProductService {
       price: 34.99,
       mainImage: 'https://example.com/product4.jpg',
       mainImageBlob: '',
-      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
       quantity: 1,
       varieties: [
@@ -79,7 +80,7 @@ export class ProductService {
       price: 34.99,
       mainImage: 'https://example.com/product4.jpg',
       mainImageBlob: '',
-      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
       quantity: 8,
       varieties: [
@@ -95,7 +96,7 @@ export class ProductService {
       price: 34.99,
       mainImage: 'https://example.com/product4.jpg',
       mainImageBlob: '',
-      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
       quantity: 1,
       varieties: [
@@ -111,7 +112,7 @@ export class ProductService {
       price: 34.99,
       mainImage: 'https://example.com/product4.jpg',
       mainImageBlob: '',
-      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
       quantity: 1,
       varieties: [
@@ -127,7 +128,7 @@ export class ProductService {
       price: 34.99,
       mainImage: 'https://example.com/product4.jpg',
       mainImageBlob: '',
-      bg: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
+      background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
       quantity: 1,
       varieties: [
@@ -149,9 +150,21 @@ export class ProductService {
   }
 
   getProducts(): Observable<Product[]> {
-    const path = 'Products';
-    return this.apiService.get<Product[]>(path);
+    return this.apiService.get<Product[]>('Products');
   }
+  // getProducts(): Observable<Product[]> {
+  //   return this.apiService.get<Product[]>(`products`)
+  //     .pipe(
+  //       map(products => {
+  //         // Modify image URLs for each product
+  //         return products.map(product => {
+  //           product.mainImage = `${environment.apiUrl}/${product.mainImage}`;
+  //           // You can do this for other image properties as well
+  //           return product;
+  //         });
+  //       })
+  //     );
+  // }
 
   // getProducts(): Observable<Product[]> {
   //   return of(this.products);
@@ -172,7 +185,6 @@ export class ProductService {
   }
 
   createProduct(productData: any): Observable<Product> {
-    const path = 'products';
-    return this.apiService.post<Product>(path, productData);
+    return this.apiService.post<Product>('products', productData);
   }
 }

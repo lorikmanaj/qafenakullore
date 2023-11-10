@@ -15,7 +15,7 @@ namespace QafenAkullAPI.Core.Implementations.Services
 
         public async Task<string> GetProductImagePathAsync(int productId, string subdirectory, string fileName)
         {
-            string productPath = Path.Combine(baseStoragePath, "Images", "Products", productId.ToString(), subdirectory);
+            string productPath = Path.Combine(baseStoragePath, "images", "Products", productId.ToString(), subdirectory);
             Directory.CreateDirectory(productPath); 
             return Path.Combine(productPath, fileName);
         }
@@ -62,12 +62,29 @@ namespace QafenAkullAPI.Core.Implementations.Services
 
             string fileName = $"{Guid.NewGuid()}{fileExtension}";
 
+            string relativePath = Path.Combine("assets", "images", "Products", productId.ToString(), subdirectory, fileName);
+
             string filePath = await GetProductImagePathAsync(productId, subdirectory, fileName);
 
             await SaveFileAsync(filePath, imageBytes);
 
-            return filePath;
+            return relativePath;
         }
+
+        //public async Task<string> HandleImageAsync(string imageBase64, int productId, string subdirectory)
+        //{
+        //    byte[] imageBytes = ConvertBase64StringToBytes(imageBase64.Split(',')[1]);
+
+        //    string fileExtension = GetFileExtensionFromImageSource(imageBase64);
+
+        //    string fileName = $"{Guid.NewGuid()}{fileExtension}";
+
+        //    string filePath = await GetProductImagePathAsync(productId, subdirectory, fileName);
+
+        //    await SaveFileAsync(filePath, imageBytes);
+
+        //    return filePath;
+        //}
 
         byte[] IStorageManager.ConvertBlobUriToBytes(string blobUri)
         {
@@ -79,14 +96,15 @@ namespace QafenAkullAPI.Core.Implementations.Services
             return Convert.FromBase64String(base64String);
         }
 
-        public byte[] GenerateBlobFromImage(string imageBase64, string imagePath)
+        public byte[] GenerateBlobFromImage(string imagePath)
         {
-            if (!string.IsNullOrEmpty(imageBase64))
-            {
-                // Handle base64-encoded image
-                return ConvertBase64StringToBytes(imageBase64.Split(',')[1]);
-            }
-            else if (!string.IsNullOrEmpty(imagePath))
+            //if (!string.IsNullOrEmpty(imagePath))
+            //{
+            //    // Handle base64-encoded image
+            //    return ConvertBase64StringToBytes(imageBase64.Split(',')[1]);
+            //}
+            //else
+            if (!string.IsNullOrEmpty(imagePath))
             {
                 // Handle image from file
                 // Read the image from the file and convert it to a byte array

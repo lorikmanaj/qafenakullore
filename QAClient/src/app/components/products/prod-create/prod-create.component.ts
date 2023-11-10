@@ -189,14 +189,14 @@ export class ProdCreateComponent implements OnInit {
 
     console.log(product);
     //Send the product to your API
-    // this.productService.createProduct(product).subscribe(
-    //   (response) => {
-    //     console.log('Product created:', response);
-    //   },
-    //   (error) => {
-    //     console.error('Error creating product:', error);
-    //   }
-    // );
+    this.productService.createProduct(product).subscribe(
+      (response) => {
+        console.log('Product created:', response);
+      },
+      (error) => {
+        console.error('Error creating product:', error);
+      }
+    );
   }
 
 }
