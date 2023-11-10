@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="productForm" (ngSubmit)="createProduct()">
+  <form [formGroup]="productForm">
     <h2>Add Product</h2>
 
     <div class="form-prod-type">
@@ -78,6 +78,6 @@
       <app-variety></app-variety>
     </div>
 
-    <button type="submit">Create Product</button>
+    <button type="submit" (click)="createProduct()">Create Product</button>
   </form>
 </div>

@@ -24,7 +24,7 @@ namespace QafenAkullAPI.Infrastructure.Persistence
                     Name = $"Prod {i}",
                     Description = "Sample Description",
                     Price = (decimal)new Random().Next(500, 6000) / 100, // Generates a random price between 5 and 60 euros
-                    Image = $"QafenAkullAPI/Assets/Images/Products/{i}/main-img/",
+                    MainImage = $"QafenAkullAPI/Assets/Images/Products/{i}/main-img/",
                     Background = $"QafenAkullAPI/Assets/Images/Products/{i}/background/",
                     StockId = i // Set StockId to match ProductId for simplicity
                 };

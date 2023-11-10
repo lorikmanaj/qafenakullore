@@ -9,6 +9,6 @@
         Task<string> HandleImageAsync(string imageSource, int productId, string subdirectory);
         byte[] ConvertBlobUriToBytes(string blobUri);
         byte[] ConvertBase64StringToBytes(string base64String);
-        byte[] GenerateBlobFromImage(string imageBase64, string imagePath);
+        byte[] GenerateBlobFromImage(string imagePath);
     }
 }

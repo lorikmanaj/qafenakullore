@@ -20,6 +20,8 @@ export class ProductHandlerComponent {
   page: number = 1;
   paginatedProducts: Product[] = [];
 
+  private serverBaseUrl = 'https://localhost:7069/';
+
   constructor(private sanitizer: DomSanitizer,
     private productService: ProductService,
     private dialog: MatDialog) {
@@ -34,8 +36,8 @@ export class ProductHandlerComponent {
     });
   }
 
-  sanitizeUrl(url: string): SafeUrl {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
+  constructImageUrl(imagePath: string): string {
+    return `${this.serverBaseUrl}${imagePath.replace(/\\/g, '/')}`;
   }
 
   paginateProducts() {

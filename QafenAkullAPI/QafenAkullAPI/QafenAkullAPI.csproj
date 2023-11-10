@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
       <PrivateAssets>all</PrivateAssets>
@@ -21,11 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\Images\Products\1\Gallery\" />
-    <Folder Include="Assets\Images\Products\1\Varieties\" />
     <Folder Include="Core\Implementations\Generics\" />
     <Folder Include="Core\Interfaces\Generics\" />
-    <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\assets\images\" />
+    <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
 </Project>

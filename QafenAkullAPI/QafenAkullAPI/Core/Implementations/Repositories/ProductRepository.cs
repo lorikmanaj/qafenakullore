@@ -54,14 +54,11 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                     await _context.SaveChangesAsync();
 
                     if (!string.IsNullOrEmpty(prod.MainImage))
-                        newProduct.MainImageBlob = await _storageManager.HandleImageAsync(prod.MainImg64, newProduct.ProductId, "MainImage");
+                        newProduct.MainImage = await _storageManager.HandleImageAsync(prod.MainImg64, newProduct.ProductId, "MainImage");
 
-                    if (!string.IsNullOrEmpty(prod.MainImage))
-                        newProduct.Image = await _storageManager.HandleImageAsync(prod.MainImg64, newProduct.ProductId, "MainImage");
-
-                    if (!string.IsNullOrEmpty(prod.MainImage))
-                        newProduct.Image = await _storageManager.HandleImageAsync(prod.MainImg64, newProduct.ProductId, "MainImage");
-
+                    //Create blob for above file
+                    //if (!string.IsNullOrEmpty(newProduct.MainImage))
+                        //newProduct.MainImageBlob = await _storageManager.GenerateBlobFromImage(newProduct.MainImage);
 
                     if (!string.IsNullOrEmpty(prod.BackgroundImage))
                         newProduct.Background = await _storageManager.HandleImageAsync(prod.BgImg64, newProduct.ProductId, "BackgroundImage");

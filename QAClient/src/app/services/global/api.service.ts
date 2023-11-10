@@ -19,22 +19,22 @@ export class ApiService {
   }
 
   post<HttpResponseModel, RequestModel = null>(path: string, data: RequestModel): Observable<HttpResponseModel> {
-    const url = `${environment.apiUrl}/${path}`;
+    const url = `${environment.apiUrl}/api/${path}`;
     return this.http.post<HttpResponseModel>(url, data, httpOptions);
   }
 
   get<HttpResponseModel>(path: string): Observable<HttpResponseModel> {
-    const url = `${environment.apiUrl}/${path}`;
+    const url = `${environment.apiUrl}/api/${path}`;
     return this.http.get<HttpResponseModel>(url, httpOptions);
   }
 
   put<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
-    const url = `${environment.apiUrl}/${path}`;
+    const url = `${environment.apiUrl}/api/${path}`;
     return this.http.put<HttpResponseModel>(url, data, httpOptions);
   }
 
   delete<HttpResponseModel>(path: string): Observable<HttpResponseModel> {
-    const url = `${environment.apiUrl}/${path}`;
+    const url = `${environment.apiUrl}/api/${path}`;
     return this.http.delete<HttpResponseModel>(url, httpOptions);
   }
 }

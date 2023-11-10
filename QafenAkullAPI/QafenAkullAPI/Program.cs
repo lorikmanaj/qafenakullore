@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using QafenAkullAPI.Core.Implementations.Repositories;
 using QafenAkullAPI.Core.Implementations.Services;
@@ -48,15 +49,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
-
 //Service Registrations
 builder.Services.AddScoped<IStorageManager>(provider =>
 {
     // Set the base storage path to "QafenAkullAPI\\Assets"
     //return new StorageManager("QafenAkullAPI\\Assets");
     //string baseStoragePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "QafenAkullAPI", "Assets");
-    string baseStoragePath = Path.Combine(@"C:\Lik\Projects\qafenakullore\QafenAkullAPI\QafenAkullAPI", "Assets");
+    //string baseStoragePath = Path.Combine(@"C:\Lik\Projects\qafenakullore\QafenAkullAPI\QafenAkullAPI", "Assets");
+    string baseStoragePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "assets");
     return new StorageManager(baseStoragePath);
 });
 
@@ -84,7 +84,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "assets")),
+    RequestPath = "/assets"
+});
 
 app.UseCors("AllowAll");
 

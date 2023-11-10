@@ -8,7 +8,7 @@ export interface Product {
     price: number;
     mainImage: string; // You can use a URL or a local path to an image
     mainImageBlob: string;
-    bg: string;
+    background: string;
     bgImageBlob: string;
     quantity: number;
     // galleries: Gallery
