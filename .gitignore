@@ -396,3 +396,5 @@ MigrationBackup/
 .ionide/
 /MotivationalLetter.pdf
 /QafenAkullAPI/QafenAkullAPI/Assets/Images/Products
+/wwwroot
+/QafenAkullAPI/QafenAkullAPI/wwwroot/assets/images/Products
