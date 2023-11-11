@@ -51,13 +51,12 @@ export class ProductHandlerComponent {
   }
 
   openVarietyEditor(product: Product) {
-    // Open the ProdVarietyEditorComponent as a dialog
     const dialogRef = this.dialog.open(VarietyComponent, {
       data: { product: product },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      // Handle any actions when the dialog is closed, if needed
+
     });
   }
 
@@ -86,7 +85,6 @@ export class ProductHandlerComponent {
 
     dialogRef.afterClosed().subscribe((createdProduct: Product) => {
       this.loadProducts();
-
     });
   }
 

@@ -1,5 +1,5 @@
 import { Gallery } from "./gallery";
-import { ItemGallery } from "./itemGa;;ery";
+import { ItemGallery } from "./itemGallery";
 import { ProductReview } from "./productReview";
 import { Tag } from "./tag";
 import { Variety } from "./variety";

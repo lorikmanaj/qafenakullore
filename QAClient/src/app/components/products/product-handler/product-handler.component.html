@@ -6,11 +6,13 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Type</th>
       <th>Name</th>
       <th>Description</th>
       <th>Price</th>
       <th>Image</th>
-      <th>Quantity</th>
+      <th>Background</th>
+      <th>Stock</th>
       <th>Tags</th>
       <th>Varietes</th>
       <th>Gallery</th>
@@ -24,6 +26,7 @@
     <tr *ngFor="let product of paginatedProducts">
       <!-- Fill in the data from product -->
       <td>{{ product.productId }}</td>
+      <td>{{ product.type }}</td>
       <td>{{ product.name }}</td>
       <td>{{ product.description }}</td>
       <td>{{ product.price }}</td>
@@ -49,7 +52,7 @@
       </td>
 
       <div class="action-btns">
-        
+
         <td>
           <button class="btn-edit" (click)="editProduct(product)">Edit</button>
           <button class="btn-del" (click)="deleteProduct(product)">

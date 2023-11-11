@@ -24,6 +24,7 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
         public async Task<List<Product>> GetProducts()
         {
             var prods = await _context.Products
+                .Include(_ => _.type)
                 .Include(_ => _.Galleries)
                 .Include(_ => _.Varieties)
                 .Include(_ => _.ProductReviews)
