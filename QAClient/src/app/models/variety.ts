@@ -3,7 +3,7 @@ export interface Variety {
     productId?: number;
     description: string;
     file?: File | null;
-    imageUrl: string; // Add imageUrl property
+    imageUrl?: string; // Add imageUrl property
     imageBlob: string;
 
     //Change

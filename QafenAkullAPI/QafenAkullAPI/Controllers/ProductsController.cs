@@ -87,8 +87,7 @@ namespace QafenAkullAPI.Controllers
         public async Task<ActionResult<Product>> PostProduct(CreateProductDTO prod)
         {
             var createdProduct = await _productRepository.AddProduct(prod);
-            return Ok();
-            //return CreatedAtAction("GetProduct", new { id = createdProduct.ProductId }, createdProduct);
+            return CreatedAtAction("GetProduct", "Products", new { id = createdProduct.ProductId }, createdProduct);
         }
 
         // DELETE: api/Products/5

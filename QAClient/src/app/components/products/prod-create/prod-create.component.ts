@@ -6,6 +6,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TagSelectionService } from 'src/app/services/tag-selection.service';
 import { VarietySelectionService } from 'src/app/services/variety-selection.service';
 import { ProductService } from 'src/app/services/products/product.service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-prod-create',
@@ -27,7 +29,8 @@ export class ProdCreateComponent implements OnInit {
     private productService: ProductService,
     private tagSelectionService: TagSelectionService,
     private varietySelectionService: VarietySelectionService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<ProdCreateComponent>
   ) {
     this.productForm = this.formBuilder.group({
       productType: [null, Validators.required],
@@ -101,41 +104,6 @@ export class ProdCreateComponent implements OnInit {
     });
   }
 
-  createProduct1() {
-    const formValues = this.productForm.value;
-
-    const product = {
-      productType: formValues.productType,
-      name: formValues.name,
-      description: formValues.description,
-      price: formValues.price,
-      mainImage: this.mainImage,
-      backgroundImage: this.backgroundImage,
-      stock: formValues.stock,
-      gallery: this.selectedGalleryImages,
-      tags: this.tagSelectionService.getSelectedTags(),
-      varieties: this.varietySelectionService.getVarieties(),
-      //HERE
-      galleryBase64: [],
-      varietyBase64: [],
-    };
-
-    this.productService.createProduct(product).subscribe(
-      (response) => {
-        console.log('Product created:', response);
-      },
-      (error) => {
-        console.error('Error creating product:', error);
-      }
-    );
-
-    // if (this.productForm.valid) {
-
-    //   console.log('Product:', product);
-    //   // You can now use the "product" object for further processing
-    // }
-  }
-
   async createProduct() {
     const formValues = this.productForm.value;
 
@@ -184,19 +152,24 @@ export class ProdCreateComponent implements OnInit {
 
     // Convert variety images to Base64 using map
     product.varietyBase64 = await Promise.all(
-      product.varieties.map(async (variety) => await convertImageToBase64(variety.imageUrl))
-    ) as string[];
+      product.varieties.map(async (variety) => await convertImageToBase64(variety.imageUrl || ''))
+    ) as string[];    
 
     console.log(product);
     //Send the product to your API
     this.productService.createProduct(product).subscribe(
-      (response) => {
+      (response: Product) => {
         console.log('Product created:', response);
+        this.closeDialog();
       },
       (error) => {
         console.error('Error creating product:', error);
       }
     );
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 
 }

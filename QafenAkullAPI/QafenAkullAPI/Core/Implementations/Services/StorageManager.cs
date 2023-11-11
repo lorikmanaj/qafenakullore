@@ -62,7 +62,7 @@ namespace QafenAkullAPI.Core.Implementations.Services
 
             string fileName = $"{Guid.NewGuid()}{fileExtension}";
 
-            string relativePath = Path.Combine("assets", "images", "Products", productId.ToString(), subdirectory, fileName);
+            string relativePath = Path.Combine("assets", "images", "Products", productId.ToString(), subdirectory, fileName).Replace("\\", "/");
 
             string filePath = await GetProductImagePathAsync(productId, subdirectory, fileName);
 

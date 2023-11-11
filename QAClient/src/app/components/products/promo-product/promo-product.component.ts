@@ -11,7 +11,8 @@ import { catchError } from 'rxjs/operators';
 export class PromoProductComponent implements OnInit {
   carouselProducts: Product[] = [
     {
-      id: 1,
+      productId: 1,
+      typeId: 1,
       name: 'Product 1',
       description: 'Description for Product 1',
       price: 19.99,
@@ -19,12 +20,17 @@ export class PromoProductComponent implements OnInit {
       mainImageBlob: '',
       background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
+      stockId: 0,
       quantity: 1,
       varieties: [],
-      tags: []
+      tags: [],
+      galleries: [],
+      productReviews: [],
+      itemGalleries: []
     },
     {
-      id: 2,
+      productId: 2,
+      typeId: 2,
       name: 'Product 2',
       description: 'Description for Product 2',
       price: 24.99,
@@ -32,12 +38,17 @@ export class PromoProductComponent implements OnInit {
       mainImageBlob: '',
       background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
+      stockId: 0,
       quantity: 1,
       varieties: [],
-      tags: []
+      tags: [],
+      galleries: [],
+      productReviews: [],
+      itemGalleries: []
     },
     {
-      id: 3,
+      productId: 3,
+      typeId: 3,
       name: 'Product 3',
       description: 'Description for Product 3',
       price: 29.99,
@@ -45,12 +56,17 @@ export class PromoProductComponent implements OnInit {
       mainImageBlob: '',
       background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
+      stockId: 0,
       quantity: 1,
       varieties: [],
-      tags: []
+      tags: [],
+      galleries: [],
+      productReviews: [],
+      itemGalleries: []
     },
     {
-      id: 4,
+      productId: 4,
+      typeId: 4,
       name: 'Product 4',
       description: 'Description for Product 4',
       price: 34.99,
@@ -58,12 +74,17 @@ export class PromoProductComponent implements OnInit {
       mainImageBlob: '',
       background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
+      stockId: 0,
       quantity: 1,
       varieties: [],
-      tags: []
+      tags: [],
+      galleries: [],
+      productReviews: [],
+      itemGalleries: []
     },
     {
-      id: 5,
+      productId: 5,
+      typeId: 1,
       name: 'Product 5',
       description: 'Description for Product 4',
       price: 34.99,
@@ -71,12 +92,17 @@ export class PromoProductComponent implements OnInit {
       mainImageBlob: '',
       background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
+      stockId: 0,
       quantity: 1,
       varieties: [],
-      tags: []
+      tags: [],
+      galleries: [],
+      productReviews: [],
+      itemGalleries: []
     },
     {
-      id: 6,
+      productId: 6,
+      typeId: 2,
       name: 'Product 6',
       description: 'Description for Product 4',
       price: 34.99,
@@ -84,9 +110,13 @@ export class PromoProductComponent implements OnInit {
       mainImageBlob: '',
       background: 'https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp',
       bgImageBlob: '',
+      stockId: 0,
       quantity: 1,
       varieties: [],
-      tags: []
+      tags: [],
+      galleries: [],
+      productReviews: [],
+      itemGalleries: []
     }
   ];
 

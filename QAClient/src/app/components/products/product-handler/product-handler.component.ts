@@ -7,7 +7,6 @@ import { ProductService } from 'src/app/services/products/product.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProdCreateComponent } from '../prod-create/prod-create.component';
 import { VarietyComponent } from '../variety/variety.component';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-handler',
@@ -22,22 +21,26 @@ export class ProductHandlerComponent {
 
   private serverBaseUrl = 'https://localhost:7069/';
 
-  constructor(private sanitizer: DomSanitizer,
+  constructor(
     private productService: ProductService,
     private dialog: MatDialog) {
 
   }
 
   ngOnInit() {
+    this.loadProducts();
+  }
+
+  loadProducts() {
     this.productService.getProducts().subscribe((products) => {
-      console.log('Products', products)
+      console.log('Products', products);
       this.products = products;
-      this.paginatedProducts = this.products.slice(0, this.pageSize); // Initial page
+      this.paginateProducts();
     });
   }
 
   constructImageUrl(imagePath: string): string {
-    return `${this.serverBaseUrl}${imagePath.replace(/\\/g, '/')}`;
+    return `${this.serverBaseUrl}${imagePath}`;
   }
 
   paginateProducts() {
@@ -79,17 +82,14 @@ export class ProductHandlerComponent {
   }
 
   openProductCreate() {
-    const dialogRef = this.dialog.open(ProdCreateComponent, {
+    const dialogRef = this.dialog.open(ProdCreateComponent, {});
 
-    })
+    dialogRef.afterClosed().subscribe((createdProduct: Product) => {
+      this.loadProducts();
 
-    // dialogRef.afterClosed().subscribe((newProductData) => {
-    //   if (newProductData) {
-    //     // Handle the new product data, which is returned when the modal is closed.
-    //     // You can add the product to your list of products or save it to your backend.
-    //   }
-    // });
+    });
   }
+
 
   editProduct(product: Product) {
 
