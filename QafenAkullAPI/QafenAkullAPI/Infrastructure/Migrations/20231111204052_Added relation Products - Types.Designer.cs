@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QafenAkullAPI.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using QafenAkullAPI.Infrastructure.Persistence;
 namespace QafenAkullAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(QafenAkullDbContext))]
-    partial class QafenAkullDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231111204052_Added relation Products - Types")]
+    partial class AddedrelationProductsTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6db9d375-24f2-4a68-a143-baae4c4eb28c",
+                            Id = "b20f4c88-8ccf-423c-b4f3-df4f394393aa",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "ee93077c-d0de-45c7-82f8-2941b0b0e05e",
+                            Id = "7898b816-ae5b-4506-b720-2d1529936fa5",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -486,7 +489,7 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Stock")
+                    b.Property<int>("StockId")
                         .HasColumnType("int");
 
                     b.Property<int>("TypeId")
@@ -648,6 +651,27 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.ToTable("SliderItems", (string)null);
                 });
 
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Stock", b =>
+                {
+                    b.Property<int>("StockId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("StockId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Stocks", (string)null);
+                });
+
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Tag", b =>
                 {
                     b.Property<int>("TagId")
@@ -711,9 +735,6 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Stock")
                         .HasColumnType("int");
 
                     b.HasKey("VarietyId");
@@ -1003,6 +1024,17 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Slider");
+                });
+
+            modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Stock", b =>
+                {
+                    b.HasOne("QafenAkullAPI.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.Testimonial", b =>

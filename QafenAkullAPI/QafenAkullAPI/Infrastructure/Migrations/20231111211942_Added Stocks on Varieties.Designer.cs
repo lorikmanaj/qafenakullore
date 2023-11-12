@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QafenAkullAPI.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using QafenAkullAPI.Infrastructure.Persistence;
 namespace QafenAkullAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(QafenAkullDbContext))]
-    partial class QafenAkullDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231111211942_Added Stocks on Varieties")]
+    partial class AddedStocksonVarieties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6db9d375-24f2-4a68-a143-baae4c4eb28c",
+                            Id = "9e9b0459-ab3a-4a10-a77d-3506540ce061",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "ee93077c-d0de-45c7-82f8-2941b0b0e05e",
+                            Id = "4be0e4de-ee8c-450a-8f97-bf9eaf0a239b",
                             Name = "User",
                             NormalizedName = "USER"
                         });

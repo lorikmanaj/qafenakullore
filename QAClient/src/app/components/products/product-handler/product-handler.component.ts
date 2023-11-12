@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/services/products/product.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProdCreateComponent } from '../prod-create/prod-create.component';
 import { VarietyComponent } from '../variety/variety.component';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
   selector: 'app-product-handler',
@@ -18,8 +19,6 @@ export class ProductHandlerComponent {
   pageSize: number = 20;
   page: number = 1;
   paginatedProducts: Product[] = [];
-
-  private serverBaseUrl = 'https://localhost:7069/';
 
   constructor(
     private productService: ProductService,
@@ -40,7 +39,7 @@ export class ProductHandlerComponent {
   }
 
   constructImageUrl(imagePath: string): string {
-    return `${this.serverBaseUrl}${imagePath}`;
+    return `${environment.serverBaseUrl}${imagePath}`;
   }
 
   paginateProducts() {
@@ -86,6 +85,10 @@ export class ProductHandlerComponent {
     dialogRef.afterClosed().subscribe((createdProduct: Product) => {
       this.loadProducts();
     });
+  }
+
+  openVarietyHandler() {
+    console.log('Varieties:', this.products[1].varieties);
   }
 
 

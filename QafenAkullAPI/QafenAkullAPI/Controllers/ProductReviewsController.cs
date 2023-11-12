@@ -35,11 +35,21 @@ namespace QafenAkullAPI.Controllers
             var productReview = await _context.ProductReviews.FindAsync(id);
 
             if (productReview == null)
-            {
                 return NotFound();
-            }
 
             return productReview;
+        }
+
+        // GET: api/ProductReviews/prod/5
+        [HttpGet("prod/{id}")]
+        public async Task<ActionResult<List<ProductReview>>> GetProductReviews(int id)
+        {
+            var productReviews = await _context.ProductReviews.Where(_ => _.ProductId == id).ToListAsync();
+
+            if (productReviews == null)
+                return NotFound();
+
+            return productReviews;
         }
 
         // PUT: api/ProductReviews/5
@@ -48,9 +58,7 @@ namespace QafenAkullAPI.Controllers
         public async Task<IActionResult> PutProductReview(int id, ProductReview productReview)
         {
             if (id != productReview.ProdRevId)
-            {
                 return BadRequest();
-            }
 
             _context.Entry(productReview).State = EntityState.Modified;
 
@@ -61,13 +69,9 @@ namespace QafenAkullAPI.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!ProductReviewExists(id))
-                {
                     return NotFound();
-                }
                 else
-                {
                     throw;
-                }
             }
 
             return NoContent();

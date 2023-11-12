@@ -2,6 +2,7 @@
     <button type="button" (click)="addVariety()">Add Variety</button>
     <div *ngFor="let variety of varietyForms; let i = index" class="variety-form">
         <input type="text" [(ngModel)]="variety.description" placeholder="Description">
+        <input type="number" [(ngModel)]="variety.stock" />
         <input type="file" (change)="onImageSelected($event, i)" accept="image/*">
         <button type="button" (click)="deleteVarietyForm(i)">Delete</button>
         <button type="button" (click)="submitVarietyForm(i)">Submit</button>

@@ -7,13 +7,14 @@ namespace QafenAkullAPI.Domain.Entities
     {
         [Key]
         public int ProductId { get; set; }
+        [ForeignKey("TypeId")]
         public int TypeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string MainImage { get; set; }
         public string Background { get; set; }
-        public int StockId { get; set; }
+        public int Stock { get; set; }
 
         //Blob's section
         public string MainImageBlob { get; set; }
@@ -31,5 +32,6 @@ namespace QafenAkullAPI.Domain.Entities
         //public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 
         //[InverseProperty("Product")]
+        public ProductType Type { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 import { Gallery } from "./gallery";
 import { ItemGallery } from "./itemGallery";
 import { ProductReview } from "./productReview";
+import { ProductType } from "./productType";
 import { Tag } from "./tag";
 import { Variety } from "./variety";
 
@@ -15,7 +16,9 @@ export interface Product {
     background: string;
     bgImageBlob: string;
     quantity: number; //Remove mas promo-product
-    stockId?: number;
+    stock?: number;
+
+    type?: ProductType;
     // galleries: Gallery
     varieties?: Variety[];
     tags?: Tag[];

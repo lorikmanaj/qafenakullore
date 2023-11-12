@@ -26,32 +26,13 @@ namespace QafenAkullAPI.Infrastructure.Persistence
                     Price = (decimal)new Random().Next(500, 6000) / 100, // Generates a random price between 5 and 60 euros
                     MainImage = $"QafenAkullAPI/Assets/Images/Products/{i}/main-img/",
                     Background = $"QafenAkullAPI/Assets/Images/Products/{i}/background/",
-                    StockId = i // Set StockId to match ProductId for simplicity
+                    Stock = i // Set StockId to match ProductId for simplicity
                 };
 
                 products.Add(product);
             }
 
             Products.AddRange(products);
-            SaveChanges();
-        }
-
-        private void SeedStocks()
-        {
-            var stocks = new List<Stock>();
-
-            for (int i = 1; i <= 10; i++)
-            {
-                var stock = new Stock
-                {
-                    ProductId = i, // Match ProductId for the corresponding product
-                    Quantity = new Random().Next(1, 11) // Generates a random quantity between 1 and 10
-                };
-
-                stocks.Add(stock);
-            }
-
-            Stocks.AddRange(stocks);
             SaveChanges();
         }
 
@@ -154,7 +135,6 @@ namespace QafenAkullAPI.Infrastructure.Persistence
             modelBuilder.Entity<PromoProduct>().ToTable("PromoProducts");
             modelBuilder.Entity<Slider>().ToTable("Sliders");
             modelBuilder.Entity<SliderItem>().ToTable("SliderItems");
-            modelBuilder.Entity<Stock>().ToTable("Stocks");
             modelBuilder.Entity<Testimonial>().ToTable("Testimonials");
             modelBuilder.Entity<Variety>().ToTable("Varieties");
 
@@ -163,6 +143,11 @@ namespace QafenAkullAPI.Infrastructure.Persistence
                 .WithMany(p => p.ItemGalleries)
                 .HasForeignKey(ig => ig.ProductId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(r => r.ProductReviews)
+                .WithOne(p => p.Product)
+                .HasForeignKey(p => p.ProductId);
 
             //DataSeed seeder = new DataSeed(this);
             //seeder.Seed();
@@ -187,7 +172,6 @@ namespace QafenAkullAPI.Infrastructure.Persistence
         public DbSet<PromoProduct> PromoProducts { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<SliderItem> SliderItems { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<Variety> Varieties { get; set; }
         public DbSet<WishList> WishLists { get; set; }

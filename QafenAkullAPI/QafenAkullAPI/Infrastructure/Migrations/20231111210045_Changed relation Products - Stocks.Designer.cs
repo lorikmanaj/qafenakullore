@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QafenAkullAPI.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using QafenAkullAPI.Infrastructure.Persistence;
 namespace QafenAkullAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(QafenAkullDbContext))]
-    partial class QafenAkullDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231111210045_Changed relation Products - Stocks")]
+    partial class ChangedrelationProductsStocks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6db9d375-24f2-4a68-a143-baae4c4eb28c",
+                            Id = "d731ca9e-639f-4c2a-be5b-eb3f16c09b82",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "ee93077c-d0de-45c7-82f8-2941b0b0e05e",
+                            Id = "3a52846c-3eff-4290-810e-82f401331c7d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -711,9 +714,6 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Stock")
                         .HasColumnType("int");
 
                     b.HasKey("VarietyId");

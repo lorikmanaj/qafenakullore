@@ -24,7 +24,7 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
         public async Task<List<Product>> GetProducts()
         {
             var prods = await _context.Products
-                .Include(_ => _.type)
+                .Include(_ => _.Type)
                 .Include(_ => _.Galleries)
                 .Include(_ => _.Varieties)
                 .Include(_ => _.ProductReviews)
@@ -47,6 +47,7 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                         Name = prod.Name,
                         Description = prod.Description,
                         Price = prod.Price,
+                        Stock = prod.Stock,
                         MainImageBlob = prod.MainImage,
                         BgImageBlob = prod.BackgroundImage
                     };
@@ -64,20 +65,6 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                     if (!string.IsNullOrEmpty(prod.BackgroundImage))
                         newProduct.Background = await _storageManager.HandleImageAsync(prod.BgImg64, newProduct.ProductId, "BackgroundImage");
 
-                    await _context.SaveChangesAsync();
-
-                    // Step 3: Insert stock data with the retrieved productId
-                    var newStock = new Stock
-                    {
-                        ProductId = newProduct.ProductId,
-                        Quantity = prod.Stock
-                    };
-
-                    _context.Stocks.Add(newStock);
-                    await _context.SaveChangesAsync();
-
-                    //Add StockId POST Creation
-                    newProduct.StockId = newStock.StockId;
                     await _context.SaveChangesAsync();
 
                     // Step 4: Handle gallery images
@@ -131,7 +118,8 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
                             ProductId = newProduct.ProductId,
                             Description = variety.Description,
                             ImageUrl = filePath,
-                            ImageBlob = prod.Varieties[i].ImageUrl
+                            ImageBlob = prod.Varieties[i].ImageUrl,
+                            Stock = prod.Varieties[i].Stock
                         };
                         _context.Varieties.Add(varietyEntity);
                     }

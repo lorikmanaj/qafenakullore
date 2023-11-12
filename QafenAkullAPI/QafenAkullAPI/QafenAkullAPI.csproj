@@ -24,8 +24,7 @@
   <ItemGroup>
     <Folder Include="Core\Implementations\Generics\" />
     <Folder Include="Core\Interfaces\Generics\" />
-    <Folder Include="wwwroot\assets\images\" />
-    <Folder Include="wwwroot\assets\" />
+    <Folder Include="wwwroot\assets\images\Users\7630fc06-9afa-4173-a248-e952a684d4bb\" />
   </ItemGroup>
 
 </Project>

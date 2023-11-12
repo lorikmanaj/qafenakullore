@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QafenAkullAPI.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using QafenAkullAPI.Infrastructure.Persistence;
 namespace QafenAkullAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(QafenAkullDbContext))]
-    partial class QafenAkullDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231111234645_Changed User on Prod Reviews")]
+    partial class ChangedUseronProdReviews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6db9d375-24f2-4a68-a143-baae4c4eb28c",
+                            Id = "8ca0b594-2cdb-49f8-96f3-2961103eee15",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "ee93077c-d0de-45c7-82f8-2941b0b0e05e",
+                            Id = "fd82301b-2156-4d1a-9401-99c1f7ba8ec1",
                             Name = "User",
                             NormalizedName = "USER"
                         });

@@ -5,6 +5,7 @@ export interface Variety {
     file?: File | null;
     imageUrl?: string; // Add imageUrl property
     imageBlob: string;
+    stock: number;
 
     //Change
     imageBase64?: string[];

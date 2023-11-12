@@ -31,7 +31,7 @@ namespace QafenAkullAPI.Infrastructure.Persistence
                     Price = (decimal)new Random().Next(500, 6000) / 100, // Generates a random price between 5 and 60 euros
                     MainImage = $"QafenAkullAPI/Assets/Images/Products/{i}/main-img/",
                     Background = $"QafenAkullAPI/Assets/Images/Products/{i}/background/",
-                    StockId = i // Set StockId to match ProductId for simplicity
+                    Stock = i // Set StockId to match ProductId for simplicity
                 };
 
                 products.Add(product);
@@ -43,22 +43,25 @@ namespace QafenAkullAPI.Infrastructure.Persistence
 
         private void SeedStocks()
         {
-            var stocks = new List<Stock>();
-
-            for (int i = 1; i <= 10; i++)
-            {
-                var stock = new Stock
-                {
-                    ProductId = i, // Match ProductId for the corresponding product
-                    Quantity = new Random().Next(1, 11) // Generates a random quantity between 1 and 10
-                };
-
-                stocks.Add(stock);
-            }
-
-            _context.Stocks.AddRange(stocks);
-            _context.SaveChanges();
+            return;
         }
+        //{
+        //    var stocks = new List<Stock>();
+
+        //    for (int i = 1; i <= 10; i++)
+        //    {
+        //        var stock = new Stock
+        //        {
+        //            ProductId = i, // Match ProductId for the corresponding product
+        //            Quantity = new Random().Next(1, 11) // Generates a random quantity between 1 and 10
+        //        };
+
+        //        stocks.Add(stock);
+        //    }
+
+        //    _context.Stocks.AddRange(stocks);
+        //    _context.SaveChanges();
+        //}
 
         // Add more seed methods for other entities
     }

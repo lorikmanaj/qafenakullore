@@ -11,6 +11,7 @@ namespace QafenAkullAPI.Domain.Entities
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public string ImageBlob { get; set; }
+        public int Stock { get; set; }
 
         [ForeignKey("ProductId")]
         public Product Product { get; set; }

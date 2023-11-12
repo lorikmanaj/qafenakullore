@@ -9,6 +9,6 @@ export interface ProductReview {
     rating: number;
     dateReviewed: Date;
 
-    product: Product;
-    user: User;
+    product?: Product;
+    user?: User;
 }

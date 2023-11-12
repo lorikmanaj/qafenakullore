@@ -7,9 +7,10 @@ namespace QafenAkullAPI.Domain.Entities
     {
         [Key]
         public int GalleryId { get; set; }
-        public int ProductId { get; set; }
 
         [ForeignKey("ProductId")]
+        public int ProductId { get; set; }
+
         public Product Product { get; set; }
     }
 }

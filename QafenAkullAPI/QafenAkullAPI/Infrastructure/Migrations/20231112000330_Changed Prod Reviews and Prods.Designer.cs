@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QafenAkullAPI.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using QafenAkullAPI.Infrastructure.Persistence;
 namespace QafenAkullAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(QafenAkullDbContext))]
-    partial class QafenAkullDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231112000330_Changed Prod Reviews and Prods")]
+    partial class ChangedProdReviewsandProds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6db9d375-24f2-4a68-a143-baae4c4eb28c",
+                            Id = "bc99918f-b0f3-4da5-a2c0-0ac38c6c9b19",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "ee93077c-d0de-45c7-82f8-2941b0b0e05e",
+                            Id = "c28b5777-9876-443d-86af-280d54f1ada8",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -942,7 +945,7 @@ namespace QafenAkullAPI.Infrastructure.Migrations
             modelBuilder.Entity("QafenAkullAPI.Domain.Entities.ProductReview", b =>
                 {
                     b.HasOne("QafenAkullAPI.Domain.Entities.Product", "Product")
-                        .WithMany("ProductReviews")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1081,8 +1084,6 @@ namespace QafenAkullAPI.Infrastructure.Migrations
                     b.Navigation("Galleries");
 
                     b.Navigation("ItemGalleries");
-
-                    b.Navigation("ProductReviews");
 
                     b.Navigation("ProductTags");
 

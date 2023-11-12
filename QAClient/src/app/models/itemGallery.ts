@@ -5,7 +5,7 @@ export interface ItemGallery {
     itemGalleryId: number;
     galleryId: number;
     productId: number;
-    imageUr: string;
+    imageUrl: string;
     imageBlob: string;
 
     gallery: Gallery[];
