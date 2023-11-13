@@ -14,6 +14,4 @@ export class ProductTypeService {
   getProductTypes(): Observable<ProductType[]> {
     return this.apiService.get<ProductType[]>('ProductTypes');
   }
-
-
 }

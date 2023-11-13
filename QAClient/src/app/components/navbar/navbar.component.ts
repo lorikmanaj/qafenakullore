@@ -11,6 +11,7 @@ import {
   faBars,
   faGamepad
 } from '@fortawesome/free-solid-svg-icons';
+import { ProductTypeService } from 'src/app/services/products/product-type.service';
 
 @Component({
   selector: 'app-navbar',
@@ -27,19 +28,25 @@ export class NavbarComponent {
   faAdmin = faGamepad;
 
   productTypes: ProductType[] = [
-    { typeId: 1, type: 'Home' },
-    { typeId: 2, type: 'Qafore' },
-    { typeId: 3, type: 'Unaza' },
-    { typeId: 4, type: 'Byzylyk' },
-    { typeId: 5, type: 'Qafore' },
-    { typeId: 6, type: 'Sete' }
+    // { typeId: 1, type: 'Home' },
+    // { typeId: 2, type: 'Qafore' },
+    // { typeId: 3, type: 'Unaza' },
+    // { typeId: 4, type: 'Byzylyk' },
+    // { typeId: 5, type: 'Qafore' },
+    // { typeId: 6, type: 'Sete' }
   ];
 
   @Output() selectProductType: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private router: Router) { }
+  constructor(private productTypeService: ProductTypeService,
+    private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.productTypeService.getProductTypes().subscribe((prodTypes) => {
+      this.productTypes = prodTypes;
+      console.log(this.productTypes);
+    });
+  }
 
   onSelectProductType(type: string) {
     // if (type === 'Home') {

@@ -21,6 +21,10 @@ export class ProductService {
     return of(product);
   }
 
+  getProductsByType(typeId: number): Observable<Product[]> {
+    return this.apiService.get<Product[]>(`Products/ProductsType/${typeId}`);
+  }
+
   getProducts(): Observable<Product[]> {
     return this.apiService.get<Product[]>('Products');
   }
@@ -51,11 +55,6 @@ export class ProductService {
   }
 
   getCarouselProducts(): Observable<Product[]> {
-    return of(this.products);
-  }
-
-  //NDREQE
-  getProductsByType(typeId: number): Observable<Product[]> {
     return of(this.products);
   }
 
