@@ -11,11 +11,10 @@ import { environment } from 'src/app/environments/environment';
   styleUrls: ['./prod-gallery-editor.component.css']
 })
 export class ProdGalleryEditorComponent implements OnInit {
-  // @Input() productId: number;
   galleryImages: ItemGallery[] = [];
 
   constructor(
-    public dialogRef: MatDialogRef<ProdGalleryEditorComponent>, // or ProdGalleryEditorComponent
+    public dialogRef: MatDialogRef<ProdGalleryEditorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private itemGalleryService: ItemGalleryService,
   ) { }
@@ -29,6 +28,7 @@ export class ProdGalleryEditorComponent implements OnInit {
 
     this.itemGalleryService.getProductGallery(productId).subscribe(
       (galleryImages: ItemGallery[]) => {
+        this.galleryImages = galleryImages;
         console.log('Fetched Gallery Images:', galleryImages);
       },
       (error) => {
