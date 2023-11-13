@@ -13,6 +13,7 @@
 .toggle-button {
   cursor: pointer;
 }
+
 .toggle-button:hover {
   color: rgb(255, 0, 0);
 }
@@ -20,21 +21,26 @@
 .delete-button {
   cursor: pointer;
 }
+
 .btn-main {
   display: flex;
 }
+
 .btn {
   background-color: transparent;
   border: none;
   color: rgb(6, 6, 250);
   cursor: pointer;
 }
+
 .icon-red {
   color: rgb(255, 0, 0);
 }
+
 .add-new {
   font-size: 14px;
 }
+
 .btn-submit {
   border: none;
 }

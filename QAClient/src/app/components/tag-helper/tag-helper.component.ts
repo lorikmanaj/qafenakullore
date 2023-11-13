@@ -19,16 +19,25 @@ export class TagHelperComponent implements OnInit {
   ngOnInit() {
     this.tagsService.getAvailableTags().subscribe((tags) => {
       this.tags = tags;
+      console.log(this.tags);
     });
   }
 
   createNewTag() {
     if (this.newTag.trim() !== '') {
-      const newTagId = this.tags.length + 1;
-      const newTag: Tag = { tagId: newTagId, title: this.newTag, selected: false, created: true };
+      const newTag: Tag = { title: this.newTag, selected: false, created: true };
 
-      this.tagsService.addNewTag(newTag);
-      this.newTag = '';
+      this.tagsService.addNewTag(newTag).subscribe(
+        (createdTag: Tag) => {
+          newTag.tagId = createdTag.tagId;
+
+          this.tags = [...this.tags, newTag];
+          this.newTag = '';
+        },
+        (error: any) => {
+          console.error('Error creating tag:', error);
+        }
+      );
     }
   }
 
@@ -48,12 +57,23 @@ export class TagHelperComponent implements OnInit {
   }
 
   deleteTag(tag: Tag) {
+    const tagId = tag.tagId as number;
+
+    // Remove tag locally
     const index = this.tags.indexOf(tag);
     if (index !== -1) {
-      const tagId = tag.tagId as number;
       this.tags.splice(index, 1);
-      this.tagsService.removeTag(tagId);
     }
+
+    // Delete tag from server
+    this.tagsService.removeTag(tagId).subscribe(
+      () => {
+        console.log('Tag deleted successfully.');
+      },
+      (error) => {
+        console.error('Error deleting tag:', error);
+      }
+    );
   }
 
 }

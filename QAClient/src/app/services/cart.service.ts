@@ -27,17 +27,17 @@ export class CartService {
   addToCart(productId: number) {
     // Fetch product details from ProductService
     this.productService.getProducts().subscribe((products) => {
-      const product = products.find((p) => p.id === productId);
+      const product = products.find((p) => p.productId === productId);
 
       if (product) {
         const currentCartItems = this.cartItemsSubject.getValue();
-        const existingItem = currentCartItems.find((item) => item.productId === product.id);
+        const existingItem = currentCartItems.find((item) => item.productId === product.productId);
 
         if (existingItem) {
           existingItem.count++;
         } else {
           const newItem: CartItem = {
-            productId: product.id,
+            productId: product.productId,
             itemName: product.name,
             count: 1
           };

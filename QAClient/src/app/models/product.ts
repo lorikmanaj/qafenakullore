@@ -1,8 +1,12 @@
+import { Gallery } from "./gallery";
+import { ItemGallery } from "./itemGallery";
+import { ProductReview } from "./productReview";
 import { Tag } from "./tag";
 import { Variety } from "./variety";
 
 export interface Product {
-    id: number;
+    productId: number;
+    typeId: number;
     name: string;
     description: string;
     price: number;
@@ -10,10 +14,14 @@ export interface Product {
     mainImageBlob: string;
     background: string;
     bgImageBlob: string;
-    quantity: number;
+    quantity: number; //Remove mas promo-product
+    stockId?: number;
     // galleries: Gallery
-    varieties: Variety[];
-    tags: Tag[];
+    varieties?: Variety[];
+    tags?: Tag[];
+    galleries?: Gallery[];
+    productReviews?: ProductReview[];
+    itemGalleries?: ItemGallery[];
 
     //Change
     mainImg64?: string;
