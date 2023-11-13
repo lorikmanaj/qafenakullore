@@ -11,7 +11,7 @@ export interface Product {
     name: string;
     description: string;
     price: number;
-    mainImage: string; // You can use a URL or a local path to an image
+    mainImage: string;
     mainImageBlob: string;
     background: string;
     bgImageBlob: string;

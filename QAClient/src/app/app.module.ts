@@ -66,6 +66,7 @@ import { GalleryUploaderComponent } from './components/products/gallery-uploader
 import { AuthComponent } from './auth/auth.component';
 import { VarietyComponent } from './components/products/variety/variety.component';
 import { TagHelperComponent } from './components/tag-helper/tag-helper.component';
+import { EditProductComponent } from './components/products/edit-product/edit-product.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -111,6 +112,7 @@ export function tokenGetter() {
     GalleryUploaderComponent,
     VarietyComponent,
     TagHelperComponent,
+    EditProductComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,89 @@
+<div class="container">
+    <form [formGroup]="productForm">
+        <h2>Edit Product</h2>
+
+        <div class="form-prod-type">
+            <label for="productType">Product Type:</label>
+            <select id="productType" name="productType" formControlName="productType">
+                <option *ngFor="let type of productTypes" [ngValue]="type.typeId">
+                    {{ type.type }}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-12 col-form-label">Enter Title here</label>
+            <div class="col-12">
+                <input id="name" name="text" placeholder="Enter Title here" class="form-control here"
+                    required="required" type="text" formControlName="name" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="description" class="col-12 col-form-label">Description</label>
+            <div class="col-12">
+                <textarea id="description" name="description" cols="40" rows="5" class="form-control"
+                    formControlName="description" placeholder="Product Description"></textarea>
+                <input type="file" id="galleryImages" name="galleryImages" accept="image/*" multiple
+                    (change)="onGalleryImagesSelected($event)" #galleryImagesInput />
+                <input type="button" (click)="galleryImagesInput.click()" value="Add Images +" />
+            </div>
+        </div>
+
+        <app-tag-helper></app-tag-helper>
+
+        <div class="right-side">
+            <div class="form-group-price">
+                <label for="price">Price (in EUR):</label>
+                <input type="number" id="price" name="price" formControlName="price" />
+            </div>
+
+            <div class="form-group-mainimg">
+                <label for="mainImage">Main Image (Required):</label>
+                <input type="file" id="mainImage" name="mainImage" accept="image/*"
+                    (change)="onMainImageSelected($event)" required #mainImageInput style="display: none" />
+                <button *ngIf="productForm.get('mainImage')?.value === null" type="button"
+                    (click)="mainImageInput?.click()">
+                    Add Image
+                </button>
+                <img *ngIf="productForm.get('mainImage')?.value !== null"
+                    [src]="constructImageUrl(productForm.get('mainImage')?.value)" alt="Main Image" width="100"
+                    height="100" />
+                <button *ngIf="productForm.get('mainImage')?.value !== null" type="button" (click)="clearMainImage()">
+                    -
+                </button>
+            </div>
+
+            <div class="form-group-bg">
+                <label for="backgroundImage">Background Image (Optional):</label>
+                <input type="file" id="backgroundImage" name="backgroundImage" accept="image/*"
+                    (change)="onBackgroundImageSelected($event)" #backgroundImageInput style="display: none" />
+
+                <button *ngIf="productForm.get('backgroundImage')?.value === null" type="button"
+                    (click)="backgroundImageInput?.click()">
+                    Add Image
+                </button>
+
+                <img *ngIf="productForm.get('backgroundImage')?.value !== null"
+                    [src]="constructImageUrl(productForm.get('backgroundImage')?.value)" alt="Background Image"
+                    width="100" height="100" />
+
+                <button *ngIf="productForm.get('backgroundImage')?.value !== null" type="button"
+                    (click)="clearBackgroundImage()">
+                    -
+                </button>
+            </div>
+
+            <app-prod-gallery-editor></app-prod-gallery-editor>
+            <!-- [productId]="data.product.productId" -->
+            <div class="form-group-stock">
+                <label for="stock">Stock Quantity (Required):</label>
+                <input type="number" id="stock" name="stock" formControlName="stock" required />
+            </div>
+
+            <app-variety></app-variety>
+        </div>
+
+        <button type="submit" (click)="updateProduct()">Update Product</button>
+    </form>
+</div>

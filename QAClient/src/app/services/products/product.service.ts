@@ -8,6 +8,7 @@ import { environment } from 'src/app/environments/environment';
   providedIn: 'root'
 })
 export class ProductService {
+
   private products: Product[] = [];
 
   constructor(private apiService: ApiService) { }
@@ -40,6 +41,9 @@ export class ProductService {
   // getProducts(): Observable<Product[]> {
   //   return of(this.products);
   // }
+  updateProduct(product: Product): Observable<Product> {
+    return this.apiService.put<Product, Product>('Products', product);
+  }
 
   getHeadlineProduct(): Observable<Product> {
     const headlineProduct = this.products[0];

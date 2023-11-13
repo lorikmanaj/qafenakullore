@@ -8,6 +8,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ProdCreateComponent } from '../prod-create/prod-create.component';
 import { VarietyComponent } from '../variety/variety.component';
 import { environment } from 'src/app/environments/environment';
+import { EditProductComponent } from '../edit-product/edit-product.component';
 
 @Component({
   selector: 'app-product-handler',
@@ -91,9 +92,16 @@ export class ProductHandlerComponent {
     console.log('Varieties:', this.products[1].varieties);
   }
 
-
   editProduct(product: Product) {
+    const dialogRef = this.dialog.open(EditProductComponent, {
+      data: { product: product }
+    });
 
+    dialogRef.afterClosed().subscribe((editProd: Product) => {
+      if (editProd) {
+        console.log('Edited Product:', editProd);
+      }
+    });
   }
 
   deleteProduct(product: Product) {

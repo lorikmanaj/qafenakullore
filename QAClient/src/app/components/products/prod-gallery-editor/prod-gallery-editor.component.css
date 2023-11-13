@@ -1,0 +1,37 @@
+.gallery-container {
+    border: 2px solid #ddd;
+    /* Add a border to the gallery container */
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    /* Add a border to the images */
+}
+
+.delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #ff6347;
+    /* Use a red color for the delete button */
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 5px;
+}

@@ -153,7 +153,7 @@ export class ProdCreateComponent implements OnInit {
     // Convert variety images to Base64 using map
     product.varietyBase64 = await Promise.all(
       product.varieties.map(async (variety) => await convertImageToBase64(variety.imageUrl || ''))
-    ) as string[];    
+    ) as string[];
 
     console.log(product);
     //Send the product to your API

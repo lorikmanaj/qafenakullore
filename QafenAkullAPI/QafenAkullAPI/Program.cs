@@ -62,6 +62,7 @@ builder.Services.AddScoped<IStorageManager>(provider =>
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IItemGalleryRepository, ItemGalleryRepository>();
 
 builder.Services.AddControllers().AddJsonOptions(_ =>
     _.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
