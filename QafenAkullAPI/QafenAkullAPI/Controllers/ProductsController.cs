@@ -29,6 +29,13 @@ namespace QafenAkullAPI.Controllers
         }
 
         // GET: api/Products
+        [HttpGet("ProductsType/{typeId}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByType(int typeId)
+        {
+            return await _productRepository.GetProductsByType(typeId);
+        }
+
+        // GET: api/Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {

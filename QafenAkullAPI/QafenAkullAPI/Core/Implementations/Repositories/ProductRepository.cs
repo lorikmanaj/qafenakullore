@@ -21,6 +21,20 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
             this._storageManager = storageManager;
         }
 
+        public async Task<List<Product>> GetProductsByType(int typeId)
+        {
+            var prods = await _context.Products
+                .Include(_ => _.Type)
+                .Include(_ => _.Galleries)
+                .Include(_ => _.Varieties)
+                .Include(_ => _.ProductReviews)
+                .Include(_ => _.ItemGalleries)
+                .Include(_ => _.ProductTags)
+                .Where(_ => _.TypeId == typeId)
+                .ToListAsync();
+            return prods;
+        }
+
         public async Task<List<Product>> GetProducts()
         {
             var prods = await _context.Products
