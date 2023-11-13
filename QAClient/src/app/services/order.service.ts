@@ -32,4 +32,10 @@ export class OrderService {
   createOrder(orderData: any): Observable<Order> {
     return this.apiService.post<Order>('orders', orderData);
   }
+  
+  getOrdersPage(page: number, pageSize: number): Observable<Order[]> {
+    // Implement pagination logic on the server-side and pass page and pageSize to the API request.
+    return this.apiService.get<Order[]>(`Orders?page=${page}&pageSize=${pageSize}`);
+  }
+
 }

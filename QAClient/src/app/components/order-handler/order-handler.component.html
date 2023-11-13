@@ -1,81 +1,45 @@
-<!-- <table class="table">
-    <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>Client</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Shipping Address</th>
-            <th>Payment</th>
-            <th>Notes</th>
-            <th>Total</th>
-            <th>Discounts</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let order of orders">
-            <td>{{ order.orderId }}</td>
-            <td>{{ order.user?.email + ' | ' + order.user?.firstName + ' ' + order.user?.lastName }}</td>
-            <td>{{ order.date }}</td>
-            <td>{{ order.orderStatus?.status }}</td>
-            <td>{{ order.shippingAddress }}</td>
-            <td>{{ order.paymentMethod?.name }}</td>
-            <td>{{ order.orderNotes }}</td>
-            <td>{{ order.total }}</td>
-            <td>{{ order.discounts?.length }}</td>
-        </tr>
-    </tbody>
-</table> -->
-<div class="table-container">
-    <table mat-table [dataSource]="orders.data" matSort="sort" class="custom-table">
-      <ng-container matColumnDef="orderId">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-width">Order ID</th>
-        <td mat-cell *matCellDef="let order">{{ order.orderId }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="client">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-width">Client</th>
-        <td mat-cell *matCellDef="let order">{{ order.user?.email + ' | ' + order.user?.firstName + ' ' + order.user?.lastName }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-width">Date</th>
-        <td mat-cell *matCellDef="let order">{{ order.date | date: 'yyyy-MM-dd HH:mm'  }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-width">Status</th>
-        <td mat-cell *matCellDef="let order">{{ order.orderStatus?.status }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="shippingAddress">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-width">Address</th>
-        <td mat-cell *matCellDef="let order">{{ order.shippingAddress }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="payment">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-width">Payment</th>
-        <td mat-cell *matCellDef="let order">{{ order.paymentMethod?.name }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="notes">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-width">Notes</th>
-        <td mat-cell *matCellDef="let order">{{ order.orderNotes }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-width">Total</th>
-        <td mat-cell *matCellDef="let order">{{ order.total }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="discounts">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-width">Discounts</th>
-        <td mat-cell *matCellDef="let order">{{ order.discounts?.length }}</td>
-      </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </table>
-  </div>
-  <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
-  
+<div class="sorting-options">
+  <label for="sortOrder">Sort by:</label>
+  <select id="sortOrder" [(ngModel)]="selectedSortOption" (change)="onSortOptionChange()">
+    <option value="latest">Latest</option>
+    <option value="newest">Newest</option>
+  </select>
+</div>
+<table class="table">
+
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Client</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Shipping Address</th>
+      <th>Payment</th>
+      <th>Notes</th>
+      <th>Total</th>
+      <th>Discounts</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor="let order of orders">
+      <td>{{ order.orderId }}</td>
+      <td>{{ order.user?.email + ' | ' + order.user?.firstName + ' ' + order.user?.lastName }}</td>
+      <td>{{ order.date }}</td>
+      <td>{{ order.orderStatus?.status }}</td>
+      <td>{{ order.shippingAddress }}</td>
+      <td>{{ order.paymentMethod?.name }}</td>
+      <td>{{ order.orderNotes }}</td>
+      <td>{{ order.total }}</td>
+      <td>{{ order.discounts?.length }}</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<div class="pagination-container">
+  <button (click)="loadPreviousPage()" [disabled]="currentPage === 1" class="pagination-button">Previous</button>
+  <span>Page {{ currentPage }}</span>
+  <button (click)="loadNextPage()" class="pagination-button">Next</button>
+  <!-- [disabled]="isNextButtonDisabled()" -->
+</div>

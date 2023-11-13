@@ -1,29 +1,43 @@
-.custom-table {
-    width: 100%;
-    /* Set the width as needed */
+table {
     border-collapse: collapse;
-    border: 1px solid #ccc;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
 }
 
-.custom-table th,
-.custom-table td {
-    border: 1px solid #ccc;
+th,
+td {
+    text-align: center;
     padding: 8px;
-    text-align: left;
+    border: 1px solid black;
+    align-items: center;
+    white-space: nowrap;
 }
 
-.custom-table th {
-    background-color: #f0f0f0;
-    /* Header background color */
+
+/* Pagination Controls Style */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.pagination-button {
+
+    margin: 0 4px;
+    cursor: pointer;
+    color: rgb(0, 0, 255);
+    border: none;
+    border-radius: 4px;
     font-weight: bold;
+    background-color: transparent;
+
+
 }
 
-.custom-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-    /* Alternate row background color */
-}
-
-.custom-table tr:hover {
-    background-color: #ddd;
-    /* Hovered row background color */
+.pagination-button:disabled {
+    color: #ccc;
+    background-color: transparent;
+    cursor: not-allowed;
 }
