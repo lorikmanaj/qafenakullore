@@ -1,15 +1,15 @@
 <div class="slider">
     <div class="card-container">
-    <div *ngFor="let testimonial of testimonials; let i = index" class="card">
-        <div class="card-content">
-            <img [src]="testimonial.avatarUrl" alt="{{ testimonial.name }} Avatar" />
-            <h3>{{ testimonial.name }}</h3>
-            <p>{{ testimonial.comment }}</p>
-            <div class="rating"> 
-                <span>Service Rating:</span>
-                <app-star-rating [rating]="testimonial.rating"></app-star-rating>
+        <div *ngFor="let testimonial of testimonials; let i = index" class="card">
+            <div class="card-content">
+                <img [src]="testimonial.avatarUrl" alt="{{ testimonial.name }} Avatar" />
+                <h3>{{ testimonial.name }}</h3>
+                <p>{{ testimonial.comment }}</p>
+                <div class="rating">
+                    <span>Service Rating:</span>
+                    <app-star-rating [rating]="testimonial.rating"></app-star-rating>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>

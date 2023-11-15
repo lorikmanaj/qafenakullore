@@ -13,6 +13,10 @@ export class ProductService {
 
   constructor(private apiService: ApiService) { }
 
+  getProducts(): Observable<Product[]> {
+    return this.apiService.get<Product[]>('Products');
+  }
+
   getProductById(productId: number): Observable<Product> {
     return this.apiService.getById<Product>('Products', productId).pipe(
       catchError((error) => {
@@ -24,10 +28,6 @@ export class ProductService {
 
   getProductsByType(type: string): Observable<Product[]> {
     return this.apiService.get<Product[]>(`Products/ProductsType/${type}`);
-  }
-
-  getProducts(): Observable<Product[]> {
-    return this.apiService.get<Product[]>('Products');
   }
 
   // getProducts(): Observable<Product[]> {
@@ -49,10 +49,6 @@ export class ProductService {
   //   return of(this.products);
   // }
 
-  updateProduct(product: Product): Observable<Product> {
-    return this.apiService.put<Product, Product>('Products', product);
-  }
-
   getHeadlineProduct(): Observable<Product> {
     const headlineProduct = this.products[0];
     return of(headlineProduct);
@@ -64,5 +60,9 @@ export class ProductService {
 
   createProduct(productData: any): Observable<Product> {
     return this.apiService.post<Product>('products', productData);
+  }
+
+  updateProduct(product: Product): Observable<Product> {
+    return this.apiService.put<Product, Product>('Products', product);
   }
 }

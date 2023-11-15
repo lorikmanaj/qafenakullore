@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using QafenAkullAPI.Core.DTO.ProductReview;
+using QafenAkullAPI.Core.Interfaces.Repositories;
 using QafenAkullAPI.Domain.Entities;
 using QafenAkullAPI.Infrastructure.Persistence;
 
@@ -15,17 +17,20 @@ namespace QafenAkullAPI.Controllers
     public class ProductReviewsController : ControllerBase
     {
         private readonly QafenAkullDbContext _context;
+        private readonly IProductReviewRepository _productReviewRepository;
 
-        public ProductReviewsController(QafenAkullDbContext context)
+        public ProductReviewsController(QafenAkullDbContext context,
+            IProductReviewRepository productReviewRepository)
         {
-            _context = context;
+            this._context = context;
+            this._productReviewRepository = productReviewRepository;
         }
 
         // GET: api/ProductReviews
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductReview>>> GetProductReviews()
+        public async Task<ActionResult<IEnumerable<ProductReviewDTO>>> GetProductReviews()
         {
-            return await _context.ProductReviews.ToListAsync();
+            return await _productReviewRepository.GetProductReviews();
         }
 
         // GET: api/ProductReviews/5

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Variety } from 'src/app/models/variety';
-import { VarietySelectionService } from 'src/app/services/variety-selection.service';
+import { VarietySelectionService } from 'src/app/services/products/variety-selection.service';
 
 @Component({
   selector: 'app-variety',

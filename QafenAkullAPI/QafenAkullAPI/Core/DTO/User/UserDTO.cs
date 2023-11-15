@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace QafenAkullAPI.Core.DTO
+namespace QafenAkullAPI.Core.DTO.User
 {
-    public class ApiUserDTO : LoginDTO
+    public class UserDTO : LoginDTO
     {
         [Required]
         public string FirstName { get; set; }

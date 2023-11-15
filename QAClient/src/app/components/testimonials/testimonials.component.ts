@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestimonialsComponent implements OnInit {
   testimonials: Testimonial[] = [
-    new Testimonial('assets/avatar.png', 'John Doe', 'Excellent service!', 5),
-    new Testimonial('assets/avatar.png', 'Jane Smith', 'Highly recommend!', 4.5),
-    new Testimonial('assets/avatar.png', 'Bob Johnson', 'Great experience!', 2),
-    new Testimonial('assets/avatar.png', 'Alice Brown', 'Good job!', 3.5),
-    new Testimonial('assets/avatar.png', 'Ella Wilson', 'Could be better.', 1.5)
+    { avatarUrl: 'assets/avatar.png', name: 'John Doe', comment: 'Excellent service!', rating: 5 },
+    { avatarUrl: 'assets/avatar.png', name: 'Jane Smith', comment: 'Highly recommend!', rating: 4.5 },
+    { avatarUrl: 'assets/avatar.png', name: 'Bob Johnson', comment: 'Great experience!', rating: 2 },
+    { avatarUrl: 'assets/avatar.png', name: 'Alice Brown', comment: 'Good job!', rating: 3.5 },
+    { avatarUrl: 'assets/avatar.png', name: 'Ella Wilson', comment: 'Could be better.', rating: 1.5 }
   ];
 
   currentIndex: number = 0;
@@ -22,7 +22,6 @@ export class TestimonialsComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
 
 }
 

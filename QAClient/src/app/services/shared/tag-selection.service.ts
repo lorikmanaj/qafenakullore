@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Tag } from '../models/tag';
+import { Tag } from '../../models/tag';
 
 @Injectable({
   providedIn: 'root',

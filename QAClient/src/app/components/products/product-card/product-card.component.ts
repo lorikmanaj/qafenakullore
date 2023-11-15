@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { environment } from 'src/app/environments/environment';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/products/product.service';
+import { ProductReviewService } from './../../../services/products/product-review.service';
 
 @Component({
   selector: 'app-product-card',
@@ -17,7 +18,8 @@ export class ProductCardComponent implements OnInit {
   currentImageIndex: number = 0;
   currentImage: string | undefined; // Initialize currentImage as undefined
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+    private productReviewService: ProductReviewService) { }
 
   ngOnInit() {
     // Fetch the product using the product ID

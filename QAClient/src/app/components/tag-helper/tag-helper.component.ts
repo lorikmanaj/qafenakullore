@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tag } from 'src/app/models/tag';
-import { TagsService } from 'src/app/services/tags.service';
-import { TagSelectionService } from './../../services/tag-selection.service';
+import { TagsService } from 'src/app/services/products/tags.service';
+import { TagSelectionService } from '../../services/shared/tag-selection.service';
 
 @Component({
   selector: 'app-tag-helper',

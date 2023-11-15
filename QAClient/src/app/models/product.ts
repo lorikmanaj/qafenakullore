@@ -19,7 +19,6 @@ export interface Product {
     stock?: number;
 
     type?: ProductType;
-    // galleries: Gallery
     varieties?: Variety[];
     tags?: Tag[];
     galleries?: Gallery[];

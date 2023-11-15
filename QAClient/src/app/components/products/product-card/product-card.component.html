@@ -3,7 +3,6 @@
         <img [src]="constructImageUrl(product.mainImage)" />
     </div>
     <div class="product-details">
-        <!-- Add a router link to open product details when <h2> is clicked -->
         <a [routerLink]="['/product', product.productId]">
             <h2>{{ product.name }}</h2>
         </a>
@@ -18,7 +17,6 @@
         </div>
     </div>
     <div class="ratings">
-        <!-- Display star rating and review count here -->
         <p class="star-rating">Star</p>
         <p class="review-count">Reviews</p>
     </div>

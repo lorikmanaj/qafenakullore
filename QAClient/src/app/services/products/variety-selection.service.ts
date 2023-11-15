@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Variety } from '../models/variety';
+import { Variety } from '../../models/variety';
 
 @Injectable({
   providedIn: 'root',

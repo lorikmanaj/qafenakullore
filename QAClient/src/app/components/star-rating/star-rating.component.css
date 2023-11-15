@@ -1,0 +1,21 @@
+.rating-container {
+    display: inline-block;
+}
+
+.circle {
+    width: 20px;
+    /* Adjust the size of the circles */
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
+    /* Adjust spacing between circles */
+    display: inline-block;
+}
+
+.gold {
+    background-color: gold;
+}
+
+.black {
+    background-color: black;
+}

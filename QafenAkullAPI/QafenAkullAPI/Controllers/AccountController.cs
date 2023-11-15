@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using QafenAkullAPI.Core.DTO;
 using QafenAkullAPI.Core.DTO.ResponseModels;
+using QafenAkullAPI.Core.DTO.User;
 using QafenAkullAPI.Core.Interfaces.Services;
 
 namespace QafenAkullAPI.Controllers
@@ -23,7 +24,7 @@ namespace QafenAkullAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> Register([FromBody] ApiUserDTO apiUser)
+        public async Task<ActionResult> Register([FromBody] UserDTO apiUser)
         {
             var errors = await _authManager.Register(apiUser);
 

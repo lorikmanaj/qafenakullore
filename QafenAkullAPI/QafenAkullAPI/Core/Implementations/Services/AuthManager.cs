@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using QafenAkullAPI.Core.DTO;
 using QafenAkullAPI.Core.DTO.ResponseModels;
+using QafenAkullAPI.Core.DTO.User;
 using QafenAkullAPI.Core.Interfaces.Services;
 using QafenAkullAPI.Domain.Entities;
 using System.IdentityModel.Tokens.Jwt;
@@ -25,7 +26,7 @@ namespace QafenAkullAPI.Core.Implementations.Services
             this._configuration = configuration;
         }
 
-        public async Task<IEnumerable<IdentityError>> Register(ApiUserDTO user)
+        public async Task<IEnumerable<IdentityError>> Register(UserDTO user)
         {
             _user = new ApiUser()
             {
