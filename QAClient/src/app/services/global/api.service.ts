@@ -23,6 +23,11 @@ export class ApiService {
     return this.http.post<HttpResponseModel>(url, data, httpOptions);
   }
 
+  getById<HttpResponseModel>(path: string, id: number): Observable<HttpResponseModel> {
+    const url = `${environment.apiUrl}/api/${path}/${id}`;
+    return this.http.get<HttpResponseModel>(url, httpOptions);
+  }
+
   get<HttpResponseModel>(path: string): Observable<HttpResponseModel> {
     const url = `${environment.apiUrl}/api/${path}`;
     return this.http.get<HttpResponseModel>(url, httpOptions);

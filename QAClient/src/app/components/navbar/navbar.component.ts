@@ -27,14 +27,7 @@ export class NavbarComponent {
   faBars = faBars;
   faAdmin = faGamepad;
 
-  productTypes: ProductType[] = [
-    // { typeId: 1, type: 'Home' },
-    // { typeId: 2, type: 'Qafore' },
-    // { typeId: 3, type: 'Unaza' },
-    // { typeId: 4, type: 'Byzylyk' },
-    // { typeId: 5, type: 'Qafore' },
-    // { typeId: 6, type: 'Sete' }
-  ];
+  productTypes: ProductType[] = [];
 
   @Output() selectProductType: EventEmitter<string> = new EventEmitter<string>();
 

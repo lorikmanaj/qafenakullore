@@ -29,10 +29,10 @@ namespace QafenAkullAPI.Controllers
         }
 
         // GET: api/Products
-        [HttpGet("ProductsType/{typeId}")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByType(int typeId)
+        [HttpGet("ProductsType/{type}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByType(string type)
         {
-            return await _productRepository.GetProductsByType(typeId);
+            return await _productRepository.GetProductsByType(type);
         }
 
         // GET: api/Products
@@ -46,13 +46,11 @@ namespace QafenAkullAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productRepository.GetProductById(id);
 
             if (product == null)
-            {
                 return NotFound();
-            }
-
+            
             return product;
         }
 

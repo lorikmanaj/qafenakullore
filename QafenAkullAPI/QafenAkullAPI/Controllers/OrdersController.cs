@@ -40,10 +40,8 @@ namespace QafenAkullAPI.Controllers
             var order = await _context.Orders.FindAsync(id);
 
             if (order == null)
-            {
                 return NotFound();
-            }
-
+            
             return order;
         }
 

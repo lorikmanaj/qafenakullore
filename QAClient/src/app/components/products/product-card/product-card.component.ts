@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/app/environments/environment';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/products/product.service';
 
@@ -31,6 +32,10 @@ export class ProductCardComponent implements OnInit {
         }
       }
     });
+  }
+
+  constructImageUrl(imagePath: string): string {
+    return `${environment.serverBaseUrl}${imagePath}`;
   }
 
   handleMouseEnter() {

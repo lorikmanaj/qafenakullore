@@ -1,6 +1,6 @@
 <div class="product-card" *ngIf="product" (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()">
     <div class="product-image">
-        <img [src]="currentImage" />
+        <img [src]="constructImageUrl(product.mainImage)" />
     </div>
     <div class="product-details">
         <!-- Add a router link to open product details when <h2> is clicked -->
@@ -11,17 +11,16 @@
         <div class="varieties">
             <div *ngFor="let variety of product.varieties; let i = index" class="variety" (mouseenter)="changeImage(i)"
                 (mouseleave)="resetImage()">
-                <!-- Display variety image as a rounded element -->
                 <div class="variety-image rounded-element">
-                    <img [src]="variety.imageUrl" alt="{{ variety.description }}" />
+                    <img [src]="constructImageUrl(variety.imageUrl || '')" alt="{{ variety.description }}" />
                 </div>
             </div>
         </div>
     </div>
     <div class="ratings">
         <!-- Display star rating and review count here -->
-        <p class="star-rating"> Star</p>
-        <p class="review-count"> Reviews</p>
+        <p class="star-rating">Star</p>
+        <p class="review-count">Reviews</p>
     </div>
 </div>
 

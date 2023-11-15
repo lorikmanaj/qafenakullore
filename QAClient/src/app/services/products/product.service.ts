@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { Observable, map, of, throwError } from 'rxjs';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { ApiService } from '../global/api.service';
 import { environment } from 'src/app/environments/environment';
 
@@ -14,27 +14,30 @@ export class ProductService {
   constructor(private apiService: ApiService) { }
 
   getProductById(productId: number): Observable<Product> {
-    const product = this.products.find((p) => p.productId === productId);
-    if (!product) {
-      return throwError(new Error('Product not found'));
-    }
-    return of(product);
+    return this.apiService.getById<Product>('Products', productId).pipe(
+      catchError((error) => {
+        console.error('Error fetching product:', error);
+        return throwError(new Error('Product not found'));
+      })
+    );
   }
 
-  getProductsByType(typeId: number): Observable<Product[]> {
-    return this.apiService.get<Product[]>(`Products/ProductsType/${typeId}`);
+  getProductsByType(type: string): Observable<Product[]> {
+    return this.apiService.get<Product[]>(`Products/ProductsType/${type}`);
   }
 
   getProducts(): Observable<Product[]> {
     return this.apiService.get<Product[]>('Products');
   }
+
   // getProducts(): Observable<Product[]> {
   //   return this.apiService.get<Product[]>(`products`)
   //     .pipe(
   //       map(products => {
   //         // Modify image URLs for each product
   //         return products.map(product => {
-  //           product.mainImage = `${environment.apiUrl}/${product.mainImage}`;
+  //           product.mainImage = `${environment.serverBaseUrl}/${product.mainImage}`;
+  //           product.background = `${environment.serverBaseUrl}/${product.background}`;
   //           // You can do this for other image properties as well
   //           return product;
   //         });
@@ -45,6 +48,7 @@ export class ProductService {
   // getProducts(): Observable<Product[]> {
   //   return of(this.products);
   // }
+
   updateProduct(product: Product): Observable<Product> {
     return this.apiService.put<Product, Product>('Products', product);
   }
