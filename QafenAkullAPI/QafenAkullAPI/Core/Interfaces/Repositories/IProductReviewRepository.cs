@@ -6,5 +6,6 @@ namespace QafenAkullAPI.Core.Interfaces.Repositories
     public interface IProductReviewRepository
     {
         Task<List<ProductReviewDTO>> GetProductReviews();
+        Task<ReviewDetailsDTO> GetProdRevDetails(int productId);
     }
 }

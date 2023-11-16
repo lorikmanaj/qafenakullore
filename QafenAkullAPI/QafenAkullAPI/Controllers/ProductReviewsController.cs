@@ -57,6 +57,17 @@ namespace QafenAkullAPI.Controllers
             return productReviews;
         }
 
+        [HttpGet("{productId}/Details")]
+        public async Task<ActionResult<ReviewDetailsDTO>> GetProdReviewDetails(int productId)
+        {
+            var productDetails = await _productReviewRepository.GetProdRevDetails(productId);
+
+            if (productDetails == null)
+                return NotFound();
+            
+            return Ok(productDetails);
+        }
+
         // PUT: api/ProductReviews/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

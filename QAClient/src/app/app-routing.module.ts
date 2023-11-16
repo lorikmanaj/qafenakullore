@@ -5,7 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthComponent } from './auth/auth.component'
 
 import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
-import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
 import { LoginComponent } from './components/login/login.component';
 
 

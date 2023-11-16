@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '../global/api.service';
 import { ProductReview } from 'src/app/models/productReview';
 import { Observable } from 'rxjs';
+import { ReviewDetails } from 'src/app/models/reviewDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ProductReviewService {
     return this.apiService.get<ProductReview[]>('ProductReviews');
   }
 
-  getReviewsForProduct(productId: number): Observable<ProductReview[]> {
-    return this.apiService.getProductReview
+  getProdReviewsDetails(productId: number): Observable<ReviewDetails> {
+    return this.apiService.get<ReviewDetails>(`ProductReviews/${productId}/Details`);
   }
 }

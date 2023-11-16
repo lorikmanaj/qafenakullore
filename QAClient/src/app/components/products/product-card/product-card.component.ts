@@ -3,6 +3,7 @@ import { environment } from 'src/app/environments/environment';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/products/product.service';
 import { ProductReviewService } from './../../../services/products/product-review.service';
+import { ReviewDetails } from 'src/app/models/reviewDetails';
 
 @Component({
   selector: 'app-product-card',
@@ -11,7 +12,8 @@ import { ProductReviewService } from './../../../services/products/product-revie
 })
 export class ProductCardComponent implements OnInit {
   @Input() productId!: number;
-  product: Product | undefined; // Initialize product as undefined
+  product: Product | undefined;
+  reviewDetails: ReviewDetails | undefined;
 
   private readonly defaultImageUrl = 'assets/red.png';
 
@@ -22,7 +24,6 @@ export class ProductCardComponent implements OnInit {
     private productReviewService: ProductReviewService) { }
 
   ngOnInit() {
-    // Fetch the product using the product ID
     this.productService.getProductById(this.productId).subscribe((product) => {
       this.product = product;
 
@@ -34,6 +35,15 @@ export class ProductCardComponent implements OnInit {
         }
       }
     });
+
+    this.productReviewService.getProdReviewsDetails(this.productId).subscribe(
+      (reviewDetails) => {
+        this.reviewDetails = reviewDetails;
+      },
+      (error) => {
+        console.error('Error fetching review details:', error);
+      }
+    );
   }
 
   constructImageUrl(imagePath: string): string {

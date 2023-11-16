@@ -38,5 +38,27 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
             return reviews;
         }
 
+        public async Task<ReviewDetailsDTO> GetProdRevDetails(int productId)
+        {
+            var reviews = await _context.ProductReviews
+                .Where(review => review.ProductId == productId)
+                .ToListAsync();
+
+            if (reviews == null || !reviews.Any())
+                return null; 
+            
+            int totalReviews = reviews.Count;
+            double averageRating = reviews.Average(review => review.Rating);
+
+            var reviewDetails = new ReviewDetailsDTO
+            {
+                ProductId = productId,
+                TotalReviews = totalReviews,
+                AverageRating = (int)averageRating
+            };
+
+            return reviewDetails;
+        }
+
     }
 }

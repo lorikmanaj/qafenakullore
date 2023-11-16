@@ -21,8 +21,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
-import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
-import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
+import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProdCategoriesComponent } from './components/products/prod-categories/prod-categories.component';
@@ -41,7 +41,7 @@ import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { TestimonialsComponent } from './components/testimonials/testimonials.component';
 import { UserOrdersComponent } from './components/user/user-orders/user-orders.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
-import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { StarRatingComponent } from './components/products/star-rating/star-rating.component';
 import { CartComponent } from './components/cart/cart.component';
 
 import { ProductGridComponent } from './components/products/product-grid/product-grid.component';
