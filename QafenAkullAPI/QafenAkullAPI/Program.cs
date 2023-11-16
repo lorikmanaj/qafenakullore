@@ -15,7 +15,6 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 var connString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<QafenAkullDbContext>(options =>
 {
@@ -68,7 +67,8 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IItemGalleryRepository, ItemGalleryRepository>();
 builder.Services.AddScoped<IProductReviewRepository, ProductReviewRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
-builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
+builder.Services.AddScoped<IWishListRepository, WishListRepository>();
+builder.Services.AddScoped<IWishListItemRepository, WishListItemRepository>();
 
 builder.Services.AddControllers().AddJsonOptions(_ =>
     _.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

@@ -16,14 +16,18 @@ namespace QafenAkullAPI.Core.Implementations.Services
         private readonly UserManager<ApiUser> _userManager;
         private readonly IConfiguration _configuration;
         private ApiUser _user;
+        private readonly IShoppingService _shoppingService;
 
         private const string _loginProvider = "QafenAkullAPI";
         private const string _refreshToken = "RefreshToken";
 
-        public AuthManager(UserManager<ApiUser> userManager, IConfiguration configuration)
+        public AuthManager(UserManager<ApiUser> userManager, 
+            IConfiguration configuration,
+            IShoppingService shoppingService)
         {
             this._userManager = userManager;
             this._configuration = configuration;
+            this._shoppingService = shoppingService;
         }
 
         public async Task<IEnumerable<IdentityError>> Register(UserDTO user)
@@ -40,7 +44,11 @@ namespace QafenAkullAPI.Core.Implementations.Services
             var result = await _userManager.CreateAsync(_user, user.Password);
 
             if (result.Succeeded)
+            {
                 await _userManager.AddToRoleAsync(_user, "User");
+                await _shoppingService.CreateCartForUser(_user.Id);
+                await _shoppingService.CreateWishlistForUser(_user.Id);
+            }
 
             return result.Errors;
         }
