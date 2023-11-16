@@ -41,12 +41,22 @@ export class NavbarComponent {
     });
   }
 
+  // onSelectProductType(type: string) {
+  //   // if (type === 'Home') {
+  //   //   this.router.navigate(['/products', type]);
+  //   // }
+  //   // this.router.navigate(['/products', type]);
+  //   this.selectProductType.emit(type);
+  // }
   onSelectProductType(type: string) {
-    // if (type === 'Home') {
-    //   this.router.navigate(['/products', type]);
-    // }
-    // this.router.navigate(['/products', type]);
-    this.selectProductType.emit(type);
+    console.log(`onSelectProductType called with type: ${type}`);
+    if (type === 'Home') {
+      console.log('Navigating to /home');
+      this.router.navigate(['/home']);
+    } else {
+      console.log(`Navigating to /products/${type}`);
+      this.router.navigate(['/products', type]);
+    }
   }
 
   navigateToAdmin() {

@@ -1,40 +1,3 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarNav">
-
-    <div class="navbar-left">
-      <div class="search-icon ml-auto">
-        <fa-icon [icon]="faGlass"></fa-icon>
-      </div>
-      <input type="text" class="form-control search-input" placeholder="Search...">
-    </div>
-
-    <div class="mx-auto">
-      <ul class="navbar-nav">
-        <li class="nav-item" *ngFor="let productType of productTypes">
-           <a class="nav-link" [routerLink]="['/products', productType.typeId]">{{ productType.type }}</a> -->
-<!-- <a class="nav-link" (click)="onSelectProductType(productType.type)">{{ productType.type }}</a> -->
-<!-- <a class="nav-link" [routerLink]="['/products', productType.type.toLowerCase()]">{{ productType.type }}</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="navbar-right ml-auto">
-      <div class="profile-icon">
-        <app-profile-options></app-profile-options>
-      </div>
-      <div class="cart-icon">
-        <app-cart></app-cart>
-      </div>
-    </div>
-  </div>
-</nav> -->
-
-
 <nav>
   <div class="main-menu">
     <div class="logo">
@@ -43,10 +6,13 @@
     <div class="menu-links">
       <ul>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="'/products/home'">Home</a>
+          <!-- <a class="nav-link" [routerLink]="'/products/home'">Home</a> -->
+          <a class="nav-link" (click)="onSelectProductType('Home')">Home</a>
         </li>
         <li class=" nav-item" *ngFor="let productType of productTypes">
-          <a class="nav-link" [routerLink]="['/products', productType.type]">{{ productType.type }}</a>
+          <!-- <a class="nav-link" [routerLink]="['/products', productType.type]">{{ productType.type }}</a> -->
+          <!-- <a class="nav-link" [routerLink]="['./', productType.type]">{{ productType.type }}</a> -->
+          <a class="nav-link" (click)="onSelectProductType(productType.type)">{{ productType.type }}</a>
         </li>
       </ul>
     </div>

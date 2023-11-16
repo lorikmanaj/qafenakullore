@@ -18,16 +18,27 @@ export class ProductListingComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.productType = params['type'];
-      // Now you can use this.productType in your logic
+      this.productService.getProductsByType(this.productType).subscribe((products) => {
+        console.log('Prodsat', products);
+        this.products = products;
+      });
     });
-
-    this.productService.getProductsByType(this.productType).subscribe((products) => {
-      console.log('Prodsat', products);
-      this.products = products;
-    });
-    // this.productService.getProducts().subscribe((products) => {
-    //   this.products = products;
-    //   console.log(this.products);
-    // });
   }
+
+  // ngOnInit() {
+  //   console.log('ProductListingComponent ngOnInit');
+  //   this.route.params.subscribe(params => {
+  //     this.productType = params['type'];
+  //     // Now you can use this.productType in your logic
+  //   });
+
+  //   this.productService.getProductsByType(this.productType).subscribe((products) => {
+  //     console.log('Prodsat', products);
+  //     this.products = products;
+  //   });
+  //   // this.productService.getProducts().subscribe((products) => {
+  //   //   this.products = products;
+  //   //   console.log(this.products);
+  //   // });
+  // }
 }

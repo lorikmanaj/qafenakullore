@@ -9,27 +9,39 @@ import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.
 import { LoginComponent } from './components/login/login.component';
 
 
+// const routes: Routes = [
+//   { path: 'products/home', component: HomeComponent, },//canActivate: [AuthGuard], },
+//   { path: 'products/:type', component: ProductListingComponent },
+//   { path: 'product/:id', component: ProductDetailsComponent },
+//   { path: 'admin', component: AdminPanelComponent },
+//   { path: '', redirectTo: '/products/home', pathMatch: 'full' },
+//   {
+//     path: "register", component: AuthComponent,
+//   },
+//   {
+//     path: "logins", component: LoginComponent,
+//   },
+//   {
+//     path: "login", component: AuthComponent, data: { isLogin: true }
+//   },
+//   {
+//     path: "register", component: AuthComponent, data: { isLogin: false }
+//   },
+//   { path: '**', redirectTo: '/' },
+//   { path: '', redirectTo: '/products/home', pathMatch: 'full' }
+// ];
 const routes: Routes = [
-  { path: 'products/home', component: HomeComponent, },//canActivate: [AuthGuard], },
+  { path: 'home', component: HomeComponent },
   { path: 'products/:type', component: ProductListingComponent },
   { path: 'product/:id', component: ProductDetailsComponent },
   { path: 'admin', component: AdminPanelComponent },
-  { path: '', redirectTo: '/products/home', pathMatch: 'full' },
-  {
-    path: "register", component: AuthComponent,
-  },
-  {
-    path: "logins", component: LoginComponent,
-  },
-  {
-    path: "login", component: AuthComponent, data: { isLogin: true }
-  },
-  {
-    path: "register", component: AuthComponent, data: { isLogin: false }
-  },
-  { path: '**', redirectTo: '/' },
-  { path: '', redirectTo: '/products/home', pathMatch: 'full' }
+  { path: 'register', component: AuthComponent },
+  { path: 'login', component: AuthComponent, data: { isLogin: true } },
+  { path: 'register', component: AuthComponent, data: { isLogin: false } },
+  { path: '**', redirectTo: '/home' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
