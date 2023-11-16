@@ -71,20 +71,20 @@ namespace QafenAkullAPI.Controllers
             return Ok(authResponse);
         }
 
-        // POST: api/Account/login
-        [HttpGet]
-        [Route("test")]
-        [Authorize(Roles = "Administrator")] //SAMPLE
-        public async Task<ActionResult> Test()
-        {
-            return Ok();
-        }
+        //// POST: api/Account/login
+        //[HttpGet]
+        //[Route("test")]
+        //[Authorize(Roles = "Administrator")] //SAMPLE
+        //public async Task<ActionResult> Test()
+        //{
+        //    return Ok();
+        //}
 
-        [Authorize]
-        [HttpGet("authed")]
-        public async Task<ActionResult> Test2()
-        {
-            return Ok();
-        }
+        //[Authorize]
+        //[HttpGet("authed")]
+        //public async Task<ActionResult> Test2()
+        //{
+        //    return Ok();
+        //}
     }
 }

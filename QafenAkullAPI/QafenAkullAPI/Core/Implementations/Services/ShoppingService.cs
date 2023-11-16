@@ -17,16 +17,12 @@ namespace QafenAkullAPI.Core.Implementations.Services
 
         public async Task CreateCartForUser(string userId)
         {
-            // Implement logic to create a cart for the user
-            var cart = new Cart { UserId = userId };
-            await _cartRepository.CreateAsync(cart);
+            await _cartRepository.CreateCartAsync(userId);
         }
 
         public async Task CreateWishlistForUser(string userId)
         {
-            // Implement logic to create a wishlist for the user
-            var wishlist = new WishList { UserId = userId };
-            await _wishlistRepository.CreateAsync(wishlist);
+            await _wishlistRepository.CreateWishListAsync(userId);
         }
     }
 }
