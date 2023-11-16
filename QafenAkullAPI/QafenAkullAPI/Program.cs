@@ -28,7 +28,9 @@ builder.Services.AddIdentityCore<ApiUser>()
     .AddEntityFrameworkStores<QafenAkullDbContext>()
     .AddDefaultTokenProviders();
 
+//Services
 builder.Services.AddScoped<IAuthManager, AuthManager>();
+builder.Services.AddScoped<IShoppingService, ShoppingService>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -60,10 +62,13 @@ builder.Services.AddScoped<IStorageManager>(provider =>
     return new StorageManager(baseStoragePath);
 });
 
+//Repositories
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IItemGalleryRepository, ItemGalleryRepository>();
 builder.Services.AddScoped<IProductReviewRepository, ProductReviewRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
 
 builder.Services.AddControllers().AddJsonOptions(_ =>
     _.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

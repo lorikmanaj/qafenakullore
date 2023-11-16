@@ -47,7 +47,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { ProductGridComponent } from './components/products/product-grid/product-grid.component';
 
 import { ProductService } from './services/products/product.service';
-import { CartService } from './services/cart.service';
+import { CartService } from './services/products/cart.service';
 
 import { ProfileOptionsComponent } from './components/profile-options/profile-options.component';
 import { HomeComponent } from './components/home/home.component';

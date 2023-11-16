@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faCartShopping, faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
-import { CartService } from 'src/app/services/cart.service';
+import { CartService } from 'src/app/services/products/cart.service';
 import { CartItem } from 'src/app/models/cartItem';
-
-
 
 @Component({
   selector: 'app-cart',
@@ -17,10 +15,7 @@ export class CartComponent implements OnInit {
   isCartOpen: boolean = false;
   // isLoggedIn: boolean = false;
 
-
   cartItems: CartItem[] = []; // Define an empty array to store cart items
-
-
 
   constructor(
     private cartService: CartService,

@@ -4,6 +4,10 @@ import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/products/product.service';
 import { ProductReviewService } from './../../../services/products/product-review.service';
 import { ReviewDetails } from 'src/app/models/reviewDetails';
+import {
+  faCartShopping,
+  faHeart,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-product-card',
@@ -14,6 +18,9 @@ export class ProductCardComponent implements OnInit {
   @Input() productId!: number;
   product: Product | undefined;
   reviewDetails: ReviewDetails | undefined;
+
+  faCart = faCartShopping;
+  faHeart = faHeart;
 
   private readonly defaultImageUrl = 'assets/red.png';
 
