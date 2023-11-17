@@ -59,7 +59,7 @@ export class ProductService {
   }
 
   createProduct(productData: any): Observable<Product> {
-    return this.apiService.post<Product>('products', productData);
+    return this.apiService.post<Product, Product>('products', productData);
   }
 
   updateProduct(product: Product): Observable<Product> {

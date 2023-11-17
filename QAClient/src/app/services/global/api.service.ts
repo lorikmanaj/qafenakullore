@@ -18,7 +18,7 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  post<HttpResponseModel, RequestModel = null>(path: string, data: RequestModel): Observable<HttpResponseModel> {
+  post<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
     const url = `${environment.apiUrl}/api/${path}`;
     return this.http.post<HttpResponseModel>(url, data, httpOptions);
   }

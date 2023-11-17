@@ -16,12 +16,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.11" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Core\DTO\WishListItem\" />
     <Folder Include="Core\Implementations\Generics\" />
     <Folder Include="Core\Interfaces\Generics\" />
     <Folder Include="wwwroot\assets\images\Users\7630fc06-9afa-4173-a248-e952a684d4bb\" />

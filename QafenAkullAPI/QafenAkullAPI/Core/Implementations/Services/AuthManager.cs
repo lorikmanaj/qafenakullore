@@ -46,6 +46,7 @@ namespace QafenAkullAPI.Core.Implementations.Services
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(_user, "User");
+
                 await _shoppingService.CreateCartForUser(_user.Id);
                 await _shoppingService.CreateWishlistForUser(_user.Id);
             }

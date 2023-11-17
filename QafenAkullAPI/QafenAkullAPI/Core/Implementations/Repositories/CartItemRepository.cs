@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QafenAkullAPI.Core.Interfaces.Repositories;
 using QafenAkullAPI.Domain.Entities;
 using QafenAkullAPI.Infrastructure.Persistence;
@@ -14,6 +15,16 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
             _context = context;
         }
 
+        public async Task<ActionResult<List<CartItem>>> GetCartItems(int cartId)
+        {
+            var cartItems = await _context.CartItems.Where(_ => _.CartId == cartId).ToListAsync();
+
+            if (cartItems == null)
+                return null;
+            
+            return cartItems;
+        }
+
         public async Task<CartItem> AddItemToCartAsync(CartItem cartItem)
         {
             _context.CartItems.Add(cartItem);
@@ -22,10 +33,10 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
             return cartItem;
         }
 
-        public async Task<bool> RemoveItemFromCartAsync(CartItem cartItem)
+        public async Task<bool> RemoveItemFromCartAsync(int cartItemId)
         {
             var existingCartItem = await _context.CartItems
-                .FirstOrDefaultAsync(ci => ci.CartId == cartItem.CartId && ci.ProductId == cartItem.ProductId);
+                .FirstOrDefaultAsync(ci => ci.CartItemId == cartItemId);
 
             if (existingCartItem != null)
             {

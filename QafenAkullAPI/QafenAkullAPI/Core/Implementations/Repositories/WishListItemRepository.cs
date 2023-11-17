@@ -14,24 +14,18 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
             _context = context;
         }
 
-        public async Task<WishListItem> AddItemToWishListAsync(int wishListId, int productId)
+        public async Task<WishListItem> AddItemToWishListAsync(WishListItem wishListItem)
         {
-            var wishListItem = new WishListItem
-            {
-                WishListId = wishListId,
-                ProductId = productId
-            };
-
             _context.WishListItems.Add(wishListItem);
             await _context.SaveChangesAsync();
 
             return wishListItem;
         }
 
-        public async Task<bool> RemoveItemFromWishListAsync(int wishListId, int productId)
+        public async Task<bool> RemoveItemFromWishListAsync(int wishListItemId)
         {
             var wishListItem = await _context.WishListItems
-                .FirstOrDefaultAsync(wli => wli.WishListId == wishListId && wli.ProductId == productId);
+                .FirstOrDefaultAsync(wli => wli.WishListItemId == wishListItemId);
 
             if (wishListItem != null)
             {
