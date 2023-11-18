@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QafenAkullAPI.Core.Interfaces.Services;
@@ -29,6 +32,18 @@ namespace QafenAkullAPI.Controllers
 
             if (user == null)
                 return NotFound();
+
+            return Ok(user);
+        }
+
+        [HttpGet("Current")]
+        [Authorize] // Assuming you have JWT authentication configured
+        public async Task<ActionResult<ApiUser>> GetCurrentUser()
+        {
+            var user = await _userService.GetLoggedInUser();
+
+            if (user == null)
+                return Unauthorized();
 
             return Ok(user);
         }

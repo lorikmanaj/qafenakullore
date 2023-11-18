@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using QafenAkullAPI.Core.Implementations.Repositories;
 using QafenAkullAPI.Core.Implementations.Services;
 using QafenAkullAPI.Core.Interfaces.Repositories;
 using QafenAkullAPI.Core.Interfaces.Services;
 using QafenAkullAPI.Domain.Entities;
+using QafenAkullAPI.Infrastructure.Configurations;
 using QafenAkullAPI.Infrastructure.Persistence;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -26,6 +28,8 @@ builder.Services.AddIdentityCore<ApiUser>()
     .AddTokenProvider<DataProtectorTokenProvider<ApiUser>>("QafenAkullApi")
     .AddEntityFrameworkStores<QafenAkullDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddHttpContextAccessor();
 
 //Services
 builder.Services.AddScoped<IAuthManager, AuthManager>();
@@ -77,7 +81,34 @@ builder.Services.AddControllers().AddJsonOptions(_ =>
     _.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+
+    // Include the security definition for JWT
+    var securityScheme = new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "JWT Authorization header using the Bearer scheme",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Reference = new OpenApiReference
+        {
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
+        }
+    };
+
+    c.AddSecurityDefinition("Bearer", securityScheme);
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { securityScheme, new string[] { } }
+    });
+
+    c.OperationFilter<AuthorizeCheckOperationFilter>();
+});
 
 builder.Services.AddCors(options =>
 {
@@ -85,13 +116,6 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles(new StaticFileOptions
@@ -104,6 +128,13 @@ app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
 //Seed the data
 //using (var scope = app.Services.CreateScope())

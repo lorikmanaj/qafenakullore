@@ -3,10 +3,8 @@ import { Observable, BehaviorSubject } from "rxjs";
 
 import { JwtService } from "./auth/jwt.service";
 import { map, distinctUntilChanged, tap, shareReplay } from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
 import { User } from "../models/user";
-import { Router } from "@angular/router";
-import { environment } from "../environments/environment";
+import { ApiService } from "./global/api.service";
 
 @Injectable({ providedIn: "root" })
 export class UserService {
@@ -17,62 +15,37 @@ export class UserService {
 
   public isAuthenticated = this.currentUser.pipe(map((user) => !!user));
 
-  constructor(
-    private readonly http: HttpClient,
-    private readonly jwtService: JwtService,
-    private readonly router: Router
-  ) { }
-
-  login(credentials: {
-    email: string;
-    password: string;
-  }): Observable<any> {
-    return this.http
-      .post(`${environment.apiUrl}/account/login`, { ...credentials })
-      .pipe(tap((res) => this.setAuth(res)));
-  }
-
-  register(credentials: {
-    username: string;
-    email: string;
-    password: string;
-  }): Observable<any> {
-    return this.http
-      .post<any>(`${environment.apiUrl}/account/register`, { ...credentials })
-      .pipe(tap(({ user }) => this.setAuth(user)));
-  }
-
-  logout(): void {
-    this.purgeAuth();
-    void this.router.navigate(["/"]);
-  }
+  constructor(private readonly apiService: ApiService,
+    private jwtService: JwtService) { }
 
   getCurrentUser(): Observable<{ user: User }> {
-    return this.http.get<{ user: User }>("/user").pipe(
+    return this.apiService.get<{ user: User }>('Users/Current').pipe(
       tap({
-        next: ({ user }) => this.setAuth(user),
+        next: ({ user }) => this.setCurrentUser(user),
         error: () => this.purgeAuth(),
       }),
       shareReplay(1)
     );
   }
 
-  update(user: Partial<User>): Observable<{ user: User }> {
-    return this.http.put<{ user: User }>("/user", { user }).pipe(
-      tap(({ user }) => {
-        this.currentUserSubject.next(user);
-      })
-    );
+  getCartId(userId: string): Observable<number> {
+    // Make a GET request to retrieve the cartId for the user from the server
+    return this.apiService.get<number>(`Carts/${userId}`);
   }
 
-  setAuth(res: any): void {
-    console.log('user', res);
-    this.jwtService.saveToken(res.token);
-    this.currentUserSubject.next(res);
+  // update(user: Partial<User>): Observable<{ user: User }> {
+  //   return this.apiService.put<{ user: User }, Partial<User>>('Users', { user }).pipe(
+  //     tap(({ user }) => {
+  //       this.currentUserSubject.next(user);
+  //     })
+  //   );
+  // }
+
+  private setCurrentUser(user: User): void {
+    this.currentUserSubject.next(user);
   }
 
-  purgeAuth(): void {
-    this.jwtService.destroyToken();
+  private purgeAuth(): void {
     this.currentUserSubject.next(null);
   }
 }

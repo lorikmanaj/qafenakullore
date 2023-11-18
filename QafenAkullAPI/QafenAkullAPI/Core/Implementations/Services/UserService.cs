@@ -17,5 +17,10 @@ namespace QafenAkullAPI.Core.Implementations.Services
         {
             return await _userRepository.GetUserByIdAsync(userId);
         }
+
+        public async Task<ApiUser> GetLoggedInUser()
+        {
+            return await _userRepository.GetLoggedInUser();
+        }
     }
 }
