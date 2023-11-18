@@ -29,6 +29,7 @@ builder.Services.AddIdentityCore<ApiUser>()
 
 //Services
 builder.Services.AddScoped<IAuthManager, AuthManager>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IShoppingService, ShoppingService>();
 
 builder.Services.AddAuthentication(options =>
@@ -62,6 +63,7 @@ builder.Services.AddScoped<IStorageManager>(provider =>
 });
 
 //Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IItemGalleryRepository, ItemGalleryRepository>();
