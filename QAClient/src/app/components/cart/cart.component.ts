@@ -22,12 +22,12 @@ export class CartComponent implements OnInit {
     // private AuthenticationService: AuthenticationService // Inject AuthService here
 
   ) { }
+
   ngOnInit() {
-    // Subscribe to cart items from CartService
+    this.cartService.initCartData(); // Call a method to initialize cart-related data
     this.cartService.getCartItems().subscribe((cartItems) => {
       this.cartItems = cartItems;
       console.log(cartItems); // Debugging: Check if cartItems are coming from the service
-      // this.isLoggedIn = this.AuthenticationService.isLoggedIn(); // Check if the user is logged in
     });
   }
 

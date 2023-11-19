@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { CartItem } from '../../models/cartItem';
 import { ApiService } from '../global/api.service';
 import { OnInit } from '@angular/core';
@@ -9,7 +9,7 @@ import { User } from 'src/app/models/user';
 @Injectable({
   providedIn: 'root',
 })
-export class CartService implements OnInit {
+export class CartService {
   private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
   cartItems$ = this.cartItemsSubject.asObservable();
   private cartId: number | null = null;
@@ -17,7 +17,7 @@ export class CartService implements OnInit {
   constructor(private apiService: ApiService,
     private userService: UserService) { }
 
-  ngOnInit(): void {
+  initCartData(): void {
     this.userService.getCurrentUser().subscribe(
       (response: { user: any }) => {
         const user = response.user;
@@ -26,30 +26,38 @@ export class CartService implements OnInit {
             (cartId) => {
               if (cartId) {
                 this.cartId = cartId;
-                this.getCartItems();
+                this.getCartItems().subscribe(
+                  (cartItems: CartItem[]) => {
+                    // You can do something with cartItems if needed
+                  },
+                  (error: any) => {
+                    console.error('Error fetching cart items:', error);
+                  }
+                );
               }
             },
-            (error) => {
+            (error: any) => {
               console.error('Error fetching cartId:', error);
             }
           );
         }
       },
-      (error) => {
+      (error: any) => {
         console.error('Error fetching current user:', error);
       }
     );
   }
 
-  getCartItems(): void {
+  getCartItems(): Observable<CartItem[]> {
     // Make a GET request to retrieve cart items for the user from the server
-    this.apiService.get<CartItem[]>(`CartItems/${this.cartId}`).subscribe(
-      (cartItems) => {
+    return this.apiService.get<CartItem[]>(`CartItems/${this.cartId}`).pipe(
+      tap((cartItems) => {
         this.cartItemsSubject.next(cartItems);
-      },
-      (error) => {
+      }),
+      catchError((error) => {
         console.error('Error fetching cart items:', error);
-      }
+        return throwError(error);
+      })
     );
   }
 
@@ -63,13 +71,13 @@ export class CartService implements OnInit {
         quantity: 1,
         // other properties as needed
       };
-  
+
       // Make a POST request to add the item to the server cart
       this.apiService.post<CartItem, CartItem>('CartItems', newItem).subscribe(
         (addedItem) => {
           const currentCartItems = this.cartItemsSubject.getValue();
           const existingItem = currentCartItems.find((item) => item.productId === addedItem.productId);
-  
+
           if (existingItem) {
             existingItem.quantity++;
           } else {
@@ -86,7 +94,7 @@ export class CartService implements OnInit {
       // You might want to set a default cartId or show an error message.
     }
   }
-  
+
 
   removeFromCart(cartItemId: number) {
     // Make a DELETE request to remove the item from the server cart
