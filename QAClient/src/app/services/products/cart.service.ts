@@ -22,7 +22,7 @@ export class CartService {
       (response: { user: any }) => {
         const user = response.user;
         if (user && user.userId) {
-          this.getCartId(user.userId).subscribe(
+          this.userService.getCartId(user.userId).subscribe(
             (cartId) => {
               if (cartId) {
                 this.cartId = cartId;
@@ -95,7 +95,6 @@ export class CartService {
     }
   }
 
-
   removeFromCart(cartItemId: number) {
     // Make a DELETE request to remove the item from the server cart
     this.apiService.delete(`CartItems/${cartItemId}`).subscribe(
@@ -109,12 +108,6 @@ export class CartService {
       (error) => {
         console.error('Error removing item from cart:', error);
       }
-    );
-  }
-
-  private getCartId(userId: string): Observable<any> {
-    return this.apiService.get<any>(`Carts/${userId}`).pipe(
-      tap((response) => this.cartId = response.cartId)
     );
   }
 }

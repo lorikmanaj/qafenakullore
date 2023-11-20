@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './auth/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -55,7 +55,7 @@ import { ProductCardComponent } from './components/products/product-card/product
 import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
 import { CollectionSectionComponent } from './components/collection-section/collection-section.component';
 
-import { AuthGuard } from './guards/auth-guard.service';
+import { AuthGuard } from './auth/guards/auth-guard.service';
 
 import { ProductHandlerComponent } from './components/products/product-handler/product-handler.component';
 import { OrderHandlerComponent } from './components/order-handler/order-handler.component';
@@ -67,6 +67,7 @@ import { AuthComponent } from './auth/auth.component';
 import { VarietyComponent } from './components/products/variety/variety.component';
 import { TagHelperComponent } from './components/tag-helper/tag-helper.component';
 import { EditProductComponent } from './components/products/edit-product/edit-product.component';
+import { TokenInterceptor } from './auth/token.interceptor';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -142,7 +143,7 @@ export function tokenGetter() {
   providers: [
     ProductService,
 
-    // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
 
     CartService,
   ],
@@ -151,4 +152,3 @@ export function tokenGetter() {
 export class AppModule {
 
 }
-

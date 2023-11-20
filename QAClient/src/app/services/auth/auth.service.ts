@@ -3,17 +3,23 @@ import { Observable, tap } from 'rxjs';
 import { AuthResponse } from 'src/app/models/auth/authResponse';
 import { ApiService } from '../global/api.service';
 import { JwtService } from './jwt.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private apiService: ApiService, private jwtService: JwtService) { }
+  constructor(private apiService: ApiService,
+    private jwtService: JwtService,
+    private router: Router) { }
 
   login(email: string, password: string): Observable<AuthResponse> {
     const data = { email, password };
     return this.apiService.post<AuthResponse, typeof data>('account/login', data).pipe(
-      tap((res) => this.setAuth(res))
+      tap((res) => {
+        this.setAuth(res);
+        this.router.navigate(['/home']);
+      })
     );
   }
 
@@ -35,8 +41,4 @@ export class AuthService {
     console.log('user', res);
     this.jwtService.saveToken(res.token);
   }
-
-  // private purgeAuth(): void {
-  //   this.jwtService.purgeAuth();
-  // }
 }

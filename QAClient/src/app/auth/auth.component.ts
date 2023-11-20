@@ -37,23 +37,23 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.destroy$.complete();
     }
 
-    onSubmit($event: Event) {
-        $event.preventDefault();
+    // onSubmit($event: Event) {
+    //     $event.preventDefault();
 
-        let observable =
-            this.isLogin
-                ? this.userService.login(this.authForm.value as { email: string; password: string })
-                : this.userService.register(
-                    this.authForm.value as {
-                        email: string;
-                        password: string;
-                        username: string;
-                    }
-                );
+    //     let observable =
+    //         this.isLogin
+    //             ? this.userService.login(this.authForm.value as { email: string; password: string })
+    //             : this.userService.register(
+    //                 this.authForm.value as {
+    //                     email: string;
+    //                     password: string;
+    //                     username: string;
+    //                 }
+    //             );
 
-        observable.pipe(takeUntil(this.destroy$)).subscribe({
-            next: () => void this.router.navigate(["/"]),
-            error: (err) => { this.isSubmitting = false; console.log(err) }
-        });
-    }
+    //     observable.pipe(takeUntil(this.destroy$)).subscribe({
+    //         next: () => void this.router.navigate(["/"]),
+    //         error: (err) => { this.isSubmitting = false; console.log(err) }
+    //     });
+    // }
 }

@@ -11,7 +11,7 @@
           <button class="plus-btn" (click)="addToCart(item.productId)">
             <fa-icon [icon]="faPlus"></fa-icon>
           </button>
-          <span *ngIf="item.count > 1" class="cart-item-quantity">{{ item.count }}</span>
+          <span *ngIf="item.quantity > 1" class="cart-item-quantity">{{ item.quantity }}</span>
           <button class="minus-btn" (click)="removeFromCart(item.productId)">
             <fa-icon [icon]="faMinus"></fa-icon>
           </button>

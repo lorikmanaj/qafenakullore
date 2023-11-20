@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs";
 
-import { JwtService } from "./auth/jwt.service";
 import { map, distinctUntilChanged, tap, shareReplay } from "rxjs/operators";
 import { User } from "../models/user";
 import { ApiService } from "./global/api.service";
+import { AuthService } from "./auth/auth.service";
 
 @Injectable({ providedIn: "root" })
 export class UserService {
@@ -13,10 +13,14 @@ export class UserService {
     .asObservable()
     .pipe(distinctUntilChanged());
 
+  private cartId: number | null = null;
+
   public isAuthenticated = this.currentUser.pipe(map((user) => !!user));
 
-  constructor(private readonly apiService: ApiService,
-    private jwtService: JwtService) { }
+  constructor(
+    private readonly apiService: ApiService,
+    private authService: AuthService
+  ) { }
 
   getCurrentUser(): Observable<{ user: User }> {
     return this.apiService.get<{ user: User }>('Users/Current').pipe(
@@ -28,9 +32,35 @@ export class UserService {
     );
   }
 
-  getCartId(userId: string): Observable<number> {
-    // Make a GET request to retrieve the cartId for the user from the server
-    return this.apiService.get<number>(`Carts/${userId}`);
+  getCartId(userId: string): Observable<any> {
+    return this.apiService.get<any>(`Carts/${userId}`).pipe(
+      tap((response) => this.cartId = response.cartId)
+    );
+  }
+
+  login(email: string, password: string): Observable<any> {
+    return this.authService.login(email, password).pipe(
+      tap(() => {
+        // Update current user after login
+        this.getCurrentUser().subscribe((response) => {
+          const user = response.user;
+
+          // Fetch and set the cartId after login using CartService
+          if (user && user.userId) {
+            this.getCartId(user.userId).subscribe((cartId) => {
+              // Here you can do further logic or store the cartId as needed
+              console.log('CartId after login:', cartId);
+            });
+          }
+        });
+      })
+    );
+  }
+
+  register(user: any): Observable<any> {
+    return this.authService.register(user).pipe(
+      tap(() => this.getCurrentUser().subscribe()) // Update current user after registration
+    );
   }
 
   // update(user: Partial<User>): Observable<{ user: User }> {
@@ -40,6 +70,11 @@ export class UserService {
   //     })
   //   );
   // }
+
+  logout(): void {
+    this.authService.logout();
+    this.purgeAuth();
+  }
 
   private setCurrentUser(user: User): void {
     this.currentUserSubject.next(user);
