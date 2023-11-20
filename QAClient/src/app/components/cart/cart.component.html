@@ -3,24 +3,28 @@
     <fa-icon [icon]="faCart"></fa-icon>
   </div>
   <div class="cart-dropdown" [hidden]="!isCartOpen">
-    <ng-container *ngIf="cartItems.length > 0; else noItems">
-      <div *ngFor="let item of cartItems" class="cart-item">
-        {{ item.itemName }}
+    <ng-container *ngIf="isLoggedIn; else loginMessage">
+      <ng-container *ngIf="cartItems.length > 0; else noItems">
+        <div *ngFor="let item of cartItems" class="cart-item">
+          {{ item.itemName }}
 
-        <div class="cart-buttons">
-          <button class="plus-btn" (click)="addToCart(item.productId)">
-            <fa-icon [icon]="faPlus"></fa-icon>
-          </button>
-          <span *ngIf="item.quantity > 1" class="cart-item-quantity">{{ item.quantity }}</span>
-          <button class="minus-btn" (click)="removeFromCart(item.productId)">
-            <fa-icon [icon]="faMinus"></fa-icon>
-          </button>
+          <div class="cart-buttons">
+            <button class="plus-btn" (click)="addToCart(item.productId)">
+              <fa-icon [icon]="faPlus"></fa-icon>
+            </button>
+            <span *ngIf="item.quantity > 1" class="cart-item-quantity">{{ item.quantity }}</span>
+            <button class="minus-btn" (click)="removeFromCart(item.productId)">
+              <fa-icon [icon]="faMinus"></fa-icon>
+            </button>
+          </div>
         </div>
-      </div>
+      </ng-container>
+      <ng-template #noItems>
+        <div class="no-items-message">No items in your cart.</div>
+      </ng-template>
     </ng-container>
-    <ng-template #noItems>
-      <!-- <div class="no-items-message" *ngIf="!isLoggedIn">Login to add items to your cart.</div>
-      <div class="no-items-message" *ngIf="isLoggedIn && cartItems.length === 0">No items in your cart.</div> -->
+    <ng-template #loginMessage>
+      <div class="login-message">Log in to view your cart.</div>
     </ng-template>
   </div>
 </div>

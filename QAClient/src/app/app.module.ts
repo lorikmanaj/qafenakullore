@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { TokenInterceptor } from './auth/token.interceptor';
+
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -67,7 +70,6 @@ import { AuthComponent } from './auth/auth.component';
 import { VarietyComponent } from './components/products/variety/variety.component';
 import { TagHelperComponent } from './components/tag-helper/tag-helper.component';
 import { EditProductComponent } from './components/products/edit-product/edit-product.component';
-import { TokenInterceptor } from './auth/token.interceptor';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");

@@ -37,6 +37,10 @@ export class AuthService {
     return this.jwtService.isAuthenticated();
   }
 
+  getToken(): string | null {
+    return this.jwtService.getToken();
+  }
+
   private setAuth(res: any): void {
     console.log('user', res);
     this.jwtService.saveToken(res.token);

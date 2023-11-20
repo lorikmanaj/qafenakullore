@@ -19,38 +19,65 @@ export class ApiService {
   constructor(private http: HttpClient, private jwtService: JwtService) {
   }
 
-  private getHeaders(): HttpHeaders {
-    const token = this.jwtService.getToken();
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-  }
-
   post<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
     const url = `${environment.apiUrl}/api/${path}`;
-    return this.http.post<HttpResponseModel>(url, data, { headers: this.getHeaders() });
+    return this.http.post<HttpResponseModel>(url, data);
   }
 
   getById<HttpResponseModel>(path: string, id: number): Observable<HttpResponseModel> {
     const url = `${environment.apiUrl}/api/${path}/${id}`;
-    return this.http.get<HttpResponseModel>(url, { headers: this.getHeaders() });
+    return this.http.get<HttpResponseModel>(url);
   }
 
   get<HttpResponseModel>(path: string): Observable<HttpResponseModel> {
     const url = `${environment.apiUrl}/api/${path}`;
-    return this.http.get<HttpResponseModel>(url, { headers: this.getHeaders() });
+    return this.http.get<HttpResponseModel>(url);
   }
 
   put<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
     const url = `${environment.apiUrl}/api/${path}`;
-    return this.http.put<HttpResponseModel>(url, data, { headers: this.getHeaders() });
+    return this.http.put<HttpResponseModel>(url, data);
   }
 
   delete<HttpResponseModel>(path: string): Observable<HttpResponseModel> {
     const url = `${environment.apiUrl}/api/${path}`;
-    return this.http.delete<HttpResponseModel>(url, { headers: this.getHeaders() });
+    return this.http.delete<HttpResponseModel>(url);
   }
+
+  // private getHeaders(): HttpHeaders {
+  //   const token = this.jwtService.getToken();
+  //   return new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Bearer ${token}`,
+  //   });
+  // }
+
+  // post<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
+  //   const url = `${environment.apiUrl}/api/${path}`;
+  //   return this.http.post<HttpResponseModel>(url, data, { headers: this.getHeaders() });
+  // }
+
+  // getById<HttpResponseModel>(path: string, id: number): Observable<HttpResponseModel> {
+  //   const url = `${environment.apiUrl}/api/${path}/${id}`;
+  //   return this.http.get<HttpResponseModel>(url, { headers: this.getHeaders() });
+  // }
+
+  // get<HttpResponseModel>(path: string): Observable<HttpResponseModel> {
+  //   const url = `${environment.apiUrl}/api/${path}`;
+  //   return this.http.get<HttpResponseModel>(url, { headers: this.getHeaders() });
+  // }
+
+  // put<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
+  //   const url = `${environment.apiUrl}/api/${path}`;
+  //   return this.http.put<HttpResponseModel>(url, data, { headers: this.getHeaders() });
+  // }
+
+  // delete<HttpResponseModel>(path: string): Observable<HttpResponseModel> {
+  //   const url = `${environment.apiUrl}/api/${path}`;
+  //   return this.http.delete<HttpResponseModel>(url, { headers: this.getHeaders() });
+  // }
+
+  ////^ works
 
   // post<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
   //   const url = `${environment.apiUrl}/api/${path}`;

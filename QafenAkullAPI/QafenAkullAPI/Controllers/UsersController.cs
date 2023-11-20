@@ -36,8 +36,9 @@ namespace QafenAkullAPI.Controllers
             return Ok(user);
         }
 
+        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "User")]
         [HttpGet("Current")]
-        [Authorize] // Assuming you have JWT authentication configured
         public async Task<ActionResult<ApiUser>> GetCurrentUser()
         {
             var user = await _userService.GetLoggedInUser();

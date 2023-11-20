@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
   //   Validators.required,
   //   Validators.minLength(8),
   // ]);
+
   login(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
