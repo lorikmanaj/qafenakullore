@@ -25,7 +25,7 @@ export class ProductCardComponent implements OnInit {
   private readonly defaultImageUrl = 'assets/red.png';
 
   currentImageIndex: number = 0;
-  currentImage: string | undefined; // Initialize currentImage as undefined
+  currentImage: string | undefined;
 
   constructor(private productService: ProductService,
     private productReviewService: ProductReviewService) { }

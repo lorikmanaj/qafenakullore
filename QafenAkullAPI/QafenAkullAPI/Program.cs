@@ -84,7 +84,7 @@ builder.Services.AddControllers().AddJsonOptions(_ =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "QafenAkullAPI", Version = "v1" });
 
     // Include the security definition for JWT
     var securityScheme = new OpenApiSecurityScheme

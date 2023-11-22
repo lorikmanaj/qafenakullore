@@ -55,7 +55,6 @@ export class CartService {
     });
   }
 
-
   getCartItems(): Observable<CartItem[]> {
     // Make a GET request to retrieve cart items for the user from the server
     return this.apiService.get<CartItem[]>(`CartItems/${this.cartId}`).pipe(
