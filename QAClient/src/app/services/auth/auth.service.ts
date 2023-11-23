@@ -15,7 +15,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<AuthResponse> {
     const data = { email, password };
-    return this.apiService.post<AuthResponse, typeof data>('account/login', data).pipe(
+    return this.apiService.post<AuthResponse, typeof data>('auth/login', data).pipe(
       tap((res) => {
         this.setAuth(res);
         this.router.navigate(['/home']);
@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   register(user: any): Observable<any> {
-    return this.apiService.post<any, any>('account/register', user).pipe(
+    return this.apiService.post<any, any>('auth/register', user).pipe(
       tap(({ user }) => this.setAuth(user))
     );
   }

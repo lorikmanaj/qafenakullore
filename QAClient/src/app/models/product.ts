@@ -16,7 +16,7 @@ export interface Product {
     background: string;
     bgImageBlob: string;
     quantity: number; //Remove mas promo-product
-    stock?: number;
+    stock: number;
 
     type?: ProductType;
     varieties?: Variety[];

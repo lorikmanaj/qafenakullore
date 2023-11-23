@@ -48,5 +48,4 @@ namespace QafenAkullAPI.Core.Implementations.Repositories
             return false;
         }
     }
-
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/app/environments/environment';
 import { Product } from 'src/app/models/product';
+import { ReviewDetails } from 'src/app/models/reviewDetails';
 import { Variety } from 'src/app/models/variety';
 import { ProductService } from 'src/app/services/products/product.service';
 
@@ -12,6 +13,7 @@ import { ProductService } from 'src/app/services/products/product.service';
 })
 export class ProductDetailsComponent implements OnInit {
   product: Product | undefined;
+  reviewDetails: ReviewDetails | undefined;
 
   detailsGallery: string[] = [];
 
@@ -43,7 +45,7 @@ export class ProductDetailsComponent implements OnInit {
     });
 
     this.initializeImageSlider();
-    this.detailsGallery = this.product.itemGalleries.map(gallery => gallery.imageUrl);
+    this.detailsGallery = this.product?.itemGalleries?.map(gallery => gallery.imageUrl) || [];
   }
 
   constructImageUrl(imagePath: string): string {
@@ -76,6 +78,15 @@ export class ProductDetailsComponent implements OnInit {
 
   selectVariety(variety: Variety) {
     // Update detailsGallery with variety images
-    this.detailsGallery = variety.images.map(image => image.imageUrl);
+    //this.detailsGallery = variety.images.map(image => image.imageUrl);
+  }
+
+  calculateNewPrice(price: number, percentage: number): number {
+
+    return 1;
+  }
+
+  addToCart(product: Product) {
+
   }
 }

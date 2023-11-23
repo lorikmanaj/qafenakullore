@@ -121,8 +121,8 @@
         </div>
       </div>
       <div class="img-select">
-        <div class="img-item" *ngFor="let gallery of product.galleries; let i = index">
-          <a href="#" [data-id]="i + 1">
+        <div class="img-item" *ngFor="let gallery of product.itemGalleries; let i = index">
+          <a href="#" [attr.data-id]="i + 1">
             <img [src]="constructImageUrl(gallery.imageUrl)" alt="Product Image">
           </a>
         </div>
