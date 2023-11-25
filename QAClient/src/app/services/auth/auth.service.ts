@@ -18,6 +18,7 @@ export class AuthService {
     return this.apiService.post<AuthResponse, typeof data>('auth/login', data).pipe(
       tap((res) => {
         this.setAuth(res);
+        this.jwtService.decodeToken();
         this.router.navigate(['/home']);
       })
     );
@@ -39,6 +40,10 @@ export class AuthService {
 
   getToken(): string | null {
     return this.jwtService.getToken();
+  }
+
+  hasRole(role: string): boolean {
+    return this.jwtService.hasRole(role);
   }
 
   private setAuth(res: any): void {

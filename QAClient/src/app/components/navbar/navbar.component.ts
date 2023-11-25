@@ -12,6 +12,7 @@ import {
   faGamepad
 } from '@fortawesome/free-solid-svg-icons';
 import { ProductTypeService } from 'src/app/services/products/product-type.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -32,6 +33,7 @@ export class NavbarComponent {
   @Output() selectProductType: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private productTypeService: ProductTypeService,
+    private userService: UserService,
     private router: Router) { }
 
   ngOnInit() {
@@ -57,6 +59,11 @@ export class NavbarComponent {
       console.log(`Navigating to /products/${type}`);
       this.router.navigate(['/products', type]);
     }
+  }
+
+  isAdmin(): boolean {
+    console.log(this.userService.hasRole('Administrator'));
+    return this.userService.hasRole('Administrator');
   }
 
   navigateToAdmin() {

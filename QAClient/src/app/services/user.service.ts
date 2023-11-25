@@ -76,6 +76,10 @@ export class UserService {
     this.purgeAuth();
   }
 
+  hasRole(role: string) {
+    return this.authService.hasRole(role);
+  }
+
   private setCurrentUser(user: User): void {
     this.currentUserSubject.next(user);
   }
