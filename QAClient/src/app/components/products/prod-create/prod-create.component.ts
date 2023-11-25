@@ -60,7 +60,7 @@ export class ProdCreateComponent implements OnInit {
 
   onGalleryImagesSelected(event: any) {
     const files = event.target.files as FileList;
-    this.selectedGalleryImages = [];
+    //this.selectedGalleryImages = [];
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];

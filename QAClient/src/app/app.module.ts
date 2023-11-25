@@ -66,7 +66,6 @@ import { ProdGalleryEditorComponent } from './components/products/prod-gallery-e
 import { ProdReviewEditorComponent } from './components/products/prod-review-editor/prod-review-editor.component';
 import { ProdCreateComponent } from './components/products/prod-create/prod-create.component';
 import { GalleryUploaderComponent } from './components/products/gallery-uploader/gallery-uploader.component';
-import { AuthComponent } from './auth/auth.component';
 import { VarietyComponent } from './components/products/variety/variety.component';
 import { TagHelperComponent } from './components/tag-helper/tag-helper.component';
 import { EditProductComponent } from './components/products/edit-product/edit-product.component';
@@ -110,7 +109,6 @@ export function tokenGetter() {
     OrderHandlerComponent,
     ProdGalleryEditorComponent,
     ProdReviewEditorComponent,
-    AuthComponent,
     ProdCreateComponent,
     GalleryUploaderComponent,
     VarietyComponent,
