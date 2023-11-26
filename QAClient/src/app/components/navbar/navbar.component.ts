@@ -48,7 +48,8 @@ export class NavbarComponent implements OnInit {
 
   private handleAuthenticationState() {
     this.userService.isAuthenticated$.subscribe((isAuthenticated) => {
-      console.log('Auth:', isAuthenticated, 'Rol:', this.userService.hasRole('Administrator'))
+      //Check why isAuth: false allows isAdmin: true
+      //console.log('Auth:', isAuthenticated, 'Rol:', this.userService.hasRole('Administrator'))
       this.isAdmin = isAuthenticated && this.userService.hasRole('Administrator');
     });
   }

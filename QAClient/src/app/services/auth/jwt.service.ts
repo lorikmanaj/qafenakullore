@@ -22,15 +22,14 @@ export class JwtService {
 
       //Fix
       const isTokenExpired = helper.isTokenExpired(token);
-      console.log(isTokenExpired, 'Is Token Exp:')
+      //console.log('Is Token Exp:', isTokenExpired)
 
       try {
         const decoded = helper.decodeToken(token) as JwtToken;
-        console.log('Decoded Token:', decoded);
+        //console.log('Decoded Token:', decoded);
 
         // Perform additional validation or checks here
         this.decodedToken = decoded;
-        console.log('VALIDJA', this.decodedToken)
         return decoded;
       } catch (error) {
         console.error('Error decoding token:', error);
@@ -61,15 +60,15 @@ export class JwtService {
 
   hasRole(role: string): boolean {
     const decodedToken = this.decodeToken();
-    console.log('Aktivja:', this.decodedToken);
+    //console.log('Aktivja:', this.decodedToken);
 
     const roles = decodedToken?.role;
 
     if (roles && Array.isArray(roles)) {
-      console.log('Expected Role:', role);
+      //console.log('Expected Role:', role);
       const normalizedRole = role.toLowerCase(); // Convert the provided role to lowercase
       return roles.some((r) => {
-        console.log('Comparing to Role in Token:', r.toLowerCase());
+        //console.log('Comparing to Role in Token:', r.toLowerCase());
         return r.toLowerCase() === normalizedRole;
       });
     }
@@ -79,8 +78,8 @@ export class JwtService {
 
   getUserId(): string | null {
     const decodedToken = this.decodeToken();
-    console.log('DQETUUU:', decodedToken);
-    console.log('qDSAFSDF', decodedToken?.uid)
+    //console.log('Dec Token:', decodedToken);
+    //console.log('USER ID', decodedToken?.uid)
     return decodedToken?.uid ?? null;
   }
 }
