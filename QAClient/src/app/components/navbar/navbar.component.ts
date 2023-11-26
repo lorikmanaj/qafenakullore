@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductType } from 'src/app/models/productType';
 import { EventEmitter, Output } from '@angular/core';
@@ -19,7 +19,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
   faUser = faUserAstronaut;
   faCart = faCartShopping;
@@ -27,6 +27,8 @@ export class NavbarComponent {
   faHeart = faHeart;
   faBars = faBars;
   faAdmin = faGamepad;
+
+  isAdmin = false;
 
   productTypes: ProductType[] = [];
 
@@ -39,30 +41,27 @@ export class NavbarComponent {
   ngOnInit() {
     this.productTypeService.getProductTypes().subscribe((prodTypes) => {
       this.productTypes = prodTypes;
-      console.log(this.productTypes);
+    });
+
+    this.handleAuthenticationState();
+  }
+
+  private handleAuthenticationState() {
+    this.userService.isAuthenticated$.subscribe((isAuthenticated) => {
+      console.log('Auth:', isAuthenticated, 'Rol:', this.userService.hasRole('Administrator'))
+      this.isAdmin = isAuthenticated && this.userService.hasRole('Administrator');
     });
   }
 
-  // onSelectProductType(type: string) {
-  //   // if (type === 'Home') {
-  //   //   this.router.navigate(['/products', type]);
-  //   // }
-  //   // this.router.navigate(['/products', type]);
-  //   this.selectProductType.emit(type);
-  // }
   onSelectProductType(type: string) {
-    console.log(`onSelectProductType called with type: ${type}`);
     if (type === 'Home') {
-      console.log('Navigating to /home');
       this.router.navigate(['/home']);
     } else {
-      console.log(`Navigating to /products/${type}`);
       this.router.navigate(['/products', type]);
     }
   }
 
-  isAdmin(): boolean {
-    console.log(this.userService.hasRole('Administrator'));
+  isAdministrator(): boolean {
     return this.userService.hasRole('Administrator');
   }
 

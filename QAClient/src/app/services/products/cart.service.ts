@@ -14,46 +14,69 @@ export class CartService {
   cartItems$ = this.cartItemsSubject.asObservable();
   private cartId: number | null = null;
 
-  constructor(private apiService: ApiService,
-    private userService: UserService) { }
-
-  initCartData(): void {
-    // Check if the user is authenticated
-    this.userService.isAuthenticated.subscribe((isAuthenticated) => {
-      if (isAuthenticated) {
-        // If authenticated, fetch the current user and cartId
-        this.userService.getCurrentUser().subscribe(
-          (response: { user: any }) => {
-            const user = response.user;
-            if (user && user.userId) {
-              this.userService.getCartId(user.userId).subscribe(
-                (cartId) => {
-                  if (cartId) {
-                    this.cartId = cartId;
-
-                    this.getCartItems().subscribe(
-                      (cartItems: CartItem[]) => {
-                        // You can do something with cartItems if needed
-                      },
-                      (error: any) => {
-                        console.error('Error fetching cart items:', error);
-                      }
-                    );
-                  }
-                },
-                (error: any) => {
-                  console.error('Error fetching cartId:', error);
-                }
-              );
-            }
-          },
-          (error: any) => {
-            console.error('Error fetching current user:', error);
+  constructor(private apiService: ApiService, private userService: UserService) {
+    if (this.userService.isAuthenticated$) {
+      this.userService.getCartId().subscribe(
+        (cartId) => {
+          if (cartId) {
+            this.cartId = cartId;
+            console.log('Cart Id', cartId)
+            // Fetch and update cart items
+            this.getCartItems().subscribe(
+              (cartItems: CartItem[]) => {
+                // Update the subject, not the observable
+                this.cartItemsSubject.next(cartItems);
+              },
+              (error: any) => {
+                console.error('Error fetching cart items:', error);
+              }
+            );
           }
-        );
-      }
-    });
+        },
+        (error: any) => {
+          console.error('Error fetching cartId:', error);
+        }
+      );
+    }
   }
+
+  // initCartData(): void {
+  //   // Check if the user is authenticated
+  //   this.userService.isAuthenticated.subscribe((isAuthenticated) => {
+  //     if (isAuthenticated) {
+  //       // If authenticated, fetch the current user and cartId
+  //       this.userService.getCurrentUser().subscribe(
+  //         (response: { user: any }) => {
+  //           const user = response.user;
+  //           if (user && user.userId) {
+  //             this.userService.getCartId(user.userId).subscribe(
+  //               (cartId) => {
+  //                 if (cartId) {
+  //                   this.cartId = cartId;
+
+  //                   this.getCartItems().subscribe(
+  //                     (cartItems: CartItem[]) => {
+  //                       // You can do something with cartItems if needed
+  //                     },
+  //                     (error: any) => {
+  //                       console.error('Error fetching cart items:', error);
+  //                     }
+  //                   );
+  //                 }
+  //               },
+  //               (error: any) => {
+  //                 console.error('Error fetching cartId:', error);
+  //               }
+  //             );
+  //           }
+  //         },
+  //         (error: any) => {
+  //           console.error('Error fetching current user:', error);
+  //         }
+  //       );
+  //     }
+  //   });
+  // }
 
   getCartItems(): Observable<CartItem[]> {
     // Make a GET request to retrieve cart items for the user from the server

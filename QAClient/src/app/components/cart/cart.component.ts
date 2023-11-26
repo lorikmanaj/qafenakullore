@@ -24,22 +24,18 @@ export class CartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cartService.initCartData(); // Call a method to initialize cart-related data
-
-    // Check if the user is authenticated
-    this.userService.isAuthenticated.subscribe((isAuthenticated) => {
+    this.userService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
       this.isLoggedIn = isAuthenticated;
-
+  
       if (isAuthenticated) {
-        // Fetch cart items only if the user is authenticated
-        this.cartService.getCartItems().subscribe((cartItems) => {
+        this.cartService.getCartItems().subscribe((cartItems: CartItem[]) => {
           this.cartItems = cartItems;
-          console.log(cartItems); // Debugging: Check if cartItems are coming from the service
+          console.log(cartItems);
         });
       }
     });
   }
-
+  
   showCartItems() {
     this.isCartOpen = true;
   }

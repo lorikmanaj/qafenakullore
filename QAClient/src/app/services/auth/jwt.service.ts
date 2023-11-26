@@ -2,8 +2,11 @@ import { Injectable } from "@angular/core";
 import * as jwt_decode from "jwt-decode";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { JwtToken } from "src/app/models/jwt-token";
+import { BehaviorSubject } from "rxjs";
 @Injectable({ providedIn: "root" })
 export class JwtService {
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
   private decodedToken: JwtToken | null = null;
 
@@ -12,16 +15,27 @@ export class JwtService {
   }
 
   decodeToken(): JwtToken | null {
-    const helper = new JwtHelperService();
     const token = this.getToken();
 
-    if (token && !helper.isTokenExpired(token)) {
-      const decoded = helper.decodeToken(token) as JwtToken;
-      console.log('Decoded Token:', decoded);
+    if (token) {
+      const helper = new JwtHelperService();
 
-      //Perform additional validation or checks here
+      //Fix
+      const isTokenExpired = helper.isTokenExpired(token);
+      console.log(isTokenExpired, 'Is Token Exp:')
 
-      return decoded;
+      try {
+        const decoded = helper.decodeToken(token) as JwtToken;
+        console.log('Decoded Token:', decoded);
+
+        // Perform additional validation or checks here
+        this.decodedToken = decoded;
+        console.log('VALIDJA', this.decodedToken)
+        return decoded;
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
     }
 
     return null;
@@ -34,17 +48,39 @@ export class JwtService {
 
   isAuthenticated(): boolean {
     const token = this.getToken();
-    return !!token; // For simplicity, consider the user authenticated if a token is present
+    const isAuthenticated = !!token;
+    this.isAuthenticatedSubject.next(isAuthenticated);
+    return isAuthenticated;
   }
 
   purgeAuth(): void {
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
     this.decodedToken = null;
+    this.isAuthenticatedSubject.next(false);
   }
 
   hasRole(role: string): boolean {
     const decodedToken = this.decodeToken();
-    return decodedToken?.role?.includes(role) ?? false;
+    console.log('Aktivja:', this.decodedToken);
+
+    const roles = decodedToken?.role;
+
+    if (roles && Array.isArray(roles)) {
+      console.log('Expected Role:', role);
+      const normalizedRole = role.toLowerCase(); // Convert the provided role to lowercase
+      return roles.some((r) => {
+        console.log('Comparing to Role in Token:', r.toLowerCase());
+        return r.toLowerCase() === normalizedRole;
+      });
+    }
+
+    return false;
   }
 
+  getUserId(): string | null {
+    const decodedToken = this.decodeToken();
+    console.log('DQETUUU:', decodedToken);
+    console.log('qDSAFSDF', decodedToken?.uid)
+    return decodedToken?.uid ?? null;
+  }
 }
