@@ -19,7 +19,7 @@ export class CartService {
     this.initCartData();
   }
 
-  private initCartData(): void {
+  initCartData(): void {
     this.userService.isAuthenticated$.subscribe((isAuthenticated) => {
       if (isAuthenticated) {
         this.loadCartItems();
@@ -27,32 +27,9 @@ export class CartService {
     });
   }
 
-  // private loadCartItems() {
-  //   this.userService.getCartId().subscribe(
-  //     (cartId: number | null) => {
-  //       if (cartId !== null) {
-  //         this.cartId = cartId;
-  //         this.getCartItems(cartId).subscribe(
-  //           (cartItems: CartItem[]) => {
-  //             this.cartItemsSubject.next(cartItems);
-  //           },
-  //           (error) => {
-  //             console.error('Error fetching cart items:', error);
-  //           }
-  //         );
-  //       } else {
-  //         console.error('cartId is null');
-  //         // Handle null case here if needed
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error('Error getting cartId:', error);
-  //     }
-  //   );
-  // }
   private loadCartItems() {
     const userId = this.userService.getUserId();
-
+    console.log('kjo', userId);
     if (userId !== null) {
       this.getCartId(userId).pipe(
         switchMap((cartId) => {
@@ -89,16 +66,20 @@ export class CartService {
   }
 
   getCartItems(): Observable<CartItem[]> {
-    console.log('cart svc cartId', this.cartId);
-    return this.apiService.get<CartItem[]>(`CartItems/${this.cartId}`).pipe(
-      tap((cartItems) => {
-        this.cartItemsSubject.next(cartItems);
-      }),
-      catchError((error) => {
-        console.error('Error fetching cart items:', error);
-        return throwError(error);
-      })
-    );
+    if (this.cartId !== null) {
+      return this.apiService.get<CartItem[]>(`CartItems/${this.cartId}`).pipe(
+        tap((cartItems) => {
+          this.cartItemsSubject.next(cartItems);
+        }),
+        catchError((error) => {
+          console.error('Error fetching cart items:', error);
+          return throwError(error);
+        })
+      );
+    } else {
+      console.error('CartId is null. Cannot fetch cart items.');
+      return throwError('CartId is null');
+    }
   }
 
   addToCart(productId: number) {

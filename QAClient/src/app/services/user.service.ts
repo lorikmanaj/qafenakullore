@@ -23,9 +23,10 @@ export class UserService {
     private authService: AuthService
   ) {
     this.isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
-
+    console.log('user svc e re', this.isAuthenticated$)
     this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
       this.isAuthenticatedSubject.next(isAuthenticated);
+      console.log('ALLO USER SVC status changed:', isAuthenticated);
     });
   }
 
@@ -34,8 +35,6 @@ export class UserService {
   }
 
   login(email: string, password: string): Observable<any> {
-    this.isAuthenticatedSubject.next(true);
-    // Assuming authService.login updates the isAuthenticated$ immediately
     return this.authService.login(email, password);
   }
 
@@ -56,8 +55,12 @@ export class UserService {
     return this.authService.hasRole(role);
   }
 
-  IsAuth() {
-    return this.isAuthenticated$ ?? false;
+  IsAuthenticated(): Observable<boolean> {
+    return this.isAuthenticated$;
+  }
+
+  onAuthenticationChanged(): Observable<boolean> {
+    return this.isAuthenticated$;
   }
 
   // getCurrentUser(): Observable<{ user: User }> {

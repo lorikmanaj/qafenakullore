@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private apiService: ApiService,
     private jwtService: JwtService,
     private router: Router) {
-    this.isAuthenticated$ = this.jwtService.isAuthenticated$;
+    this.isAuthenticatedSubject.next(this.jwtService.isAuthenticated()); // Emit the initial status
   }
 
   login(email: string, password: string): Observable<AuthResponse> {
@@ -24,10 +24,12 @@ export class AuthService {
       tap((res) => {
         this.setAuth(res);
         const decodedToken = this.jwtService.decodeToken();
-        console.log('Mas Lloginit Token:', decodedToken);
         this.isAuthenticatedSubject.next(true); // Set the authentication status
+
+        console.log('User authenticated:', this.isAuthenticatedSubject.value);
+        console.log('Mas Lloginit Token:', decodedToken);
         this.router.navigateByUrl(this.router.url).then(() => {
-          this.router.navigate(["/home"]);
+          this.router.navigate(['/home']);
         });
       })
     );
@@ -61,7 +63,7 @@ export class AuthService {
   }
 
   private setAuth(res: any): void {
-    console.log('user', res);
     this.jwtService.saveToken(res.token);
+    this.isAuthenticatedSubject.next(true);
   }
 }
