@@ -16,7 +16,7 @@ export class CartService {
 
   constructor(private apiService: ApiService,
     private userService: UserService) {
-    this.initCartData();
+    //this.initCartData();
   }
 
   initCartData(): void {
@@ -29,7 +29,6 @@ export class CartService {
 
   private loadCartItems() {
     const userId = this.userService.getUserId();
-    console.log('kjo', userId);
     if (userId !== null) {
       this.getCartId(userId).pipe(
         switchMap((cartId) => {

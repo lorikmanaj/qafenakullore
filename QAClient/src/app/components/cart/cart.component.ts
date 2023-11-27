@@ -17,6 +17,7 @@ export class CartComponent implements OnInit {
   isLoggedIn: boolean = false;
 
   cartItems: CartItem[] = [];
+  private hasInitialized: boolean = false;
 
   constructor(
     private cartService: CartService,
@@ -27,13 +28,15 @@ export class CartComponent implements OnInit {
     this.userService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
       this.isLoggedIn = isAuthenticated;
 
-      if (isAuthenticated) {
+      if (isAuthenticated && !this.hasInitialized) {
         this.cartService.initCartData();
 
         this.cartService.cartItems$.subscribe((cartItems: CartItem[]) => {
           this.cartItems = cartItems;
           console.log('Cart Items', this.cartItems);
         });
+
+        this.hasInitialized = true;
       } else {
         // Handle the case when the user is not authenticated, if needed
       }
