@@ -26,18 +26,30 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.userService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
       this.isLoggedIn = isAuthenticated;
-  
+
       if (isAuthenticated) {
-        this.cartService.getCartItems().subscribe((cartItems: CartItem[]) => {
+        //this.loadCartItems();
+
+        this.cartService.cartItems$.subscribe((cartItems: CartItem[]) => {
           this.cartItems = cartItems;
-          console.log(cartItems);
+          console.log('Cart Items', this.cartItems)
         });
       }
     });
   }
-  
+
+  // private loadCartItems() {
+  //   const cartId = this.cartService.getCartId();
+  //   if (cartId !== null) {
+  //     this.cartService.getCartItems(cartId).subscribe((cartItems: CartItem[]) => {
+  //       this.cartItems = cartItems;
+  //     });
+  //   }
+  // }
+
   showCartItems() {
     this.isCartOpen = true;
+    //this.loadCartItems();
   }
 
   hideCartItems() {
@@ -46,9 +58,11 @@ export class CartComponent implements OnInit {
 
   addToCart(productId: number) {
     this.cartService.addToCart(productId);
+    //this.loadCartItems();
   }
 
   removeFromCart(productId: number) {
     this.cartService.removeFromCart(productId);
+    //this.loadCartItems();
   }
 }

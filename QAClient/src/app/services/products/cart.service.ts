@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';  // Import operators from 'rxjs/operators'
+import { switchMap } from 'rxjs/operators';  // Import switchMap separately
 import { CartItem } from '../../models/cartItem';
 import { ApiService } from '../global/api.service';
-import { OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -14,72 +14,82 @@ export class CartService {
   cartItems$ = this.cartItemsSubject.asObservable();
   private cartId: number | null = null;
 
-  constructor(private apiService: ApiService, private userService: UserService) {
-    if (this.userService.isAuthenticated$) {
-      this.userService.getCartId().subscribe(
-        (cartId) => {
-          if (cartId) {
-            this.cartId = cartId;
-            console.log('Cart Id', cartId)
-            // Fetch and update cart items
-            this.getCartItems().subscribe(
-              (cartItems: CartItem[]) => {
-                // Update the subject, not the observable
-                this.cartItemsSubject.next(cartItems);
-              },
-              (error: any) => {
-                console.error('Error fetching cart items:', error);
-              }
-            );
+  constructor(private apiService: ApiService,
+    private userService: UserService) {
+    this.initCartData();
+  }
+
+  private initCartData(): void {
+    this.userService.isAuthenticated$.subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.loadCartItems();
+      }
+    });
+  }
+
+  // private loadCartItems() {
+  //   this.userService.getCartId().subscribe(
+  //     (cartId: number | null) => {
+  //       if (cartId !== null) {
+  //         this.cartId = cartId;
+  //         this.getCartItems(cartId).subscribe(
+  //           (cartItems: CartItem[]) => {
+  //             this.cartItemsSubject.next(cartItems);
+  //           },
+  //           (error) => {
+  //             console.error('Error fetching cart items:', error);
+  //           }
+  //         );
+  //       } else {
+  //         console.error('cartId is null');
+  //         // Handle null case here if needed
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error getting cartId:', error);
+  //     }
+  //   );
+  // }
+  private loadCartItems() {
+    const userId = this.userService.getUserId();
+
+    if (userId !== null) {
+      this.getCartId(userId).pipe(
+        switchMap((cartId) => {
+          if (cartId !== null) {
+            return this.getCartItems();
+          } else {
+            console.error('cartId is null');
+            return throwError('cartId is null');
           }
+        })
+      ).subscribe(
+        (cartItems: CartItem[]) => {
+          this.cartItemsSubject.next(cartItems);
         },
-        (error: any) => {
-          console.error('Error fetching cartId:', error);
+        (error) => {
+          console.error('Error fetching cart items:', error);
         }
       );
+    } else {
+      console.error('userId is null');
     }
   }
 
-  // initCartData(): void {
-  //   // Check if the user is authenticated
-  //   this.userService.isAuthenticated.subscribe((isAuthenticated) => {
-  //     if (isAuthenticated) {
-  //       // If authenticated, fetch the current user and cartId
-  //       this.userService.getCurrentUser().subscribe(
-  //         (response: { user: any }) => {
-  //           const user = response.user;
-  //           if (user && user.userId) {
-  //             this.userService.getCartId(user.userId).subscribe(
-  //               (cartId) => {
-  //                 if (cartId) {
-  //                   this.cartId = cartId;
-
-  //                   this.getCartItems().subscribe(
-  //                     (cartItems: CartItem[]) => {
-  //                       // You can do something with cartItems if needed
-  //                     },
-  //                     (error: any) => {
-  //                       console.error('Error fetching cart items:', error);
-  //                     }
-  //                   );
-  //                 }
-  //               },
-  //               (error: any) => {
-  //                 console.error('Error fetching cartId:', error);
-  //               }
-  //             );
-  //           }
-  //         },
-  //         (error: any) => {
-  //           console.error('Error fetching current user:', error);
-  //         }
-  //       );
-  //     }
-  //   });
-  // }
+  getCartId(userId: string): Observable<number | null> {
+    return this.apiService.get<number>(`Carts/${userId}`).pipe(
+      tap((cartId) => {
+        this.cartId = cartId;
+      }),
+      catchError((error) => {
+        console.error('Error getting cartId:', error);
+        return throwError(error);
+      })
+    );
+  }
 
   getCartItems(): Observable<CartItem[]> {
-    // Make a GET request to retrieve cart items for the user from the server
+    console.log('cart svc cartId', this.cartId);
     return this.apiService.get<CartItem[]>(`CartItems/${this.cartId}`).pipe(
       tap((cartItems) => {
         this.cartItemsSubject.next(cartItems);
@@ -123,6 +133,8 @@ export class CartService {
       console.error('CartId is null. Handle this case appropriately.');
       // You might want to set a default cartId or show an error message.
     }
+
+    this.loadCartItems();
   }
 
   removeFromCart(cartItemId: number) {
@@ -139,5 +151,7 @@ export class CartService {
         console.error('Error removing item from cart:', error);
       }
     );
+
+    this.loadCartItems();
   }
 }
