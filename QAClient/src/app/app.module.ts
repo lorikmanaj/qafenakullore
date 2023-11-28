@@ -45,7 +45,7 @@ import { TestimonialsComponent } from './components/testimonials/testimonials.co
 import { UserOrdersComponent } from './components/user/user-orders/user-orders.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { StarRatingComponent } from './components/products/star-rating/star-rating.component';
-import { CartComponent } from './components/cart/cart.component';
+import { CartComponent } from './components/products/cart/cart.component';
 
 import { ProductGridComponent } from './components/products/product-grid/product-grid.component';
 
@@ -69,6 +69,7 @@ import { GalleryUploaderComponent } from './components/products/gallery-uploader
 import { VarietyComponent } from './components/products/variety/variety.component';
 import { TagHelperComponent } from './components/tag-helper/tag-helper.component';
 import { EditProductComponent } from './components/products/edit-product/edit-product.component';
+import { WishlistComponent } from './components/products/wishlist/wishlist.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -114,6 +115,7 @@ export function tokenGetter() {
     VarietyComponent,
     TagHelperComponent,
     EditProductComponent,
+    WishlistComponent,
   ],
   imports: [
     BrowserModule,

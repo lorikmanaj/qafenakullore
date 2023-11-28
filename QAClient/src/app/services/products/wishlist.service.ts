@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { ApiService } from '../global/api.service';  // Adjust the path accordingly
 import { WishListItem } from 'src/app/models/wishListItem';
+import { UserService } from '../user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,63 @@ import { WishListItem } from 'src/app/models/wishListItem';
 export class WishlistService {
   private endpoint = 'WishListItems'; // Assuming your wishlist endpoint is /api/WishListItems
 
-  constructor(private apiService: ApiService) { }
+  private wishListItemsSubject = new BehaviorSubject<WishListItem[]>([]);
+  wishListItems$ = this.wishListItemsSubject.asObservable();
+  private wishListId: number | null = null;
 
-  getWishlistItems(): Observable<WishListItem[]> {
-    return this.apiService.get<WishListItem[]>(this.endpoint);
+  constructor(private apiService: ApiService,
+    private userService: UserService) { }
+
+  initWishlistData(): void {
+    this.userService.isAuthenticated$.subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.loadWishlistItems();
+      }
+    });
+  }
+
+  private loadWishlistItems(): void {
+    const userId = this.userService.getUserId();
+
+    if (userId !== null) {
+      this.getWishlistId(userId).subscribe((wishlistId) => {
+        if (wishlistId !== null) {
+          this.getWishlistItems(wishlistId).subscribe(
+            (wishlistItems: WishListItem[]) => {
+              this.wishListItemsSubject.next(wishlistItems);
+            },
+            (error) => {
+              console.error('Error loading wishlist items:', error);
+            }
+          );
+        } else {
+          console.error('wishlistId is null');
+        }
+      });
+    } else {
+      console.error('userId is null');
+    }
+  }
+
+  getWishlistItems(wishlistId: number): Observable<WishListItem[]> {
+    return this.apiService.get<WishListItem[]>(`${this.endpoint}/${wishlistId}`).pipe(
+      catchError((error) => {
+        console.error('Error fetching wishlist items:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  getWishlistId(userId: string): Observable<number | null> {
+    return this.apiService.get<number>(`WishLists/${userId}`).pipe(
+      tap((wishListId) => {
+        this.wishListId = wishListId;
+      }),
+      catchError((error) => {
+        console.error('Error getting wishListId:', error);
+        return throwError(error);
+      })
+    );
   }
 
   getWishlistItem(id: number): Observable<WishListItem> {

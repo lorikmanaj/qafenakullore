@@ -16,7 +16,6 @@ export class CartService {
 
   constructor(private apiService: ApiService,
     private userService: UserService) {
-    //this.initCartData();
   }
 
   initCartData(): void {

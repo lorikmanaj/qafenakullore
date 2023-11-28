@@ -1,0 +1,24 @@
+/* wishlist.component.css (or wishlist.component.scss) */
+.wishlist-icon-container {
+    /* Your styling for the icon container */
+}
+
+.wishlist-dropdown {
+    /* Your styling for the dropdown */
+}
+
+.wishlist-icon-container:hover .wishlist-dropdown {
+    /* Your styling when the icon container is hovered */
+}
+
+.wishlist-item {
+    /* Your styling for each item in the wishlist */
+}
+
+.no-items-message {
+    /* Your styling for the message when there are no items in the wishlist */
+}
+
+.login-message {
+    /* Your styling for the message when the user is not logged in */
+}
