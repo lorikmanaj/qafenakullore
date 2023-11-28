@@ -22,9 +22,9 @@ export class UserService {
     private readonly apiService: ApiService,
     private authService: AuthService
   ) {
-    this.isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
     console.log('user svc e re', this.isAuthenticated$)
-    this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
+    this.isAuthenticated$.subscribe((isAuthenticated) => {
       this.isAuthenticatedSubject.next(isAuthenticated);
       console.log('ALLO USER SVC status changed:', isAuthenticated);
     });

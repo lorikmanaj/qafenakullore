@@ -1,7 +1,28 @@
-<!-- wishlist.component.html -->
+<!-- <div class="wishlist-icon-container" (mouseenter)="showWishlistItems()" (mouseleave)="hideWishlistItems()">
+    <div class="wishlist-icon">
+        <fa-icon [icon]="faHeart"></fa-icon>
+    </div>
+    <div class="wishlist-dropdown" [hidden]="!isWishlistOpen">
+        <ng-container *ngIf="isLoggedIn; else loginMessage">
+            <ng-container *ngIf="wishlistItems.length > 0; else noItems">
+                <div *ngFor="let item of wishlistItems" class="wishlist-item">
+                    {{ item.itemName }}
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-template #noItems>
+            <div class="no-items-message">No items in your wishlist.</div>
+        </ng-template>
+        <ng-template #loginMessage>
+            <div class="login-message">Log in to view your wishlist.</div>
+        </ng-template>
+    </div>
+</div> -->
+
 <div class="wishlist-icon-container" (mouseenter)="showWishlistItems()" (mouseleave)="hideWishlistItems()">
     <div class="wishlist-icon">
         <!-- Your wishlist icon here -->
+        <fa-icon [icon]="faHeart"></fa-icon>
     </div>
     <div class="wishlist-dropdown" [hidden]="!isWishlistOpen">
         <ng-container *ngIf="isLoggedIn; else loginMessage">

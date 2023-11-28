@@ -70,6 +70,7 @@ import { VarietyComponent } from './components/products/variety/variety.componen
 import { TagHelperComponent } from './components/tag-helper/tag-helper.component';
 import { EditProductComponent } from './components/products/edit-product/edit-product.component';
 import { WishlistComponent } from './components/products/wishlist/wishlist.component';
+import { WishlistService } from './services/products/wishlist.service';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -148,6 +149,7 @@ export function tokenGetter() {
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
 
     CartService,
+    WishlistService
   ],
   bootstrap: [AppComponent]
 })

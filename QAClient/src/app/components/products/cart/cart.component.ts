@@ -43,6 +43,7 @@ export class CartComponent implements OnInit {
     });
   }
 
+
   showCartItems() {
     this.isCartOpen = true;
     //this.loadCartItems();

@@ -20,7 +20,8 @@
       <ul>
         <li *ngIf="isAdmin" (click)="navigateToAdmin()"><fa-icon [icon]="faAdmin"></fa-icon></li>
         <li><fa-icon [icon]="faGlass"></fa-icon></li>
-        <li><fa-icon [icon]="faHeart"></fa-icon></li>
+        <!-- <li><fa-icon [icon]="faHeart"></fa-icon></li> -->
+        <li><app-wishlist></app-wishlist></li>
         <li><app-cart></app-cart>
         <li><fa-icon [icon]="faBars"></fa-icon></li>
       </ul>

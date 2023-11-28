@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';  // Import operators from 'rxjs/operators'
-import { switchMap } from 'rxjs/operators';  // Import switchMap separately
+import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import { CartItem } from '../../models/cartItem';
 import { ApiService } from '../global/api.service';
 import { UserService } from '../user.service';
@@ -13,39 +12,44 @@ export class CartService {
   private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
   cartItems$ = this.cartItemsSubject.asObservable();
   private cartId: number | null = null;
+  private cartIdLoaded: boolean = false;
 
-  constructor(private apiService: ApiService,
-    private userService: UserService) {
-  }
+  constructor(private apiService: ApiService, private userService: UserService) {}
 
   initCartData(): void {
-    this.userService.isAuthenticated$.subscribe((isAuthenticated) => {
-      if (isAuthenticated) {
-        this.loadCartItems();
-      }
-    });
+    this.userService.isAuthenticated$
+      .pipe(take(1))
+      .subscribe((isAuthenticated) => {
+        if (isAuthenticated && !this.cartIdLoaded) {
+          this.loadCartItems();
+        }
+      });
   }
 
   private loadCartItems() {
     const userId = this.userService.getUserId();
     if (userId !== null) {
-      this.getCartId(userId).pipe(
-        switchMap((cartId) => {
-          if (cartId !== null) {
-            return this.getCartItems();
-          } else {
-            console.error('cartId is null');
-            return throwError('cartId is null');
+      this.getCartId(userId)
+        .pipe(
+          switchMap((cartId) => {
+            if (cartId !== null) {
+              this.cartId = cartId;
+              this.cartIdLoaded = true;
+              return this.getCartItems();
+            } else {
+              console.error('cartId is null');
+              return throwError('cartId is null');
+            }
+          })
+        )
+        .subscribe(
+          (cartItems: CartItem[]) => {
+            this.cartItemsSubject.next(cartItems);
+          },
+          (error) => {
+            console.error('Error fetching cart items:', error);
           }
-        })
-      ).subscribe(
-        (cartItems: CartItem[]) => {
-          this.cartItemsSubject.next(cartItems);
-        },
-        (error) => {
-          console.error('Error fetching cart items:', error);
-        }
-      );
+        );
     } else {
       console.error('userId is null');
     }
@@ -54,7 +58,10 @@ export class CartService {
   getCartId(userId: string): Observable<number | null> {
     return this.apiService.get<number>(`Carts/${userId}`).pipe(
       tap((cartId) => {
-        this.cartId = cartId;
+        if (cartId !== null) {
+          this.cartId = cartId;
+          this.cartIdLoaded = true;
+        }
       }),
       catchError((error) => {
         console.error('Error getting cartId:', error);
@@ -112,8 +119,6 @@ export class CartService {
       console.error('CartId is null. Handle this case appropriately.');
       // You might want to set a default cartId or show an error message.
     }
-
-    this.loadCartItems();
   }
 
   removeFromCart(cartItemId: number) {
@@ -121,16 +126,12 @@ export class CartService {
     this.apiService.delete(`CartItems/${cartItemId}`).subscribe(
       () => {
         const currentCartItems = this.cartItemsSubject.getValue();
-        const updatedCartItems = currentCartItems.filter(
-          (item) => item.cartItemId !== cartItemId
-        );
+        const updatedCartItems = currentCartItems.filter((item) => item.cartItemId !== cartItemId);
         this.cartItemsSubject.next(updatedCartItems);
       },
       (error) => {
         console.error('Error removing item from cart:', error);
       }
     );
-
-    this.loadCartItems();
   }
 }

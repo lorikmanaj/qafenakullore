@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { WishlistService } from 'src/app/services/products/wishlist.service'; // Adjust the path accordingly
 import { WishListItem } from 'src/app/models/wishListItem'; // Adjust the path accordingly
 import { UserService } from 'src/app/services/user.service';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-wishlist',
@@ -13,7 +15,7 @@ export class WishlistComponent implements OnInit {
   // Adjust icons based on your FontAwesome icons
   isWishlistOpen: boolean = false;
   isLoggedIn: boolean = false;
-
+  faHeart = faHeart;
 
   wishlistItems: WishListItem[] = [];
   private hasInitialized: boolean = false;
@@ -24,22 +26,23 @@ export class WishlistComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
-      this.isLoggedIn = isAuthenticated;
+    this.userService.isAuthenticated$
+      .subscribe((isAuthenticated: boolean) => {
+        this.isLoggedIn = isAuthenticated;
 
-      if (isAuthenticated && !this.hasInitialized) {
-        this.wishlistService.initWishlistData();
+        if (isAuthenticated && !this.hasInitialized) {
+          this.wishlistService.initWishlistData();
 
-        this.wishlistService.wishListItems$.subscribe((wishlistItems: WishListItem[]) => {
-          this.wishlistItems = wishlistItems;
-          console.log('Wishlist Items', this.wishlistItems);
-        });
+          this.wishlistService.wishListItems$.subscribe((wishlistItems: WishListItem[]) => {
+            this.wishlistItems = wishlistItems;
+            console.log('Wishlist Items', this.wishlistItems);
+          });
 
-        this.hasInitialized = true;
-      } else {
-        // Handle the case when the user is not authenticated, if needed
-      }
-    });
+          this.hasInitialized = true;
+        } else {
+          // Handle the case when the user is not authenticated, if needed
+        }
+      });
   }
 
   showWishlistItems() {
