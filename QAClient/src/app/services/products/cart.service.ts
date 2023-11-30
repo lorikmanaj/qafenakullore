@@ -14,7 +14,7 @@ export class CartService {
   private cartId: number | null = null;
   private cartIdLoaded: boolean = false;
 
-  constructor(private apiService: ApiService, private userService: UserService) {}
+  constructor(private apiService: ApiService, private userService: UserService) { }
 
   initCartData(): void {
     this.userService.isAuthenticated$
@@ -87,7 +87,7 @@ export class CartService {
     }
   }
 
-  addToCart(productId: number) {
+  addToCart(productId: number): Observable<CartItem> {
     if (this.cartId !== null) {
       const newItem: CartItem = {
         cartItemId: 0,
@@ -99,8 +99,8 @@ export class CartService {
       };
 
       // Make a POST request to add the item to the server cart
-      this.apiService.post<CartItem, CartItem>('CartItems', newItem).subscribe(
-        (addedItem) => {
+      return this.apiService.post<CartItem, CartItem>('CartItems', newItem).pipe(
+        tap((addedItem) => {
           const currentCartItems = this.cartItemsSubject.getValue();
           const existingItem = currentCartItems.find((item) => item.productId === addedItem.productId);
 
@@ -110,14 +110,15 @@ export class CartService {
             const updatedCartItems = [...currentCartItems, addedItem];
             this.cartItemsSubject.next(updatedCartItems);
           }
-        },
-        (error) => {
+        }),
+        catchError((error) => {
           console.error('Error adding item to cart:', error);
-        }
+          return throwError(error);
+        })
       );
     } else {
       console.error('CartId is null. Handle this case appropriately.');
-      // You might want to set a default cartId or show an error message.
+      return throwError('CartId is null');
     }
   }
 

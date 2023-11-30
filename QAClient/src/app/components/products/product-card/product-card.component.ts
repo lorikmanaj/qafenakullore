@@ -8,6 +8,12 @@ import {
   faCartShopping,
   faHeart,
 } from '@fortawesome/free-solid-svg-icons';
+import { WishlistService } from 'src/app/services/products/wishlist.service';
+import { CartService } from './../../../services/products/cart.service';
+import { catchError, tap } from 'rxjs/operators';
+import { WishListItem } from 'src/app/models/wishListItem';
+import { CartItem } from 'src/app/models/cartItem';
+import { Observable, of, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-product-card',
@@ -28,6 +34,8 @@ export class ProductCardComponent implements OnInit {
   currentImage: string | undefined;
 
   constructor(private productService: ProductService,
+    private wishListService: WishlistService,
+    private cartService: CartService,
     private productReviewService: ProductReviewService) { }
 
   ngOnInit() {
@@ -88,4 +96,41 @@ export class ProductCardComponent implements OnInit {
     }
   }
 
+  addToCart(): Observable<CartItem> {
+    if (this.product) {
+      // Call addToCart without subscribing here
+      return this.cartService.addToCart(this.product.productId).pipe(
+        tap((addedItem: CartItem) => {
+          console.log('Item added to cart:', addedItem);
+        }),
+        catchError((error: any) => {
+          console.error('Error adding item to cart:', error);
+          // Handle error, e.g., show an error message
+          return throwError(error);
+        })
+      );
+    } else {
+      // If there's no product, return an observable with an error
+      return throwError('Product is not defined');
+    }
+  }
+
+
+  addToWishlist() {
+    if (this.product) {
+      this.wishListService.addWishListItem({
+        productId: this.product.productId,
+        wishListId: 0,
+      }).subscribe(
+        (addedItem: WishListItem) => {
+          // Handle success, e.g., show a success message
+          console.log('Item added to wishlist:', addedItem);
+        },
+        (error: any) => {
+          console.error('Error adding item to wishlist:', error);
+          // Handle error, e.g., show an error message
+        }
+      );
+    }
+  }
 }

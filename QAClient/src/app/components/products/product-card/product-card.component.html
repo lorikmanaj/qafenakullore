@@ -23,8 +23,12 @@
     </div>
 
     <div>
-        <fa-icon [icon]="faCart"></fa-icon>
-        <fa-icon [icon]="faHeart"></fa-icon>
+        <div>
+            <button (click)="addToCart()">Add to Cart
+                <fa-icon [icon]="faCart"></fa-icon></button>
+            <button (click)="addToWishlist()">Add to Wishlist
+                <fa-icon [icon]="faHeart"></fa-icon></button>
+        </div>
     </div>
 </div>
 

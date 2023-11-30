@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, catchError, switchMap, take, tap, throwErr
 import { ApiService } from '../global/api.service';
 import { WishListItem } from 'src/app/models/wishListItem';
 import { UserService } from '../user.service';
+import { AddToWishListRequest } from 'src/app/models/RequestDTOs/addToWishListRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -27,22 +28,22 @@ export class WishlistService {
 
         if (isAuthenticated && !this.wishListIdLoaded) {
           console.log('User is authenticated, initializing wishlist data.');
-          this.loadWishlistItems();
+          this.loadWishListItems();
         }
       });
   }
 
-  private loadWishlistItems(): void {
+  private loadWishListItems(): void {
     const userId = this.userService.getUserId();
 
     if (userId !== null) {
-      this.getWishlistId(userId)
+      this.getWishListId(userId)
         .pipe(
           switchMap((wishListId) => {
             if (wishListId !== null) {
               this.wishListId = wishListId;
               this.wishListIdLoaded = true;
-              return this.getWishlistItems();
+              return this.getWishListItems();
             } else {
               console.error('wishlistId is null');
               return throwError('wishlistId is null');
@@ -50,9 +51,9 @@ export class WishlistService {
           })
         )
         .subscribe(
-          (wishlistItems: WishListItem[]) => {
-            console.log('Wishlist items loaded successfully:', wishlistItems);
-            this.wishListItemsSubject.next(wishlistItems);
+          (wishListItems: WishListItem[]) => {
+            console.log('Wishlist items loaded successfully:', wishListItems);
+            this.wishListItemsSubject.next(wishListItems);
           },
           (error) => {
             console.error('Error loading wishlist items:', error);
@@ -63,9 +64,13 @@ export class WishlistService {
     }
   }
 
-  getWishlistItems(): Observable<WishListItem[]> {
+  getWishListItem(id: number): Observable<WishListItem> {
+    return this.apiService.getById<WishListItem>(`${this.endpoint}/GetWishListItem`, id);
+  }
+
+  getWishListItems(): Observable<WishListItem[]> {
     if (this.wishListId !== null) {
-      return this.apiService.get<WishListItem[]>(`${this.endpoint}/${this.wishListId}`).pipe(
+      return this.apiService.get<WishListItem[]>(`${this.endpoint}/GetWishListItems/${this.wishListId}`).pipe(
         tap((wishListItems) => {
           this.wishListItemsSubject.next(wishListItems);
         }),
@@ -80,7 +85,7 @@ export class WishlistService {
     }
   }
 
-  getWishlistId(userId: string): Observable<number | null> {
+  getWishListId(userId: string): Observable<number | null> {
     return this.apiService.get<number>(`WishLists/${userId}`).pipe(
       tap((wishListId) => {
         if (wishListId !== null) {
@@ -95,19 +100,45 @@ export class WishlistService {
     );
   }
 
-  getWishlistItem(id: number): Observable<WishListItem> {
-    return this.apiService.getById<WishListItem>(this.endpoint, id);
+  addWishListItem(request: AddToWishListRequest): Observable<WishListItem> {
+    if (this.wishListId !== null) {
+      const newItem: AddToWishListRequest = {
+        productId: request.productId,
+        wishListId: this.wishListId,
+      };
+
+      return this.apiService.post<WishListItem, AddToWishListRequest>(this.endpoint, newItem).pipe(
+        tap((addedItem: WishListItem) => {
+          const currentWishlistItems = this.wishListItemsSubject.getValue();
+          const updatedWishlistItems = [...currentWishlistItems, addedItem];
+          this.wishListItemsSubject.next(updatedWishlistItems);
+        }),
+        catchError((error: any) => {
+          console.error('Error adding item to wishlist:', error);
+          return throwError(error);
+        })
+      );
+    } else {
+      console.error('WishListId is null. Handle this case appropriately.');
+      return throwError('WishListId is null');
+    }
   }
 
-  addWishlistItem(wishlistItem: WishListItem): Observable<WishListItem> {
-    return this.apiService.post<WishListItem, WishListItem>(this.endpoint, wishlistItem);
-  }
-
-  updateWishlistItem(id: number, wishlistItem: WishListItem): Observable<WishListItem> {
+  updateWishListItem(id: number, wishlistItem: WishListItem): Observable<WishListItem> {
     return this.apiService.put<WishListItem, WishListItem>(`${this.endpoint}/${id}`, wishlistItem);
   }
 
-  removeWishlistItem(id: number): Observable<any> {
-    return this.apiService.delete(`${this.endpoint}/${id}`);
+  removeWishListItem(id: number): Observable<any> {
+    return this.apiService.delete(`${this.endpoint}/${id}`).pipe(
+      tap(() => {
+        const currentWishlistItems = this.wishListItemsSubject.getValue();
+        const updatedWishlistItems = currentWishlistItems.filter((item) => item.wishListItemId !== id);
+        this.wishListItemsSubject.next(updatedWishlistItems);
+      }),
+      catchError((error) => {
+        console.error('Error removing item from wishlist:', error);
+        return throwError(error);
+      })
+    );
   }
 }
