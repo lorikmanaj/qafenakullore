@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { WishlistService } from 'src/app/services/products/wishlist.service'; // Adjust the path accordingly
 import { WishListItem } from 'src/app/models/wishListItem'; // Adjust the path accordingly
 import { UserService } from 'src/app/services/user.service';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHeart
+} from '@fortawesome/free-solid-svg-icons';
 import { take } from 'rxjs';
 
 @Component({
@@ -16,6 +18,7 @@ export class WishlistComponent implements OnInit {
   isWishlistOpen: boolean = false;
   isLoggedIn: boolean = false;
   faHeart = faHeart;
+
 
   wishlistItems: WishListItem[] = [];
   private hasInitialized: boolean = false;

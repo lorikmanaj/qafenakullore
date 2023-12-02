@@ -141,4 +141,13 @@ export class WishlistService {
       })
     );
   }
+
+  isInWishlist(productId: number): boolean {
+    const wishlistItems = this.wishListItemsSubject.getValue();
+    return wishlistItems.some(item => item.productId === productId);
+  }
+
+  getWishListItemByProductId(productId: number): WishListItem | undefined {
+    return this.wishListItemsSubject.getValue().find(item => item.productId === productId);
+  }
 }

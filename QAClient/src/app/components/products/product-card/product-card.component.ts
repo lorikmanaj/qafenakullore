@@ -7,6 +7,7 @@ import { ReviewDetails } from 'src/app/models/reviewDetails';
 import {
   faCartShopping,
   faHeart,
+  faHeartCircleCheck
 } from '@fortawesome/free-solid-svg-icons';
 import { WishlistService } from 'src/app/services/products/wishlist.service';
 import { CartService } from './../../../services/products/cart.service';
@@ -26,7 +27,10 @@ export class ProductCardComponent implements OnInit {
   reviewDetails: ReviewDetails | undefined;
 
   faCart = faCartShopping;
+  //WishList un-added
   faHeart = faHeart;
+  //WishList added
+  faHeartCheck = faHeartCircleCheck;
 
   private readonly defaultImageUrl = 'assets/red.png';
 
@@ -96,6 +100,7 @@ export class ProductCardComponent implements OnInit {
     }
   }
 
+  //Cart
   addToCart(): Observable<CartItem> {
     if (this.product) {
       // Call addToCart without subscribing here
@@ -115,6 +120,13 @@ export class ProductCardComponent implements OnInit {
     }
   }
 
+  //WishList
+  isInWishList(): boolean {
+    if (this.product) {
+      return this.wishListService.isInWishlist(this.product.productId);
+    }
+    return false;
+  }
 
   addToWishlist() {
     if (this.product) {
@@ -131,6 +143,29 @@ export class ProductCardComponent implements OnInit {
           // Handle error, e.g., show an error message
         }
       );
+    }
+  }
+
+  removeFromWishList() {
+    if (this.product) {
+      const wishListItem = this.wishListService.getWishListItemByProductId(this.product.productId);
+
+      if (wishListItem) {
+        const wishListItemId = wishListItem.wishListItemId;
+
+        this.wishListService.removeWishListItem(wishListItemId).subscribe(
+          () => {
+            // Handle success, e.g., show a success message
+            console.log('Item removed from wishlist:', wishListItemId);
+          },
+          (error: any) => {
+            console.error('Error removing item from wishlist:', error);
+            // Handle error, e.g., show an error message
+          }
+        );
+      } else {
+        console.error('WishListItem not found for product:', this.product.productId);
+      }
     }
   }
 }

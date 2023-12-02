@@ -24,10 +24,17 @@
 
     <div>
         <div>
+
             <button (click)="addToCart()">Add to Cart
-                <fa-icon [icon]="faCart"></fa-icon></button>
-            <button (click)="addToWishlist()">Add to Wishlist
-                <fa-icon [icon]="faHeart"></fa-icon></button>
+                <fa-icon [icon]="faCart"></fa-icon>
+            </button>
+
+            <!-- Update the button in your template -->
+            <button (click)="isInWishList() ? removeFromWishList() : addToWishlist()">
+                <fa-icon [icon]="isInWishList() ? faHeartCheck : faHeart"></fa-icon>
+                {{ isInWishList() ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+            </button>
+
         </div>
     </div>
 </div>
