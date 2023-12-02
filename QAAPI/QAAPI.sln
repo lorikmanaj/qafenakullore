@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{0D484519-6DAC-40D4-B29B-078C9004AF4B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{62B7EE8A-D518-42A9-8635-46FB069AE80B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{994C4285-71D1-4D49-8798-D54D5E801BA6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D484519-6DAC-40D4-B29B-078C9004AF4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D484519-6DAC-40D4-B29B-078C9004AF4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D484519-6DAC-40D4-B29B-078C9004AF4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D484519-6DAC-40D4-B29B-078C9004AF4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62B7EE8A-D518-42A9-8635-46FB069AE80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62B7EE8A-D518-42A9-8635-46FB069AE80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62B7EE8A-D518-42A9-8635-46FB069AE80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62B7EE8A-D518-42A9-8635-46FB069AE80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{994C4285-71D1-4D49-8798-D54D5E801BA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{994C4285-71D1-4D49-8798-D54D5E801BA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{994C4285-71D1-4D49-8798-D54D5E801BA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{994C4285-71D1-4D49-8798-D54D5E801BA6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E21E509E-BE81-463F-A435-2EAA3720927F}
+	EndGlobalSection
+EndGlobal
