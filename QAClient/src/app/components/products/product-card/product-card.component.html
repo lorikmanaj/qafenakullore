@@ -25,8 +25,9 @@
     <div>
         <div>
 
-            <button (click)="addToCart()">Add to Cart
-                <fa-icon [icon]="faCart"></fa-icon>
+            <button (click)="isInCart() ? removeFromCart() : addToCart()">
+                <fa-icon [icon]="isInCart() ? faRemoveFromCart : faAddToCart"></fa-icon>
+                {{ isInCart() ? 'Remove from Cart' : 'Add to Cart' }}
             </button>
 
             <!-- Update the button in your template -->
@@ -38,5 +39,3 @@
         </div>
     </div>
 </div>
-
-<!-- {{ product.starRating }} {{ product.reviewCount }} -->

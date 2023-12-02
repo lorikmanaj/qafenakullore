@@ -3,6 +3,7 @@ import { faCartShopping, faPlusSquare, faMinusSquare } from '@fortawesome/free-s
 import { CartService } from 'src/app/services/products/cart.service';
 import { CartItem } from 'src/app/models/cartItem';
 import { UserService } from 'src/app/services/user.service';
+import { AddToCartRequest } from 'src/app/models/RequestDTOs/addToCartRequest';
 
 @Component({
   selector: 'app-cart',
@@ -43,7 +44,6 @@ export class CartComponent implements OnInit {
     });
   }
 
-
   showCartItems() {
     this.isCartOpen = true;
     //this.loadCartItems();
@@ -53,8 +53,54 @@ export class CartComponent implements OnInit {
     this.isCartOpen = false;
   }
 
+  incrementQuantity(item: CartItem) {
+    const newQuantity = item.quantity + 1;
+    this.updateCartItemQuantity(item.cartItemId, newQuantity);
+  }
+
+  decrementOrDelete(item: CartItem) {
+      if (item.quantity > 1) {
+          const newQuantity = item.quantity - 1;
+          this.updateCartItemQuantity(item.cartItemId, newQuantity);
+      } else {
+          this.removeFromCart(item.productId);
+      }
+  }
+
+  editQuantity(item: CartItem) {
+      const newQuantity = parseInt(prompt('Enter new quantity:', item.quantity.toString()) || '1', 10);
+      if (!isNaN(newQuantity) && newQuantity > 0) {
+          this.updateCartItemQuantity(item.cartItemId, newQuantity);
+      } else {
+          alert('Invalid quantity. Please enter a valid number greater than 0.');
+      }
+  }
+
+  private updateCartItemQuantity(cartItemId: number, newQuantity: number) {
+      this.cartService.updateCartItemQuantity(cartItemId, newQuantity).subscribe(
+          () => {
+              // Handle success if needed
+          },
+          (error: any) => {
+              // Handle error if needed
+          }
+      );
+  }
+
   addToCart(productId: number) {
-    this.cartService.addToCart(productId);
+    const req: AddToCartRequest = {
+      cartId: 0,
+      productId: productId
+    }
+
+    this.cartService.addToCart(req).subscribe(
+      (addedItem: CartItem) => {
+        // Handle logic specific to the cart component (if needed)
+      },
+      (error: any) => {
+        // Handle error if needed
+      }
+    );
     //this.loadCartItems();
   }
 

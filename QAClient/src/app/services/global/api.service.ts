@@ -19,11 +19,6 @@ export class ApiService {
   constructor(private http: HttpClient, private jwtService: JwtService) {
   }
 
-  post<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
-    const url = `${environment.apiUrl}/api/${path}`;
-    return this.http.post<HttpResponseModel>(url, data);
-  }
-
   getById<HttpResponseModel>(path: string, id: number): Observable<HttpResponseModel> {
     const url = `${environment.apiUrl}/api/${path}/${id}`;
     return this.http.get<HttpResponseModel>(url);
@@ -37,6 +32,11 @@ export class ApiService {
   put<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
     const url = `${environment.apiUrl}/api/${path}`;
     return this.http.put<HttpResponseModel>(url, data);
+  }
+
+  post<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
+    const url = `${environment.apiUrl}/api/${path}`;
+    return this.http.post<HttpResponseModel>(url, data);
   }
 
   delete<HttpResponseModel>(path: string): Observable<HttpResponseModel> {

@@ -102,12 +102,9 @@ export class WishlistService {
 
   addWishListItem(request: AddToWishListRequest): Observable<WishListItem> {
     if (this.wishListId !== null) {
-      const newItem: AddToWishListRequest = {
-        productId: request.productId,
-        wishListId: this.wishListId,
-      };
+      request.wishListId = this.wishListId;
 
-      return this.apiService.post<WishListItem, AddToWishListRequest>(this.endpoint, newItem).pipe(
+      return this.apiService.post<WishListItem, AddToWishListRequest>(this.endpoint, request).pipe(
         tap((addedItem: WishListItem) => {
           const currentWishlistItems = this.wishListItemsSubject.getValue();
           const updatedWishlistItems = [...currentWishlistItems, addedItem];

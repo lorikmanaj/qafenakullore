@@ -4,6 +4,7 @@ import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import { CartItem } from '../../models/cartItem';
 import { ApiService } from '../global/api.service';
 import { UserService } from '../user.service';
+import { AddToCartRequest } from 'src/app/models/RequestDTOs/addToCartRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -87,19 +88,11 @@ export class CartService {
     }
   }
 
-  addToCart(productId: number): Observable<CartItem> {
+  addToCart(request: AddToCartRequest): Observable<CartItem> {
     if (this.cartId !== null) {
-      const newItem: CartItem = {
-        cartItemId: 0,
-        cartId: this.cartId,
-        productId: productId,
-        itemName: '', // You can set a default name or fetch it from the server
-        quantity: 1,
-        // other properties as needed
-      };
+      request.cartId = this.cartId;
 
-      // Make a POST request to add the item to the server cart
-      return this.apiService.post<CartItem, CartItem>('CartItems', newItem).pipe(
+      return this.apiService.post<CartItem, AddToCartRequest>('CartItems', request).pipe(
         tap((addedItem) => {
           const currentCartItems = this.cartItemsSubject.getValue();
           const existingItem = currentCartItems.find((item) => item.productId === addedItem.productId);
@@ -122,6 +115,27 @@ export class CartService {
     }
   }
 
+  updateCartItemQuantity(cartItemId: number, newQuantity: number): Observable<void> {
+    const url = `CartItems/${cartItemId}/updateQuantity/${newQuantity}`;
+  
+    return this.apiService.put<void>(url).pipe(
+      tap(() => {
+        const currentCartItems = this.cartItemsSubject.getValue();
+        const updatedCartItems = currentCartItems.map((item) => {
+          if (item.cartItemId === cartItemId) {
+            item.quantity = newQuantity;
+          }
+          return item;
+        });
+        this.cartItemsSubject.next(updatedCartItems);
+      }),
+      catchError((error) => {
+        console.error('Error updating cart item quantity:', error);
+        return throwError(error);
+      })
+    );
+  }  
+
   removeFromCart(cartItemId: number) {
     // Make a DELETE request to remove the item from the server cart
     this.apiService.delete(`CartItems/${cartItemId}`).subscribe(
@@ -134,5 +148,14 @@ export class CartService {
         console.error('Error removing item from cart:', error);
       }
     );
+  }
+
+  isInCart(productId: number): boolean {
+    const cartItems = this.cartItemsSubject.getValue();
+    return cartItems.some(item => item.productId === productId);
+  }
+
+  getCartItemByProductId(productId: number): CartItem | undefined {
+    return this.cartItemsSubject.getValue().find(item => item.productId === productId);
   }
 }

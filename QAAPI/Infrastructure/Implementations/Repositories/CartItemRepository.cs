@@ -1,4 +1,5 @@
 ﻿using Api.Interfaces.Repositories;
+using Domain.Dtos.Product.Cart;
 using Domain.Models;
 using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -34,12 +35,41 @@ namespace Api.Implementations.Repositories
             return cartItems;
         }
 
-        public async Task<CartItem> AddItemToCartAsync(CartItem cartItem)
+        public async Task<CartItem> AddItemToCartAsync(AddToCartRequest cartItem)
         {
-            _context.CartItems.Add(cartItem);
-            await _context.SaveChangesAsync();
+            var prod = await _context.Products.FindAsync(cartItem.ProductId);
 
-            return cartItem;
+            if (prod != null)
+            {
+                CartItem newCi = new CartItem()
+                {
+                    CartId = cartItem.CartId,
+                    ProductId = cartItem.ProductId,
+                    ItemName = prod.Name,
+                    Quantity = 1
+                };
+
+                _context.CartItems.Add(newCi);
+                await _context.SaveChangesAsync();
+
+                return newCi;
+            }
+
+            return null;
+        }
+
+        public async Task<bool> UpdateCartItemQuantityAsync(int cartItemId, int newQuantity)
+        {
+            var existingCartItem = await _context.CartItems.FindAsync(cartItemId);
+
+            if (existingCartItem != null)
+            {
+                existingCartItem.Quantity = newQuantity;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<bool> RemoveItemFromCartAsync(int cartItemId)

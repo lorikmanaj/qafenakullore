@@ -6,6 +6,8 @@ import { ProductReviewService } from './../../../services/products/product-revie
 import { ReviewDetails } from 'src/app/models/reviewDetails';
 import {
   faCartShopping,
+  faCartPlus,
+  faCartArrowDown,
   faHeart,
   faHeartCircleCheck
 } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +17,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { WishListItem } from 'src/app/models/wishListItem';
 import { CartItem } from 'src/app/models/cartItem';
 import { Observable, of, throwError } from 'rxjs';
+import { AddToCartRequest } from 'src/app/models/RequestDTOs/addToCartRequest';
 
 @Component({
   selector: 'app-product-card',
@@ -27,6 +30,8 @@ export class ProductCardComponent implements OnInit {
   reviewDetails: ReviewDetails | undefined;
 
   faCart = faCartShopping;
+  faAddToCart = faCartPlus;
+  faRemoveFromCart = faCartArrowDown;
   //WishList un-added
   faHeart = faHeart;
   //WishList added
@@ -101,22 +106,62 @@ export class ProductCardComponent implements OnInit {
   }
 
   //Cart
-  addToCart(): Observable<CartItem> {
+  isInCart(): boolean {
     if (this.product) {
-      // Call addToCart without subscribing here
-      return this.cartService.addToCart(this.product.productId).pipe(
-        tap((addedItem: CartItem) => {
-          console.log('Item added to cart:', addedItem);
-        }),
-        catchError((error: any) => {
-          console.error('Error adding item to cart:', error);
-          // Handle error, e.g., show an error message
-          return throwError(error);
-        })
+      return this.cartService.isInCart(this.product.productId);
+    }
+    return false;
+  }
+
+  addToCart() {
+    if (this.product) {
+      this.cartService.addToCart({
+        productId: this.product.productId, cartId: 0
+      }).subscribe(
+        (addedItem: CartItem) => {
+
+        },
+        (error: any) => {
+
+        }
       );
-    } else {
-      // If there's no product, return an observable with an error
-      return throwError('Product is not defined');
+    }
+  }
+
+  // addToCart(): Observable<CartItem> {
+  //   console.log('allo')
+  //   if (this.product) {
+  //     console.log(this.product);
+  //     const req: AddToCartRequest = {
+  //       cartId: 0,
+  //       productId: this.product.productId
+  //     };
+  //     console.log(req);
+  //     // Call addToCart without subscribing here
+  //     return this.cartService.addToCart(req).pipe(
+  //       tap((addedItem: CartItem) => {
+  //         console.log('Item added to cart:', addedItem);
+  //       }),
+  //       catchError((error: any) => {
+  //         console.error('Error adding item to cart:', error);
+  //         // Handle error, e.g., show an error message
+  //         return throwError(error);
+  //       })
+  //     );
+  //   } else {
+  //     // If there's no product, return an observable with an error
+  //     return throwError('Product is not defined');
+  //   }
+  // }
+
+  removeFromCart() {
+    if (this.product) {
+      // Assuming you have a method in the cart service to remove from the cart by productId
+      const cartItem = this.cartService.getCartItemByProductId(this.product.productId);
+
+      if (cartItem) {
+        this.cartService.removeFromCart(cartItem.cartItemId);
+      }
     }
   }
 

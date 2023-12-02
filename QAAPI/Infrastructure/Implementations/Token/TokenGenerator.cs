@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -85,12 +84,12 @@ public class TokenGenerator : ITokenGenerator
         //};
 
         // getting the claims from DB
-        
+
         //claims.AddRange(userClaims);
 
         // get the USER_ROLES, from the DB
-        
-        
+
+
         // attach the roles from the DB
         //foreach (var userRole in userRoles)
         //{

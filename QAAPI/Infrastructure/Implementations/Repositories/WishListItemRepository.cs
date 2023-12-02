@@ -1,7 +1,6 @@
 ﻿using Api.Interfaces.Repositories;
 using Domain.Models;
 using Infrastructure.Database;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Implementations.Repositories
@@ -38,17 +37,6 @@ namespace Application.Implementations.Repositories
 
             return wishListItems;
         }
-
-        public async Task<WishListItem> AddItemToWishListAsyncOLD(WishListItem wishListItem)
-        {
-            _context.WishListItems.Add(wishListItem);
-            await _context.SaveChangesAsync();
-
-            return wishListItem;
-        }
-
-        //Test comment for commit
-
 
         public async Task<WishListItem> AddItemToWishListAsync(int productId, int wishListId)
         {

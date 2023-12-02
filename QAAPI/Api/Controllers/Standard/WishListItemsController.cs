@@ -64,7 +64,7 @@ namespace Api.Controllers.Standard
 
         //    return NoContent();
         //}
-        
+
         // POST: api/WishListItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -73,7 +73,7 @@ namespace Api.Controllers.Standard
             var wli = await _wishListItemRepository.AddItemToWishListAsync(request.ProductId, request.WishListId);
 
             if (wli == null) return BadRequest(null);
-            
+
             return CreatedAtAction("GetWishListItem", new { id = wli.WishListItemId }, wli);
         }
 

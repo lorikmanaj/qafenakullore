@@ -7,15 +7,15 @@
       <ng-container *ngIf="cartItems.length > 0; else noItems">
         <div *ngFor="let item of cartItems" class="cart-item">
           {{ item.itemName }}
-
+      
           <div class="cart-buttons">
-            <button class="plus-btn" (click)="addToCart(item.productId)">
-              <fa-icon [icon]="faPlus"></fa-icon>
-            </button>
-            <span *ngIf="item.quantity > 1" class="cart-item-quantity">{{ item.quantity }}</span>
-            <button class="minus-btn" (click)="removeFromCart(item.productId)">
-              <fa-icon [icon]="faMinus"></fa-icon>
-            </button>
+              <button class="plus-btn" (click)="incrementQuantity(item)">
+                  <fa-icon [icon]="faPlus"></fa-icon>
+              </button>
+              <span *ngIf="item.quantity > 1" class="cart-item-quantity" (click)="editQuantity(item)">{{ item.quantity }}</span>
+              <button class="minus-btn" (click)="decrementOrDelete(item)">
+                  <fa-icon [icon]="faMinus"></fa-icon>
+              </button>
           </div>
         </div>
       </ng-container>

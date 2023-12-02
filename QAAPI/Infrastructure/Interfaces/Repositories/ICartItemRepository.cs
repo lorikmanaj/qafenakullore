@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.Dtos.Product.Cart;
+using Domain.Models;
 
 namespace Api.Interfaces.Repositories
 {
@@ -6,7 +7,8 @@ namespace Api.Interfaces.Repositories
     {
         Task<CartItem> GetCartItem(int cartItemId);
         Task<List<CartItem>> GetCartItems(int cartId);
-        Task<CartItem> AddItemToCartAsync(CartItem cartItem);
+        Task<CartItem> AddItemToCartAsync(AddToCartRequest cartItem);
+        Task<bool> UpdateCartItemQuantityAsync(int cartItemId, int newQuantity);
         Task<bool> RemoveItemFromCartAsync(int cartItemId);
     }
 }

@@ -7,16 +7,16 @@ namespace Domain.Models
     {
         [Key]
         public int WishListItemId { get; set; }
-        
+
         [Required]
         public int WishListId { get; set; }
-        
+
         [Required]
         public int ProductId { get; set; }
 
         [Required]
         public string ItemName { get; set; }
-        
+
         [ForeignKey("WishListId")]
         public WishList WishList { get; set; }
 

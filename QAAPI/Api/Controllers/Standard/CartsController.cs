@@ -1,5 +1,4 @@
 ﻿using Api.Interfaces.Repositories;
-using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.Standard
