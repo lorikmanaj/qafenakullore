@@ -14,34 +14,39 @@ export class CartComponent implements OnInit {
   faPlus = faPlusSquare;
   faMinus = faMinusSquare;
   isCartOpen: boolean = false;
-  isLoggedIn: boolean = false; // Add isLoggedIn property
+  isLoggedIn: boolean = false;
 
-  cartItems: CartItem[] = []; // Define an empty array to store cart items
+  cartItems: CartItem[] = [];
+  private hasInitialized: boolean = false;
 
   constructor(
     private cartService: CartService,
-    private userService: UserService // Inject UserService here
+    private userService: UserService
   ) { }
 
   ngOnInit() {
-    this.cartService.initCartData(); // Call a method to initialize cart-related data
-
-    // Check if the user is authenticated
-    this.userService.isAuthenticated.subscribe((isAuthenticated) => {
+    this.userService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
       this.isLoggedIn = isAuthenticated;
 
-      if (isAuthenticated) {
-        // Fetch cart items only if the user is authenticated
-        this.cartService.getCartItems().subscribe((cartItems) => {
+      if (isAuthenticated && !this.hasInitialized) {
+        this.cartService.initCartData();
+
+        this.cartService.cartItems$.subscribe((cartItems: CartItem[]) => {
           this.cartItems = cartItems;
-          console.log(cartItems); // Debugging: Check if cartItems are coming from the service
+          console.log('Cart Items', this.cartItems);
         });
+
+        this.hasInitialized = true;
+      } else {
+        // Handle the case when the user is not authenticated, if needed
       }
     });
   }
 
+
   showCartItems() {
     this.isCartOpen = true;
+    //this.loadCartItems();
   }
 
   hideCartItems() {
@@ -50,9 +55,11 @@ export class CartComponent implements OnInit {
 
   addToCart(productId: number) {
     this.cartService.addToCart(productId);
+    //this.loadCartItems();
   }
 
   removeFromCart(productId: number) {
     this.cartService.removeFromCart(productId);
+    //this.loadCartItems();
   }
 }

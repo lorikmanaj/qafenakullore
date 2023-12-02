@@ -7,7 +7,14 @@ import { ReviewDetails } from 'src/app/models/reviewDetails';
 import {
   faCartShopping,
   faHeart,
+  faHeartCircleCheck
 } from '@fortawesome/free-solid-svg-icons';
+import { WishlistService } from 'src/app/services/products/wishlist.service';
+import { CartService } from './../../../services/products/cart.service';
+import { catchError, tap } from 'rxjs/operators';
+import { WishListItem } from 'src/app/models/wishListItem';
+import { CartItem } from 'src/app/models/cartItem';
+import { Observable, of, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-product-card',
@@ -20,7 +27,10 @@ export class ProductCardComponent implements OnInit {
   reviewDetails: ReviewDetails | undefined;
 
   faCart = faCartShopping;
+  //WishList un-added
   faHeart = faHeart;
+  //WishList added
+  faHeartCheck = faHeartCircleCheck;
 
   private readonly defaultImageUrl = 'assets/red.png';
 
@@ -28,6 +38,8 @@ export class ProductCardComponent implements OnInit {
   currentImage: string | undefined;
 
   constructor(private productService: ProductService,
+    private wishListService: WishlistService,
+    private cartService: CartService,
     private productReviewService: ProductReviewService) { }
 
   ngOnInit() {
@@ -88,4 +100,72 @@ export class ProductCardComponent implements OnInit {
     }
   }
 
+  //Cart
+  addToCart(): Observable<CartItem> {
+    if (this.product) {
+      // Call addToCart without subscribing here
+      return this.cartService.addToCart(this.product.productId).pipe(
+        tap((addedItem: CartItem) => {
+          console.log('Item added to cart:', addedItem);
+        }),
+        catchError((error: any) => {
+          console.error('Error adding item to cart:', error);
+          // Handle error, e.g., show an error message
+          return throwError(error);
+        })
+      );
+    } else {
+      // If there's no product, return an observable with an error
+      return throwError('Product is not defined');
+    }
+  }
+
+  //WishList
+  isInWishList(): boolean {
+    if (this.product) {
+      return this.wishListService.isInWishlist(this.product.productId);
+    }
+    return false;
+  }
+
+  addToWishlist() {
+    if (this.product) {
+      this.wishListService.addWishListItem({
+        productId: this.product.productId,
+        wishListId: 0,
+      }).subscribe(
+        (addedItem: WishListItem) => {
+          // Handle success, e.g., show a success message
+          console.log('Item added to wishlist:', addedItem);
+        },
+        (error: any) => {
+          console.error('Error adding item to wishlist:', error);
+          // Handle error, e.g., show an error message
+        }
+      );
+    }
+  }
+
+  removeFromWishList() {
+    if (this.product) {
+      const wishListItem = this.wishListService.getWishListItemByProductId(this.product.productId);
+
+      if (wishListItem) {
+        const wishListItemId = wishListItem.wishListItemId;
+
+        this.wishListService.removeWishListItem(wishListItemId).subscribe(
+          () => {
+            // Handle success, e.g., show a success message
+            console.log('Item removed from wishlist:', wishListItemId);
+          },
+          (error: any) => {
+            console.error('Error removing item from wishlist:', error);
+            // Handle error, e.g., show an error message
+          }
+        );
+      } else {
+        console.error('WishListItem not found for product:', this.product.productId);
+      }
+    }
+  }
 }

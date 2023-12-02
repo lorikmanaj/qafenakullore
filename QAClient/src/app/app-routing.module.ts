@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { ProductListingComponent } from './components/products/product-listing/product-listing.component';
 import { HomeComponent } from './components/home/home.component';
-import { AuthComponent } from './auth/auth.component'
 
 import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
 import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
@@ -16,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   //Ignore the register for now focus on Login
   //Login is supposed to take us home after its been success.
-  { path: 'register', component: AuthComponent, data: { isLogin: false } },
+  //{ path: 'register', component: AuthComponent, data: { isLogin: false } },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home' }
 ];

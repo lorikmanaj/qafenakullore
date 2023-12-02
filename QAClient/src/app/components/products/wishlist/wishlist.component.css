@@ -1,0 +1,41 @@
+/* wishlist.component.css (or wishlist.component.scss) */
+.wishlist-icon-container {
+    position: relative;
+    display: inline-block;
+    /* Ensure it doesn't break the layout */
+}
+
+.wishlist-dropdown {
+    position: absolute;
+    top: 100%;
+    /* Position the dropdown below the wishlist icon */
+    right: 0;
+    /* Align the dropdown to the right */
+    z-index: 1;
+    /* Ensure it appears above other content */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    /* Adjust the width as needed */
+    max-height: 300px;
+    /* Set a maximum height for the dropdown */
+    overflow-y: auto;
+    /* Enable vertical scrolling if needed */
+    color: #000;
+    padding: 10px;
+}
+
+.wishlist-icon-container:hover .wishlist-dropdown {
+    display: block;
+    /* Show the wishlist items on hover */
+}
+
+/* .wishlist-item {
+}
+
+.no-items-message {
+}
+
+.login-message {
+} */

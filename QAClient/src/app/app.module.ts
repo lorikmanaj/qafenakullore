@@ -45,7 +45,7 @@ import { TestimonialsComponent } from './components/testimonials/testimonials.co
 import { UserOrdersComponent } from './components/user/user-orders/user-orders.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { StarRatingComponent } from './components/products/star-rating/star-rating.component';
-import { CartComponent } from './components/cart/cart.component';
+import { CartComponent } from './components/products/cart/cart.component';
 
 import { ProductGridComponent } from './components/products/product-grid/product-grid.component';
 
@@ -66,10 +66,11 @@ import { ProdGalleryEditorComponent } from './components/products/prod-gallery-e
 import { ProdReviewEditorComponent } from './components/products/prod-review-editor/prod-review-editor.component';
 import { ProdCreateComponent } from './components/products/prod-create/prod-create.component';
 import { GalleryUploaderComponent } from './components/products/gallery-uploader/gallery-uploader.component';
-import { AuthComponent } from './auth/auth.component';
 import { VarietyComponent } from './components/products/variety/variety.component';
 import { TagHelperComponent } from './components/tag-helper/tag-helper.component';
 import { EditProductComponent } from './components/products/edit-product/edit-product.component';
+import { WishlistComponent } from './components/products/wishlist/wishlist.component';
+import { WishlistService } from './services/products/wishlist.service';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -110,12 +111,12 @@ export function tokenGetter() {
     OrderHandlerComponent,
     ProdGalleryEditorComponent,
     ProdReviewEditorComponent,
-    AuthComponent,
     ProdCreateComponent,
     GalleryUploaderComponent,
     VarietyComponent,
     TagHelperComponent,
     EditProductComponent,
+    WishlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -148,6 +149,7 @@ export function tokenGetter() {
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
 
     CartService,
+    WishlistService
   ],
   bootstrap: [AppComponent]
 })
