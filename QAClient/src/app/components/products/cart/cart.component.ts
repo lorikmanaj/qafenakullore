@@ -59,32 +59,32 @@ export class CartComponent implements OnInit {
   }
 
   decrementOrDelete(item: CartItem) {
-      if (item.quantity > 1) {
-          const newQuantity = item.quantity - 1;
-          this.updateCartItemQuantity(item.cartItemId, newQuantity);
-      } else {
-          this.removeFromCart(item.productId);
-      }
+    if (item.quantity > 1) {
+      const newQuantity = item.quantity - 1;
+      this.updateCartItemQuantity(item.cartItemId, newQuantity);
+    } else {
+      this.removeFromCart(item.productId);
+    }
   }
 
   editQuantity(item: CartItem) {
-      const newQuantity = parseInt(prompt('Enter new quantity:', item.quantity.toString()) || '1', 10);
-      if (!isNaN(newQuantity) && newQuantity > 0) {
-          this.updateCartItemQuantity(item.cartItemId, newQuantity);
-      } else {
-          alert('Invalid quantity. Please enter a valid number greater than 0.');
-      }
+    const newQuantity = parseInt(prompt('Enter new quantity:', item.quantity.toString()) || '1', 10);
+    if (!isNaN(newQuantity) && newQuantity > 0) {
+      this.updateCartItemQuantity(item.cartItemId, newQuantity);
+    } else {
+      alert('Invalid quantity. Please enter a valid number greater than 0.');
+    }
   }
 
   private updateCartItemQuantity(cartItemId: number, newQuantity: number) {
-      this.cartService.updateCartItemQuantity(cartItemId, newQuantity).subscribe(
-          () => {
-              // Handle success if needed
-          },
-          (error: any) => {
-              // Handle error if needed
-          }
-      );
+    this.cartService.updateCartItemQuantity(cartItemId, newQuantity).subscribe(
+        () => {
+            // Handle success if needed
+        },
+        (error: any) => {
+            // Handle error if needed
+        }
+    );
   }
 
   addToCart(productId: number) {

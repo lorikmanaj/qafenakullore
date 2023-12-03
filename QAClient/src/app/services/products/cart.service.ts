@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { CartItem } from '../../models/cartItem';
 import { ApiService } from '../global/api.service';
 import { UserService } from '../user.service';
@@ -115,14 +115,16 @@ export class CartService {
     }
   }
 
-  updateCartItemQuantity(cartItemId: number, newQuantity: number): Observable<void> {
-    const url = `CartItems/${cartItemId}/updateQuantity/${newQuantity}`;
-  
-    return this.apiService.put<void>(url).pipe(
-      tap(() => {
+  updateCartItemQuantity(id: number, newQuantity: number): Observable<void> {
+    const url = `CartItems/${id}`;
+
+    return this.apiService.put<{ Message: string }, { newQuantity: number }>(url, { newQuantity }).pipe(
+      tap((response) => {
+        // Handle the response if needed
+        console.log(response); // Log the response if you want to inspect it
         const currentCartItems = this.cartItemsSubject.getValue();
         const updatedCartItems = currentCartItems.map((item) => {
-          if (item.cartItemId === cartItemId) {
+          if (item.cartItemId === id) {
             item.quantity = newQuantity;
           }
           return item;
@@ -132,9 +134,11 @@ export class CartService {
       catchError((error) => {
         console.error('Error updating cart item quantity:', error);
         return throwError(error);
-      })
+      }),
+      map(() => { }) // Map the response to void if you only need the side effects
     );
-  }  
+  }
+
 
   removeFromCart(cartItemId: number) {
     // Make a DELETE request to remove the item from the server cart

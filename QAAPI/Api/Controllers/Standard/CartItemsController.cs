@@ -50,19 +50,19 @@ namespace Api.Controllers.Standard
             return CreatedAtAction("GetCartItem", new { id = newItem.CartItemId }, newItem);
         }
 
-        [HttpPut("{cartItemId}/updateQuantity/{newQuantity}")]
-        public async Task<IActionResult> UpdateCartItemQuantity(int cartItemId, int newQuantity)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCartItemQuantity(int id, [FromBody] int newQuantity)
         {
             try
             {
                 if (newQuantity == 0)
                 {
                     // If the new quantity is 0, delete the cart item
-                    await _cartItemRepository.RemoveItemFromCartAsync(cartItemId);
+                    await _cartItemRepository.RemoveItemFromCartAsync(id);
                     return NoContent();
                 }
 
-                var result = await _cartItemRepository.UpdateCartItemQuantityAsync(cartItemId, newQuantity);
+                var result = await _cartItemRepository.UpdateCartItemQuantityAsync(id, newQuantity);
 
                 if (result)
                     return Ok(new { Message = "Quantity updated successfully." });
