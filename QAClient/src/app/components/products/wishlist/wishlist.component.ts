@@ -4,9 +4,11 @@ import { WishlistService } from 'src/app/services/products/wishlist.service'; //
 import { WishListItem } from 'src/app/models/wishListItem'; // Adjust the path accordingly
 import { UserService } from 'src/app/services/user.service';
 import {
-  faHeart
+  faHeart,
+  faHeartBroken
 } from '@fortawesome/free-solid-svg-icons';
 import { take } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-wishlist',
@@ -18,14 +20,15 @@ export class WishlistComponent implements OnInit {
   isWishlistOpen: boolean = false;
   isLoggedIn: boolean = false;
   faHeart = faHeart;
-
+  removeWish = faHeartBroken;
 
   wishlistItems: WishListItem[] = [];
   private hasInitialized: boolean = false;
 
   constructor(
     private wishlistService: WishlistService, // Adjust the service accordingly
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -58,5 +61,7 @@ export class WishlistComponent implements OnInit {
     // Additional logic if needed
   }
 
-  // Additional methods for adding/removing items from the wishlist if needed
+  removeFromWishList(wishListItemId: number) {
+    this.wishlistService.removeWishListItem(wishListItemId);
+  }
 }

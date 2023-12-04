@@ -29,6 +29,15 @@
             <ng-container *ngIf="wishlistItems.length > 0; else noItems">
                 <div *ngFor="let item of wishlistItems" class="wishlist-item">
                     {{ item.itemName }}
+
+                    <button class="minus-btn" (click)="removeFromWishList(item.wishListItemId)">
+                        <fa-icon [icon]="removeWish"></fa-icon>
+
+                        <ng-template #removeButton>
+                            Remove
+                        </ng-template>
+                    </button>
+
                 </div>
             </ng-container>
             <ng-template #noItems>

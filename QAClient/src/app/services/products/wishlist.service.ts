@@ -125,17 +125,16 @@ export class WishlistService {
     return this.apiService.put<WishListItem, WishListItem>(`${this.endpoint}/${id}`, wishlistItem);
   }
 
-  removeWishListItem(id: number): Observable<any> {
-    return this.apiService.delete(`${this.endpoint}/${id}`).pipe(
-      tap(() => {
+  removeWishListItem(id: number) {
+    this.apiService.delete(`${this.endpoint}/${id}`).subscribe(
+      () => {
         const currentWishlistItems = this.wishListItemsSubject.getValue();
         const updatedWishlistItems = currentWishlistItems.filter((item) => item.wishListItemId !== id);
         this.wishListItemsSubject.next(updatedWishlistItems);
-      }),
-      catchError((error) => {
-        console.error('Error removing item from wishlist:', error);
-        return throwError(error);
-      })
+      },
+      (error) => {
+        console.error('Error removing item from cart:', error);
+      }
     );
   }
 

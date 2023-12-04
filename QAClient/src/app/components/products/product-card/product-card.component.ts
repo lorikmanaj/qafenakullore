@@ -198,16 +198,7 @@ export class ProductCardComponent implements OnInit {
       if (wishListItem) {
         const wishListItemId = wishListItem.wishListItemId;
 
-        this.wishListService.removeWishListItem(wishListItemId).subscribe(
-          () => {
-            // Handle success, e.g., show a success message
-            console.log('Item removed from wishlist:', wishListItemId);
-          },
-          (error: any) => {
-            console.error('Error removing item from wishlist:', error);
-            // Handle error, e.g., show an error message
-          }
-        );
+        this.wishListService.removeWishListItem(wishListItemId);
       } else {
         console.error('WishListItem not found for product:', this.product.productId);
       }
