@@ -51,7 +51,7 @@ namespace Api.Controllers.Standard
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCartItemQuantity(int id, [FromBody] int newQuantity)
+        public async Task<IActionResult> UpdateCartItemQuantity(int id, int newQuantity)
         {
             try
             {

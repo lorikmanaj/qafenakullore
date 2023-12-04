@@ -44,6 +44,24 @@ namespace Api.Controllers.Standard
             return product;
         }
 
+        [HttpGet("{id}/stock")]
+        public async Task<ActionResult<int>> GetProductStock(int id)
+        {
+            try
+            {
+                var product = await _productRepository.GetProductById(id);
+
+                if (product == null)
+                    return NotFound();
+
+                return Ok(product.Stock);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal Server Error." });
+            }
+        }
+
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

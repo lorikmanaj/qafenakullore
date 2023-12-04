@@ -29,6 +29,11 @@ export class ProductService {
     return this.apiService.get<Product[]>(`Products/ProductsType/${type}`);
   }
 
+  getProductStock(productId: number): Observable<number> {
+    const url = `products/${productId}/stock`;
+    return this.apiService.get<number>(url);
+  }
+
   getHeadlineProduct(): Observable<Product> {
     const headlineProduct = this.products[0];
     return of(headlineProduct);

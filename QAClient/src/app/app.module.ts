@@ -132,6 +132,7 @@ export function tokenGetter() {
     MatPaginatorModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    ToastrModule.forRoot(),//{ positionClass: 'inline' }
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -139,9 +140,6 @@ export function tokenGetter() {
         disallowedRoutes: []
       }
     }),
-
-    ToastrModule.forRoot()
-
   ],
   providers: [
     ProductService,
