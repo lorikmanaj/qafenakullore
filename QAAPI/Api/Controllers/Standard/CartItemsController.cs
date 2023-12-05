@@ -41,7 +41,6 @@ namespace Api.Controllers.Standard
         }
 
         // POST: api/CartItems
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<CartItem>> PostCartItem([FromBody] AddToCartRequest request)
         {
