@@ -18,7 +18,8 @@ export class ProductDetailsComponent implements OnInit {
   detailsGallery: string[] = [];
 
   /* Slider Images  */
-  imgId = 1;
+  currentImage: string | undefined;
+  defaultImageUrl: string = ''; // Set a default image URL
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +35,8 @@ export class ProductDetailsComponent implements OnInit {
         this.productService.getProductById(+productId).subscribe(
           product => {
             this.product = product;
-            console.log(this.product);
+            // Set the initial image
+            this.currentImage = product.mainImage;
             // Optionally, you can do additional things with the loaded product data here
           },
           error => {
@@ -44,49 +46,17 @@ export class ProductDetailsComponent implements OnInit {
       }
     });
 
-    this.initializeImageSlider();
-    this.detailsGallery = this.product?.itemGalleries?.map(gallery => gallery.imageUrl) || [];
+    this.currentImage = this.product?.mainImage;
   }
 
-  constructImageUrl(imagePath: string): string {
+  changeImage(imageUrl: string) {
+    this.currentImage = imageUrl;
+  }
+
+  constructImageUrl(imagePath: string | undefined): string {
     return `${environment.serverBaseUrl}${imagePath}`;
   }
+  // addToCart(product: Product) {
 
-  initializeImageSlider() {
-    const imgs = document.querySelectorAll('.img-select a');
-    const imgBtns = Array.from(imgs);
-
-    imgBtns.forEach((imgItem) => {
-      imgItem.addEventListener('click', (event: Event) => {
-        event.preventDefault();
-        this.imgId = parseInt(imgItem.getAttribute('data-id') || '1', 10);
-        this.slideImage();
-      });
-
-    });
-
-    window.addEventListener('resize', () => this.slideImage());
-  }
-
-  slideImage() {
-    const displayWidth = (document.querySelector('.img-showcase img:first-child') as HTMLElement)?.clientWidth || 0;
-    const imgShowcase = document.querySelector('.img-showcase') as HTMLElement;
-    if (imgShowcase) {
-      imgShowcase.style.transform = `translateX(${- (this.imgId - 1) * displayWidth}px)`;
-    }
-  }
-
-  selectVariety(variety: Variety) {
-    // Update detailsGallery with variety images
-    //this.detailsGallery = variety.images.map(image => image.imageUrl);
-  }
-
-  calculateNewPrice(price: number, percentage: number): number {
-
-    return 1;
-  }
-
-  addToCart(product: Product) {
-
-  }
+  // }
 }

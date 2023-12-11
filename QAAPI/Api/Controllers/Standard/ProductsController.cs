@@ -9,7 +9,7 @@ namespace Api.Controllers.Standard
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = PolicyType.Standard)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = PolicyType.Standard)]
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
@@ -66,6 +66,7 @@ namespace Api.Controllers.Standard
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [RequestSizeLimit(long.MaxValue)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = PolicyType.Administrator)]
         public async Task<ActionResult<Product>> PostProduct(CreateProductDTO prod)
         {
             var createdProduct = await _productRepository.AddProduct(prod);
