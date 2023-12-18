@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { CartItem } from '../../models/cartItem';
@@ -15,7 +15,10 @@ export class CartService {
   private cartId: number | null = null;
   private cartIdLoaded: boolean = false;
 
-  constructor(private apiService: ApiService, private userService: UserService) { }
+  cartChanged = new EventEmitter<void>();
+
+  constructor(private apiService: ApiService,
+    private userService: UserService) { }
 
   initCartData(): void {
     this.userService.isAuthenticated$
@@ -71,6 +74,10 @@ export class CartService {
     );
   }
 
+  getCartItemIdByProductId(productId: number): Observable<number | null> {
+    return this.apiService.get<number>(`CartItems/GetCartItemIdByProductId?cartId=${this.cartId}&productId=${productId}`);
+  }  
+
   getCartItems(): Observable<CartItem[]> {
     if (this.cartId !== null) {
       return this.apiService.get<CartItem[]>(`CartItems/${this.cartId}`).pipe(
@@ -98,7 +105,7 @@ export class CartService {
           const existingItem = currentCartItems.find((item) => item.productId === addedItem.productId);
 
           if (existingItem) {
-            existingItem.quantity++;
+            existingItem.quantity += request.quantity || 1;
           } else {
             const updatedCartItems = [...currentCartItems, addedItem];
             this.cartItemsSubject.next(updatedCartItems);
@@ -171,6 +178,8 @@ export class CartService {
         console.error('Error removing item from cart:', error);
       }
     );
+
+    this.cartChanged.emit();
   }
 
   isInCart(productId: number): boolean {

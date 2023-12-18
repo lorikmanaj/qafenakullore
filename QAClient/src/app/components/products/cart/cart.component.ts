@@ -61,7 +61,7 @@ export class CartComponent implements OnInit {
 
   incrementQuantity(item: CartItem) {
     const newQuantity = item.quantity + 1;
-  
+
     this.productService.getProductStock(item.productId).subscribe(
       (stock) => {
         if (newQuantity <= stock) {
@@ -77,7 +77,7 @@ export class CartComponent implements OnInit {
         this.toastr.error('An error occurred', 'Error');
       }
     );
-  }  
+  }
 
   decrementOrDelete(item: CartItem) {
     if (item.quantity > 1) {
@@ -132,7 +132,8 @@ export class CartComponent implements OnInit {
   addToCart(productId: number) {
     const req: AddToCartRequest = {
       cartId: 0,
-      productId: productId
+      productId: productId,
+      quantity: 1
     }
 
     this.cartService.addToCart(req).subscribe(

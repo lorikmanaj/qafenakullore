@@ -31,7 +31,7 @@
             </button>
 
             <!-- Update the button in your template -->
-            <button (click)="isInWishList() ? removeFromWishList() : addToWishlist()">
+            <button (click)="isInWishList() ? removeFromWishList() : addToWishList()">
                 <fa-icon [icon]="isInWishList() ? faHeartCheck : faHeart"></fa-icon>
                 {{ isInWishList() ? 'Remove from Wishlist' : 'Add to Wishlist' }}
             </button>

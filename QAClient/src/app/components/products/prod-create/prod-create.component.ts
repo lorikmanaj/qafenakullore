@@ -1,12 +1,12 @@
 import { Variety } from 'src/app/models/variety';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { ProductTypeService } from '../../../services/products/product-type.service';
 import { ProductType } from 'src/app/models/productType';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TagSelectionService } from 'src/app/services/shared/tag-selection.service';
 import { VarietySelectionService } from 'src/app/services/products/variety-selection.service';
 import { ProductService } from 'src/app/services/products/product.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Product } from 'src/app/models/product';
 
 @Component({
@@ -30,7 +30,8 @@ export class ProdCreateComponent implements OnInit {
     private tagSelectionService: TagSelectionService,
     private varietySelectionService: VarietySelectionService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<ProdCreateComponent>
+    private dialogRef: MatDialogRef<ProdCreateComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.productForm = this.formBuilder.group({
       productType: [null, Validators.required],

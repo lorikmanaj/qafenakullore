@@ -1,27 +1,167 @@
 <div class="content-wrapper">
-  <!-- right img -->
-  <div class="a-fixed-left-grid">
-    <div class="a-fixed-left-grid-inner">
-      <div class="thumbnail" (click)="changeImage(product?.mainImage || '')">
-        <img class="img-gallery" [src]="constructImageUrl(product?.mainImage)" alt="Main Image" />
+  <div class="main-content">
+
+    <div class="left-content">
+      <div class="a-fixed-left-grid">
+        <div class="a-fixed-left-grid-inner">
+          <div class="thumbnail" (click)="changeImage(product?.mainImage || '')">
+            <img class="img-gallery" [src]="constructImageUrl(product?.mainImage)" alt="Main Image" />
+          </div>
+
+          <div *ngFor="let gallery of product?.itemGalleries" class="thumbnail" (click)="changeImage(gallery.imageUrl)">
+            <img class="img-gallery" [src]="constructImageUrl(gallery.imageUrl)" alt="Gallery Thumbnail" />
+          </div>
+        </div>
+        <div class="img-current">
+          <img [src]="constructImageUrl(currentImage)" alt="">
+        </div>
       </div>
 
-      <div *ngFor="let gallery of product?.itemGalleries" class="thumbnail" (click)="changeImage(gallery.imageUrl)">
-        <img class="img-gallery" [src]="constructImageUrl(gallery.imageUrl)" alt="Gallery Thumbnail" />
+      <div class="bottom-varietes">
+        <div *ngFor="let variety of product?.varieties" class="thumbnail" (click)="changeImage(variety.imageUrl || '')">
+          <img class="img-gallery" [src]="constructImageUrl(variety.imageUrl || '')" alt="Variety Thumbnail" />
+        </div>
+      </div>
+    </div>
+
+    <div class="right-content">
+      <h1>{{ product?.name }}</h1>
+      <p>Price: €{{ product?.price }}</p>
+      <p>{{ product?.description }}</p>
+
+      <div class="quantity-section">
+
+        <button (click)="isInCart() ? removeFromCart(product!.productId) : addToCart()">
+          <fa-icon [icon]="isInCart() ? faRemoveFromCart : faAddToCart"></fa-icon>
+          {{ isInCart() ? 'Remove from Cart' : 'Add to Cart' }}
+        </button>
+
+        <button (click)="isInWishList() ? removeFromWishList() : addToWishList()">
+          <fa-icon *ngIf="!isInWishList()" [icon]="addWish"></fa-icon>
+          <fa-icon *ngIf="isInWishList()" [icon]="removeWish"></fa-icon>
+          {{ isInWishList() ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+        </button>
+
       </div>
 
     </div>
-    <div class="img-current">
-      <img [src]="constructImageUrl(currentImage)" alt="">
-    </div>
+
   </div>
-  <div>
-    <!-- Vaietes bottom -->
-    <div class="bottom-varietes">
 
-      <div *ngFor="let variety of product?.varieties" class="thumbnail" (click)="changeImage(variety.imageUrl || '')">
-        <img class="img-gallery" [src]="constructImageUrl(variety.imageUrl || '')" alt="Variety Thumbnail" />
-      </div>
-    </div>
-  </div>
 </div>
+
+<div class="tabs-container">
+  <div class="tabs-section">
+    <div class="tab" (click)="changeTab('description')" [class.active]="selectedTab === 'description'">Description</div>
+    <div class="tab" (click)="changeTab('additionalInfo')" [class.active]="selectedTab === 'additionalInfo'">
+      Additional Info
+    </div>
+    <div class="tab" (click)="changeTab('reviews')" [class.active]="selectedTab === 'reviews'">Reviews</div>
+  </div>
+
+  <div class="tab-content">
+    <div *ngIf="selectedTab === 'description'">
+      {{ product?.description }}
+    </div>
+
+    <div *ngIf="selectedTab === 'additionalInfo'">
+      Additional info
+    </div>
+
+    <div *ngIf="selectedTab === 'reviews'">
+      Reviews
+    </div>
+  </div>
+
+</div>
+
+<!-- <div class="content-wrapper">
+  <div class="main-content">
+    <div class="left-content">
+      <div class="a-fixed-left-grid">
+        <div class="a-fixed-left-grid-inner">
+          <div class="thumbnail" (click)="changeImage(product?.mainImage || '')">
+            <img class="img-gallery" [src]="constructImageUrl(product?.mainImage)" alt="Main Image" />
+          </div>
+
+          <div *ngFor="let gallery of product?.itemGalleries" class="thumbnail" (click)="changeImage(gallery.imageUrl)">
+            <img class="img-gallery" [src]="constructImageUrl(gallery.imageUrl)" alt="Gallery Thumbnail" />
+          </div>
+        </div>
+        <div class="img-current">
+          <img [src]="constructImageUrl(currentImage)" alt="">
+        </div>
+      </div>
+
+      <div class="bottom-varietes">
+        <div *ngFor="let variety of product?.varieties" class="thumbnail" (click)="changeImage(variety.imageUrl || '')">
+          <img class="img-gallery" [src]="constructImageUrl(variety.imageUrl || '')" alt="Variety Thumbnail" />
+        </div>
+      </div>
+    </div>
+
+    <div class="right-content">
+      <h1>{{ product?.name }}</h1>
+      <p>Price: €{{ product?.price }}</p>
+      <p>{{ product?.description }}</p>
+
+      <div class="quantity-section">
+        <button (click)="updateQuantity(selectedQuantity - 1)">-</button>
+        <input type="number" [(ngModel)]="selectedQuantity" min="1" (change)="updateQuantity(selectedQuantity)" />
+        <button (click)="updateQuantity(selectedQuantity + 1)">+</button>
+
+        <button (click)="isInCart() ? removeFromCart(product!.productId) : addToCart()">
+          <fa-icon [icon]="isInCart() ? faRemoveFromCart : faAddToCart"></fa-icon>
+          {{ isInCart() ? 'Remove from Cart' : 'Add to Cart' }}
+        </button>
+
+        <button (click)="isInWishList() ? removeFromWishList() : addToWishList()">
+          <fa-icon *ngIf="!isInWishList()" [icon]="addWish"></fa-icon>
+          <fa-icon *ngIf="isInWishList()" [icon]="removeWish"></fa-icon>
+          {{ isInWishList() ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+        </button>
+      </div>
+
+      <div class="quantity-section">
+        <button (click)="decrementQuantity()">-</button>
+        <input type="number" [(ngModel)]="selectedQuantity" min="1" />
+        <button (click)="incrementQuantity()">+</button>
+
+        <button (click)="isInCart() ? removeFromCart(product!.productId) : addToCart()">
+          <fa-icon [icon]="isInCart() ? faRemoveFromCart : faAddToCart"></fa-icon>
+          {{ isInCart() ? 'Remove from Cart' : 'Add to Cart' }}
+        </button>
+
+        <button (click)="isInWishList() ? removeFromWishList() : addToWishList()">
+          <fa-icon *ngIf="!isInWishList()" [icon]="addWish"></fa-icon>
+          <fa-icon *ngIf="isInWishList()" [icon]="removeWish"></fa-icon>
+          {{ isInWishList() ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="tabs-container">
+      <div class="tabs-section">
+        <div class="tab" (click)="changeTab('description')">Description</div>
+        <div class="tab" (click)="changeTab('additionalInfo')">Additional Info</div>
+        <div class="tab" (click)="changeTab('reviews')">Reviews</div>
+      </div>
+
+      <div class="tab-content">
+        <div *ngIf="selectedTab === 'description'">
+          {{ product?.description }}
+        </div>
+
+        <div *ngIf="selectedTab === 'additionalInfo'">
+          Additional info
+        </div>
+
+        <div *ngIf="selectedTab === 'reviews'">
+          Reviews
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

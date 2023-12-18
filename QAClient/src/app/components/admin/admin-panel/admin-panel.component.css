@@ -1,7 +1,8 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Add box-sizing for better layout control */
+  box-sizing: border-box;
+  /* Add box-sizing for better layout control */
 }
 
 .container {
@@ -13,7 +14,8 @@
   background: #5bc995;
   width: 240px;
   padding-top: 5em;
-  overflow-y: auto; /* Add this to make the sidebar scrollable if needed */
+  overflow-y: auto;
+  /* Add this to make the sidebar scrollable if needed */
 }
 
 .sidebar ul {
@@ -22,8 +24,10 @@
 
 .sidebar li {
   padding: 0.5em 1em;
-  font-size: 1rem; /* Correct syntax for font size */
-  font-weight: normal; /* Use "normal" for font weight */
+  font-size: 1rem;
+  /* Correct syntax for font size */
+  font-weight: normal;
+  /* Use "normal" for font weight */
   transition: all 0.15s linear;
   cursor: pointer;
 }
@@ -34,7 +38,9 @@
 }
 
 .main-content {
-  flex: 1; /* Allow the main content to take the remaining space */
+  flex: 1;
+  /* Allow the main content to take the remaining space */
   padding: 30px;
-  overflow: auto; /* Add this to make the main content scrollable if needed */
+  /* overflow: auto; */
+  /* Add this to make the main content scrollable if needed */
 }

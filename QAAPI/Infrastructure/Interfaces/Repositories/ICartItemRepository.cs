@@ -6,6 +6,7 @@ namespace Api.Interfaces.Repositories
     public interface ICartItemRepository
     {
         Task<CartItem> GetCartItem(int cartItemId);
+        Task<int> GetCartItemIdByProductIdAsync(int cartId, int productId);
         Task<List<CartItem>> GetCartItems(int cartId);
         Task<CartItem> AddItemToCartAsync(AddToCartRequest cartItem);
         Task<bool> UpdateCartItemQuantityAsync(int cartItemId, int newQuantity);

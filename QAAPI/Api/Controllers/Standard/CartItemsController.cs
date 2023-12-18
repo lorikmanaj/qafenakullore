@@ -16,6 +16,18 @@ namespace Api.Controllers.Standard
             _cartItemRepository = cartItemRepository;
         }
 
+        // GET: api/CartItems/GetCartItemIdByProductId?cartId=1&productId=2
+        [HttpGet("GetCartItemIdByProductId")]
+        public async Task<ActionResult<int>> GetCartItemIdByProductId(int cartId, int productId)
+        {
+            var cartItemId = await _cartItemRepository.GetCartItemIdByProductIdAsync(cartId, productId);
+
+            if (cartItemId == 0)
+                return NotFound();
+
+            return cartItemId;
+        }
+
         // GET: api/CartItems/5
         [HttpGet("GetCartItem/{id}")]
         public async Task<ActionResult<CartItem>> GetCartItem(int id)

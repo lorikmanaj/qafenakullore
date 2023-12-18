@@ -25,6 +25,14 @@ namespace Api.Implementations.Repositories
             return cartItem;
         }
 
+        public async Task<int> GetCartItemIdByProductIdAsync(int cartId, int productId)
+        {
+            var cartItem = await _context.CartItems
+                .FirstOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == productId);
+
+            return cartItem.CartItemId;
+        }
+
         public async Task<List<CartItem>> GetCartItems(int cartId)
         {
             var cartItems = await _context.CartItems.Where(_ => _.CartId == cartId).ToListAsync();
@@ -41,12 +49,14 @@ namespace Api.Implementations.Repositories
 
             if (prod != null)
             {
+                int qnt = cartItem.Quantity > 1 ? cartItem.Quantity : 1;
+                    
                 CartItem newCi = new CartItem()
                 {
                     CartId = cartItem.CartId,
                     ProductId = cartItem.ProductId,
                     ItemName = prod.Name,
-                    Quantity = 1
+                    Quantity = qnt
                 };
 
                 _context.CartItems.Add(newCi);

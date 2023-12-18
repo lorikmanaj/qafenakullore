@@ -173,7 +173,7 @@ export class ProductCardComponent implements OnInit {
     return false;
   }
 
-  addToWishlist() {
+  addToWishList() {
     if (this.product) {
       this.wishListService.addWishListItem({
         productId: this.product.productId,
