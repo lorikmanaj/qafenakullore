@@ -7,6 +7,7 @@ import { AddToCartRequest } from 'src/app/models/RequestDTOs/addToCartRequest';
 import { throwError } from 'rxjs';
 import { ProductService } from 'src/app/services/products/product.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -28,7 +29,8 @@ export class CartComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -151,4 +153,9 @@ export class CartComponent implements OnInit {
     this.cartService.removeFromCart(cartItemId);
     //this.loadCartItems();
   }
+
+  navigateToCheckout() {
+    this.router.navigate(['/checkout']);
+  }
+
 }

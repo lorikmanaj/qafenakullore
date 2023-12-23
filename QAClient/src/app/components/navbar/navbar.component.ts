@@ -51,6 +51,7 @@ export class NavbarComponent implements OnInit {
       //Check why isAuth: false allows isAdmin: true
       //console.log('Auth:', isAuthenticated, 'Rol:', this.userService.hasRole('Administrator'))
       this.isAdmin = isAuthenticated && this.userService.hasRole('Administrator');
+      console.log(this.isAdmin, 'QETU')
     });
   }
 

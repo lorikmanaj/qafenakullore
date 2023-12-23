@@ -31,6 +31,8 @@ namespace Domain.Models
         public List<ProductTag> ProductTags { get; set; }
         //public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 
+        public List<ProductMaterial> Materials { get; set; }
+
         //[InverseProperty("Product")]
         public ProductType Type { get; set; }
     }

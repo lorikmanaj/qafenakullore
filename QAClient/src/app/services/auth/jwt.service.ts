@@ -20,7 +20,7 @@ export class JwtService {
       const helper = new JwtHelperService();
 
       //Fix
-      const isTokenExpired = helper.isTokenExpired(token);
+      //const isTokenExpired = helper.isTokenExpired(token);
       //console.log('Is Token Exp:', isTokenExpired)
 
       try {

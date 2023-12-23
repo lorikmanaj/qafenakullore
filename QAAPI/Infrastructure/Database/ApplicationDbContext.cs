@@ -24,6 +24,8 @@ public class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
     public virtual DbSet<ProductReview> ProductReviews { get; set; }
     public virtual DbSet<ProductType> ProductTypes { get; set; }
+    public virtual DbSet<TypeSize> TypeSizes { get; set; }
+    public virtual DbSet<ProductMaterial> ProductMaterials { get; set; }
     public virtual DbSet<ProductTag> ProductTags { get; set; }
     public virtual DbSet<Tag> Tags { get; set; }
     public virtual DbSet<ProfileOption> ProfileOptions { get; set; }
@@ -66,6 +68,8 @@ public class ApplicationDbContext : IdentityDbContext
         builder.Entity<Product>().ToTable("Products");
         builder.Entity<ProductReview>().ToTable("ProductReviews");
         builder.Entity<ProductType>().ToTable("ProductTypes");
+        builder.Entity<ProductMaterial>().ToTable("ProductMaterials");
+        builder.Entity<TypeSize>().ToTable("TypeSizes");
         builder.Entity<ProfileOption>().ToTable("ProfileOptions");
         builder.Entity<PromoProduct>().ToTable("PromoProducts");
         builder.Entity<Slider>().ToTable("Sliders");

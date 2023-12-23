@@ -6,11 +6,13 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
 import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
 import { LoginComponent } from './auth/login/login.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'products/:type', component: ProductListingComponent },
   { path: 'product/:id', component: ProductDetailsComponent },
+  { path: 'checkout', component: CheckoutComponent },
   { path: 'admin', component: AdminPanelComponent },
   { path: 'login', component: LoginComponent },
   //Ignore the register for now focus on Login

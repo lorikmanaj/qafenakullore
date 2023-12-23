@@ -1,1 +1,56 @@
-<p>checkout works!</p>
+<!-- checkout.component.html -->
+<div class="content-wrapper">
+
+    <div class="cart-details-container">
+        <table class="cart-details-table">
+            <tr>
+                <th>Products</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Remove</th>
+            </tr>
+            <tr *ngFor="let displayedItem of displayedCartItems">
+                <td>
+                    <img [src]="constructImageUrl(displayedItem.product.mainImage)"
+                        alt="{{ displayedItem.product.name }} Image" />
+                    <p>{{ displayedItem.product.name }}</p>
+                </td>
+                <td>{{ displayedItem.product.price | currency: 'EUR' }}</td>
+                <td>
+                    <button (click)="decrementOrDelete(displayedItem.cartItem)">-</button>
+                    <input type="number" [(ngModel)]="displayedItem.cartItem.quantity" min="1" />
+                    <button (click)="incrementQuantity(displayedItem.cartItem)">+</button>
+                </td>
+                <td>{{ (displayedItem.product.price * displayedItem.cartItem.quantity) | currency: 'EUR' }}</td>
+                <td>
+                    <button (click)="removeFromCart(displayedItem.cartItem.cartItemId)">Remove</button>
+                </td>
+            </tr>
+        </table>
+
+        <div class="order-summary">
+            <h2>Order Total</h2>
+
+            <div class="discount-section">
+                <label for="discountInput">Discount:</label>
+                <!-- FIX input type="text" id="discountInput" [(ngModel)]="discount" />-->
+                <input type="text" id="discountInput" />
+                <button (click)="applyDiscount()">Apply Discount</button>
+            </div>
+
+            <div class="order-details">
+                <p>Subtotal: {{ calculateSubtotal() | currency: 'EUR' }}</p>
+                <p>Transport: {{ transportFee | currency: 'EUR' }}</p>
+                <p>After discount: {{ calculateTotalAfterDiscount() | currency: 'EUR' }}</p>
+            </div>
+
+            <div class="estimated-delivery">
+                <p>Estimated delivery date: {{ estimatedDeliveryDate }}</p>
+            </div>
+
+            <button (click)="proceedToBilling()">Proceed</button>
+        </div>
+    </div>
+
+</div>

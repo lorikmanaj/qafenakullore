@@ -1,12 +1,8 @@
-/* Add this to your existing CSS */
-
-/* Common styles for thumbnails */
 .thumbnail {
     cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-/* Styles for galleries thumbnails */
 .galleries-thumbnails {
     display: flex;
     flex-direction: column;
@@ -17,10 +13,8 @@
 
 .galleries-thumbnails .thumbnail {
     margin-bottom: 10px;
-    /* Adjust the margin between gallery thumbnails */
 }
 
-/* Styles for varieties thumbnails */
 .varieties-thumbnails {
     display: flex;
     justify-content: center;
@@ -30,12 +24,8 @@
 
 .varieties-thumbnails .thumbnail {
     margin-right: 10px;
-    /* Adjust the margin between variety thumbnails */
 }
 
-/* /wrapepr */
-
-/* left img grid gallery */
 .a-fixed-left-grid-inner {
     display: flex;
     flex-direction: column;
@@ -52,20 +42,17 @@
     width: 40px;
 }
 
-/* gallery block */
 #imageblock {
     display: flex;
     margin-top: 40px;
 
 }
 
-/* image full */
 .a-fixed-left-grid-col {
     padding-left: 40px;
 
 }
 
-/* bottom varietes */
 .bottom-varietes {
     display: flex;
     gap: 15px;
@@ -75,11 +62,7 @@
 
 .img-current img {
     width: 300px;
-    /* Adjust the width as needed */
     height: 400px;
-    /* Adjust the height as needed */
-
-    /* This property ensures the image covers the entire container, maintaining aspect ratio */
 }
 
 .content-wrapper {
@@ -87,19 +70,16 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* Adjust the height as needed */
 }
 
 .main-content {
     display: flex;
     width: 80%;
-    /* Adjust the width as needed */
 }
 
 .left-content {
     flex: 1;
     padding-right: 20px;
-    /* Adjust the padding as needed */
 }
 
 .right-content {
@@ -117,17 +97,14 @@
     cursor: pointer;
     padding: 10px;
     border: none;
-    outline: none; /* Remove the default focus outline */
+    outline: none;
 }
 
 .tab-content {
     margin-top: 20px;
 }
 
-/* New styles for active/focused tab */
 .tab.active {
     font-weight: bold;
-    border-bottom: 2px solid #000; /* Adjust the color as needed */
+    border-bottom: 2px solid #000;
 }
-
-/* Rest of your existing styles */

@@ -31,6 +31,9 @@
 
           </div>
         </div>
+        <div class="proceed-to-checkout" *ngIf="cartItems.length > 0">
+          <button (click)="navigateToCheckout()">Proceed to checkout</button>
+        </div>
       </ng-container>
       <ng-template #noItems>
         <div class="no-items-message">No items in your cart.</div>
