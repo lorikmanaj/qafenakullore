@@ -86,24 +86,30 @@
   padding: 0;
   margin: 0;
 }
+
 nav {
   background-color: #000;
   border-bottom: 1px solid #2c2c2c;
 }
+
 .logo {
   border-right: 1px solid #2c2c2c;
 }
+
 a {
   justify-content: space-between;
   align-items: center;
   display: flex;
 }
+
 .main-menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  background-color: #000;
 }
+
 /* Logo Style ktu ma vone  */
 
 ul {
@@ -111,12 +117,14 @@ ul {
   justify-content: space-between;
   align-items: center;
 }
+
 li {
   display: flex;
   align-items: center;
   padding: 25px 10px;
   color: #f8f8f8;
 }
+
 .menu-service ul li {
   border-left: 1px solid #2c2c2c;
   padding-left: 30px;

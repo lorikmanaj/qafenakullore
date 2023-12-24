@@ -1,9 +1,5 @@
 <div class="product-listing">
-    <h2>Total {{ items?.Count }}</h2> <!-- Use the safe navigation operator (?) to handle potential null values -->
-    <!-- <div class="product-cards">
-        <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
-    </div> -->
-
+    <h2>Total {{ items?.Count }}</h2> 
     <div class="product-cards">
         <app-product-card *ngFor="let product of products" [productId]="product.productId"></app-product-card>
     </div>

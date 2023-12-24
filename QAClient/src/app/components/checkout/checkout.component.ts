@@ -16,7 +16,9 @@ export class CheckoutComponent implements OnInit {
 
   cartItems: CartItem[] = [];
   displayedCartItems: DisplayedCartItem[] = [];
+  //Change
   transportFee: number = 5;
+  //Change
   estimatedDeliveryDate: Date = new Date();
 
   constructor(
@@ -28,23 +30,35 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.cartService.cartItems$.subscribe(cartItems => {
       this.cartItems = cartItems;
-      this.loadDisplayedCartItems();
+
+      if (this.displayedCartItems.length === 0) {
+        this.loadDisplayedCartItems();
+      }
     });
   }
 
   private loadDisplayedCartItems() {
     this.displayedCartItems = [];
+
     for (const cartItem of this.cartItems) {
       this.productService.getProductById(cartItem.productId).subscribe(
-        (product: Product) => {
+        (product) => {
           const displayedItem: DisplayedCartItem = {
-            cartItem,
-            product
+            cartItem: cartItem,
+            product: product
           };
-          this.displayedCartItems.push(displayedItem);
+
+          if (!this.displayedCartItems.some(item => item.cartItem.cartItemId === displayedItem.cartItem.cartItemId)) {
+            this.displayedCartItems.push(displayedItem);
+          }
+
+          // Check if all items are loaded
+          //if (this.displayedCartItems.length === this.cartItems.length) {
+          // All items are loaded, you can perform additional actions here
+          //}
         },
         (error) => {
-          console.error('Error fetching product details:', error);
+          console.error('Error fetching product:', error);
         }
       );
     }
@@ -77,8 +91,8 @@ export class CheckoutComponent implements OnInit {
       },
       (error) => {
         console.error('Error checking product stock:', error);
-        // Show Toastr notification for other errors
-        this.toastr.error('An error occurred', 'Error');
+
+        this.toastr.error(`An error occurred, ${error}`);
       }
     );
   }

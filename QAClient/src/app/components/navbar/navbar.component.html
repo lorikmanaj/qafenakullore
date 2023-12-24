@@ -1,4 +1,4 @@
-<nav>
+<!-- <nav>
   <div class="main-menu">
     <div class="logo">
       <li><a href="logo">Logo</a></li>
@@ -6,12 +6,9 @@
     <div class="menu-links">
       <ul>
         <li class="nav-item">
-          <!-- <a class="nav-link" [routerLink]="'/products/home'">Home</a> -->
           <a class="nav-link" (click)="onSelectProductType('Home')">Home</a>
         </li>
         <li class=" nav-item" *ngFor="let productType of productTypes">
-          <!-- <a class="nav-link" [routerLink]="['/products', productType.type]">{{ productType.type }}</a> -->
-          <!-- <a class="nav-link" [routerLink]="['./', productType.type]">{{ productType.type }}</a> -->
           <a class="nav-link" (click)="onSelectProductType(productType.type)">{{ productType.type }}</a>
         </li>
       </ul>
@@ -20,7 +17,6 @@
       <ul>
         <li *ngIf="isAdmin" (click)="navigateToAdmin()"><fa-icon [icon]="faAdmin"></fa-icon></li>
         <li><fa-icon [icon]="faGlass"></fa-icon></li>
-        <!-- <li><fa-icon [icon]="faHeart"></fa-icon></li> -->
         <li><app-wishlist></app-wishlist></li>
         <li><app-cart></app-cart>
         <li><fa-icon [icon]="faBars"></fa-icon></li>
@@ -28,3 +24,26 @@
     </div>
   </div>
 </nav>
+ -->
+<div class="main-menu">
+  <div class="logo">
+    <li><a href="logo">Logo</a></li>
+  </div>
+  <ul class="menu-links">
+    <li class="nav-item">
+      <a class="nav-link" (click)="onSelectProductType('Home')">Home</a>
+    </li>
+    <li class="nav-item" *ngFor="let productType of productTypes">
+      <a class="nav-link" (click)="onSelectProductType(productType.type)">{{ productType.type }}</a>
+    </li>
+  </ul>
+  <div class="menu-service">
+    <ul>
+      <li *ngIf="isAdmin" (click)="navigateToAdmin()"><fa-icon [icon]="faAdmin"></fa-icon></li>
+      <li><fa-icon [icon]="faGlass"></fa-icon></li>
+      <li><app-wishlist></app-wishlist></li>
+      <li><app-cart></app-cart>
+      <li><fa-icon [icon]="faBars"></fa-icon></li>
+    </ul>
+  </div>
+</div>

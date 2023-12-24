@@ -11,7 +11,11 @@ export class HomeComponent {
   products: Product[] = [];
 
   constructor(
-    private productService: ProductService) { }
+    private productService: ProductService
+    ) 
+    { 
+      
+    }
 
   ngOnInit() {
     this.productService.getProducts().subscribe((products) => {
