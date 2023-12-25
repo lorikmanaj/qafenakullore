@@ -30,7 +30,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProdCategoriesComponent } from './components/products/prod-categories/prod-categories.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { HeadlineComponent } from './components/headline/headline.component';
+import { HeadlineComponent } from './components/home/headline/headline.component';
 import { MainSectionComponent } from './components/main-section/main-section.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NavmenuComponent } from './components/navmenu/navmenu.component';
@@ -40,14 +40,14 @@ import { ProductListingComponent } from './components/products/product-listing/p
 import { PromoProductComponent } from './components/products/promo-product/promo-product.component';
 import { SearchComponent } from './components/search/search.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { SubscribeComponent } from './components/subscribe/subscribe.component';
-import { TestimonialsComponent } from './components/testimonials/testimonials.component';
+import { SubscribeComponent } from './components/home/subscribe/subscribe.component';
+import { TestimonialsComponent } from './components/home/testimonials/testimonials.component';
 import { UserOrdersComponent } from './components/user/user-orders/user-orders.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { StarRatingComponent } from './components/products/star-rating/star-rating.component';
 import { CartComponent } from './components/products/cart/cart.component';
 
-import { ProductGridComponent } from './components/products/product-grid/product-grid.component';
+import { ProductGridComponent } from './components/home/product-grid/product-grid.component';
 
 import { ProductService } from './services/products/product.service';
 import { CartService } from './services/products/cart.service';
@@ -56,7 +56,7 @@ import { ProfileOptionsComponent } from './components/profile-options/profile-op
 import { HomeComponent } from './components/home/home.component';
 import { ProductCardComponent } from './components/products/product-card/product-card.component';
 import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
-import { CollectionSectionComponent } from './components/collection-section/collection-section.component';
+import { CollectionSectionComponent } from './components/home/collection-section/collection-section.component';
 
 import { AuthGuard } from './auth/guards/auth-guard.service';
 

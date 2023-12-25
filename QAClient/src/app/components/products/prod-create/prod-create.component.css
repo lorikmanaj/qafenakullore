@@ -53,6 +53,7 @@ button:hover {
 input[type="file"] {
   display: none;
 }
+
 /* .form-prod-type {
   display: flex;
   justify-content: flex-end;
@@ -72,6 +73,7 @@ input[type="button"] {
   color: #007bff;
   white-space: nowrap;
 }
+
 label[for="description"] {
   margin-left: 5px;
 }
