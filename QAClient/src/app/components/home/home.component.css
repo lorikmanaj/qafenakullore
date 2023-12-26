@@ -19,3 +19,12 @@
   margin-top: 0;
   margin-right: 0;
 }
+
+.row {
+  margin: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
