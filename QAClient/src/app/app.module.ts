@@ -23,6 +23,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+
 import { AppComponent } from './app.component';
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
@@ -130,6 +134,9 @@ export function tokenGetter() {
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatTabsModule,
+    MatInputModule,
+    MatButtonModule,
     ReactiveFormsModule,
     NgxPaginationModule,
     ToastrModule.forRoot(),//{ positionClass: 'inline' }

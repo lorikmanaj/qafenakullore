@@ -9,16 +9,23 @@ import { CartService } from 'src/app/services/products/cart.service';
 
 @Component({
   selector: 'login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['login.component.css']
 })
 export class LoginComponent implements OnInit {
   invalidLogin?: boolean;
   loginForm: FormGroup;
+  registerForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
     private cartService: CartService) {
     this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+
+    this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
@@ -55,6 +62,24 @@ export class LoginComponent implements OnInit {
           this.invalidLogin = true;
         }
       );
+    }
+  }
+
+  register(): void {
+    if (this.registerForm.valid) {
+      // Implement registration logic here
+    }
+  }
+
+  switchTab(tab: 'login' | 'register'): void {
+    // Reset form controls on tab switch
+    this.loginForm.reset();
+    this.registerForm.reset();
+
+    if (tab === 'login') {
+      // Switch to the Login tab
+    } else {
+      // Switch to the Register tab
     }
   }
 }

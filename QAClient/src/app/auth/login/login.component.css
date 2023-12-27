@@ -1,0 +1,15 @@
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* This ensures that the container takes the full height of the viewport */
+}
+
+.content-wrapper {
+    /* Adjust the width as per your requirement */
+    max-width: 600px;
+    /* Example width, you can change it */
+    width: 100%;
+    /* Your existing styles for .content-wrapper */
+}
