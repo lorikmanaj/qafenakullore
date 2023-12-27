@@ -11,7 +11,7 @@
             </tr>
             <tr *ngFor="let displayedItem of displayedCartItems">
                 <td>
-                    <button (click)="removeFromCart(displayedItem.cartItem.cartItemId)">X</button>
+                    <button (click)="removeFromCart(displayedItem.cartItem.cartItemId, displayedItem)">X</button>
                 </td>
                 <td>
                     <img [src]="constructImageUrl(displayedItem.product.mainImage)"
@@ -20,8 +20,12 @@
                 </td>
                 <td>{{ displayedItem.product.price | currency: 'EUR' }}</td>
                 <td>
-                    <button (click)="decrementOrDelete(displayedItem.cartItem)">-</button>
-                    <input type="number" [(ngModel)]="displayedItem.cartItem.quantity" min="1" />
+                    <!-- <button (click)="decrementOrDelete(displayedItem.cartItem)">-</button> -->
+                    <button (click)="decrementQuantity(displayedItem.cartItem)"
+                        [disabled]="displayedItem.cartItem.quantity === 1">-</button>
+                    <!-- <input type="number" [(ngModel)]="displayedItem.cartItem.quantity" min="1" /> -->
+                    <input type="number" [(ngModel)]="displayedItem.cartItem.quantity"
+                        (input)="validateQuantity(displayedItem)" min="1" />
                     <button (click)="incrementQuantity(displayedItem.cartItem)">+</button>
                 </td>
                 <td>{{ (displayedItem.product.price * displayedItem.cartItem.quantity) | currency: 'EUR' }}</td>

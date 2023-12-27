@@ -60,7 +60,7 @@ h5:hover {
 }
 
 p {
-  inset: auto auto 4rem 5rem;
+  inset: auto auto 2rem 5rem;
   font-weight: normal;
   color: #fff;
   transition: inset 0.3s 0.3s ease-out;
@@ -105,6 +105,7 @@ h3 {
   font-family: "Roboto Condensed", sans-serif;
   padding-top: 5rem;
   font-size: 3rem;
+  line-height: 40px;
 }
 
 h6 {

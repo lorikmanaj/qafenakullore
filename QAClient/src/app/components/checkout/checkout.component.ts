@@ -6,6 +6,7 @@ import { ProductService } from 'src/app/services/products/product.service';
 import { DisplayedCartItem } from './../../models/displayedCartItem';
 import { Product } from 'src/app/models/product';
 import { ToastrService } from 'ngx-toastr';
+import { CartCheckoutSyncService } from 'src/app/services/shared/cart-checkout-sync.service';
 
 @Component({
   selector: 'app-checkout',
@@ -24,16 +25,21 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
+    private cartSyncService: CartCheckoutSyncService,
     private toastr: ToastrService
   ) { }
 
   ngOnInit() {
     this.cartService.cartItems$.subscribe(cartItems => {
       this.cartItems = cartItems;
+      this.loadDisplayedCartItems();
+      // if (this.displayedCartItems.length === 0) {
+      //   this.loadDisplayedCartItems();
+      // }
+    });
 
-      if (this.displayedCartItems.length === 0) {
-        this.loadDisplayedCartItems();
-      }
+    this.cartSyncService.cartChanged$.subscribe(() => {
+      this.loadDisplayedCartItems();
     });
   }
 
@@ -68,13 +74,13 @@ export class CheckoutComponent implements OnInit {
     return `${environment.serverBaseUrl}${imagePath}`;
   }
 
-  decrementOrDelete(item: CartItem) {
-    if (item.quantity > 1) {
-      const newQuantity = item.quantity - 1;
-      this.updateCartItemQuantity(item.cartItemId, newQuantity);
-    } else {
-      this.removeFromCart(item.cartItemId);
-    }
+  decrementQuantity(item: CartItem) {
+    // if (item.quantity > 1) {
+    const newQuantity = item.quantity - 1;
+    this.updateCartItemQuantity(item.cartItemId, newQuantity);
+    //} else {
+    //  this.removeFromCart(item.cartItemId);
+    //}
   }
 
   incrementQuantity(item: CartItem) {
@@ -85,6 +91,27 @@ export class CheckoutComponent implements OnInit {
         if (newQuantity <= stock) {
           this.updateCartItemQuantity(item.cartItemId, newQuantity);
         } else {
+          // Show Toastr notification for insufficient stock
+          this.toastr.error(`Insufficient stock, only ${stock} left.`, 'Error');
+        }
+      },
+      (error) => {
+        console.error('Error checking product stock:', error);
+
+        this.toastr.error(`An error occurred, ${error}`);
+      }
+    );
+  }
+
+  validateQuantity(displayedItem: DisplayedCartItem) {
+    const newQuantity = displayedItem.cartItem.quantity;
+
+    this.productService.getProductStock(displayedItem.product.productId).subscribe(
+      (stock) => {
+        if (newQuantity > stock) {
+          // If the input value exceeds the stock, set it to the stock value
+          displayedItem.cartItem.quantity = stock;
+
           // Show Toastr notification for insufficient stock
           this.toastr.error(`Insufficient stock, only ${stock} left.`, 'Error');
         }
@@ -108,8 +135,17 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  removeFromCart(cartItemId: number) {
+  // removeFromCart(cartItemId: number) {
+  //   this.cartService.removeFromCart(cartItemId);
+  // }
+  removeFromCart(cartItemId: number, displayedItem: DisplayedCartItem) {
     this.cartService.removeFromCart(cartItemId);
+
+    // Remove the displayed item from the displayedCartItems array
+    const index = this.displayedCartItems.indexOf(displayedItem);
+    if (index !== -1) {
+      this.displayedCartItems.splice(index, 1);
+    }
   }
 
   applyDiscount() {

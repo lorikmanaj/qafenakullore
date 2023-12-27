@@ -5,6 +5,7 @@ import { CartItem } from '../../models/cartItem';
 import { ApiService } from '../global/api.service';
 import { UserService } from '../user.service';
 import { AddToCartRequest } from 'src/app/models/RequestDTOs/addToCartRequest';
+import { CartCheckoutSyncService } from '../shared/cart-checkout-sync.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,8 @@ export class CartService {
   cartChanged = new EventEmitter<void>();
 
   constructor(private apiService: ApiService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private cartSyncService: CartCheckoutSyncService) { }
 
   initCartData(): void {
     this.userService.isAuthenticated$
@@ -76,7 +78,7 @@ export class CartService {
 
   getCartItemIdByProductId(productId: number): Observable<number | null> {
     return this.apiService.get<number>(`CartItems/GetCartItemIdByProductId?cartId=${this.cartId}&productId=${productId}`);
-  }  
+  }
 
   getCartItems(): Observable<CartItem[]> {
     if (this.cartId !== null) {
@@ -167,7 +169,6 @@ export class CartService {
   }
 
   removeFromCart(cartItemId: number) {
-    // Make a DELETE request to remove the item from the server cart
     this.apiService.delete(`CartItems/${cartItemId}`).subscribe(
       () => {
         const currentCartItems = this.cartItemsSubject.getValue();
@@ -179,6 +180,7 @@ export class CartService {
       }
     );
 
+    this.cartSyncService.notifyCartChanged();
     this.cartChanged.emit();
   }
 
