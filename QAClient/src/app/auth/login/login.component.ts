@@ -1,11 +1,7 @@
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { NgForm } from '@angular/forms';
-import { environment } from '../../environments/environment';
 import { UserService } from 'src/app/services/user.service';
-import { CartService } from 'src/app/services/products/cart.service';
 
 @Component({
   selector: 'login',
@@ -18,16 +14,15 @@ export class LoginComponent implements OnInit {
   registerForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private userService: UserService,
-    private cartService: CartService) {
+    private userService: UserService) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
 
     this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      registerEmail: ['', [Validators.required, Validators.email]],
+      registerPassword: ['', Validators.required],
     });
   }
 
@@ -67,19 +62,33 @@ export class LoginComponent implements OnInit {
 
   register(): void {
     if (this.registerForm.valid) {
-      // Implement registration logic here
+      const { registerEmail, registerPassword } = this.registerForm.value;
+      this.userService.register({ email: registerEmail, password: registerPassword }).subscribe(
+        (response) => {
+          if (response && response.token) {
+            // Handle successful registration
+            console.log(response);
+          } else {
+            console.error('Invalid response or missing token:', response);
+          }
+        },
+        (error) => {
+          console.error('Registration failed:', error);
+        }
+      );
     }
   }
 
   switchTab(tab: 'login' | 'register'): void {
-    // Reset form controls on tab switch
     this.loginForm.reset();
     this.registerForm.reset();
 
+    const matTabGroup = document.getElementById('mat-tab-group') as any;
+
     if (tab === 'login') {
-      // Switch to the Login tab
+      matTabGroup.selectedIndex = 0;
     } else {
-      // Switch to the Register tab
+      matTabGroup.selectedIndex = 1;
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { AuthResponse } from 'src/app/models/auth/authResponse';
 import { ApiService } from '../global/api.service';
 import { JwtService } from './jwt.service';
@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private apiService: ApiService,
     private jwtService: JwtService,
     private router: Router) {
-    this.isAuthenticatedSubject.next(this.jwtService.isAuthenticated()); // Emit the initial status
+    this.isAuthenticatedSubject.next(this.jwtService.isAuthenticated());
   }
 
   login(email: string, password: string): Observable<AuthResponse> {
@@ -24,7 +24,7 @@ export class AuthService {
       tap((res) => {
         this.setAuth(res);
         const decodedToken = this.jwtService.decodeToken();
-        this.isAuthenticatedSubject.next(true); // Set the authentication status
+        this.isAuthenticatedSubject.next(true);
 
         console.log('User authenticated:', this.isAuthenticatedSubject.value);
         console.log('Mas Lloginit Token:', decodedToken);
@@ -35,9 +35,13 @@ export class AuthService {
     );
   }
 
-  register(user: any): Observable<any> {
+  register(user: { email: string, password: string }): Observable<any> {
     return this.apiService.post<any, any>('auth/register', user).pipe(
-      tap(({ user }) => this.setAuth(user))
+      tap((response) => this.setAuth(response)),
+      catchError((error) => {
+        console.error('Registration failed:', error);
+        return throwError(error);
+      })
     );
   }
 
@@ -63,7 +67,17 @@ export class AuthService {
   }
 
   private setAuth(res: any): void {
-    this.jwtService.saveToken(res.token);
-    this.isAuthenticatedSubject.next(true);
+    console.log('API Response:', res);
+
+    if (res && res.token) {
+      this.jwtService.saveToken(res.token);
+      this.isAuthenticatedSubject.next(true);
+
+      this.router.navigate(['/home']);
+    } else {
+      console.error('Invalid response or missing token:', res);
+      this.isAuthenticatedSubject.next(false);
+    }
   }
+
 }

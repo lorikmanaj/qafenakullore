@@ -38,7 +38,7 @@ export class UserService {
     return this.authService.login(email, password);
   }
 
-  register(user: any): Observable<any> {
+  register(user: { email: string, password: string }): Observable<any> {
     return this.authService.register(user).pipe(
       tap(() => {
         //this.getCurrentUser().subscribe()

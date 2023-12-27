@@ -46,10 +46,10 @@ export class JwtService {
 
   isAuthenticated(): boolean {
     const token = this.getToken();
-    const isAuthenticated = !!token;
+    const isAuthenticated = token !== null;
     this.isAuthenticatedSubject.next(isAuthenticated);
     return isAuthenticated;
-  }
+  }  
 
   purgeAuth(): void {
     localStorage.removeItem('token');

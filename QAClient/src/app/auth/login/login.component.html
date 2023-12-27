@@ -20,7 +20,7 @@
 
   <div class="content-wrapper">
 
-    <mat-tab-group>
+    <mat-tab-group id="mat-tab-group">
 
       <!-- Login Tab -->
       <mat-tab label="Login">
@@ -40,7 +40,7 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="loginForm.invalid">Login</button>
           </div>
         </form>
-        <p class="register-link" (click)="switchTab('register')">Don't have an account? Create one here</p>
+        <!-- <div class="register-link" (click)="switchTab('register')">Don't have an account? Create one here</div> -->
       </mat-tab>
 
       <!-- Register Tab -->
@@ -48,10 +48,19 @@
         <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="register()">
           <div class="container-fluid">
             <h2 class="form-signin-heading">Register</h2>
-            <!-- Add inputs for registration here -->
+            <label for="registerEmail" class="sr-only">Email address</label>
+            <input formControlName="registerEmail" type="email" id="registerEmail" name="registerEmail"
+              class="form-control" placeholder="Your Email" required>
+            <br />
+            <label for="registerPassword" class="sr-only">Password</label>
+            <input formControlName="registerPassword" type="password" id="registerPassword" name="registerPassword"
+              class="form-control" placeholder="Your Password" required>
+            <br />
+            <button class="btn btn-lg btn-primary btn-block" type="submit"
+              [disabled]="registerForm.invalid">Register</button>
           </div>
         </form>
-        <p class="login-link" (click)="switchTab('login')">Already have an account? Login here</p>
+        <!-- <div class="login-link" (click)="switchTab('login')">Already have an account? Login here</div> -->
       </mat-tab>
 
     </mat-tab-group>

@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
         var result = await _authManager.Register(request);
         return GetActionResult(result);
     }
-    //Test comment
+
     [HttpPost("[action]")]
     public async Task<IActionResult> Login(UserLoginRequest request)
     {
