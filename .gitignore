@@ -398,3 +398,5 @@ MigrationBackup/
 /QafenAkullAPI/QafenAkullAPI/Assets/Images/Products
 
 /QafenAkullAPI/QafenAkullAPI/wwwroot/assets/images/Products
+QAAPI/Api/Api.csproj
+QAAPI/Api/appsettings.Development.json
