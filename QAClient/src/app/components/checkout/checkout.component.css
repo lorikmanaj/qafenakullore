@@ -1,0 +1,59 @@
+/* btn quantity */
+button.btn-quantity {
+  border: none;
+  background: white;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  background-color: rgb(255, 255, 255);
+  align-items: center;
+}
+/* input for quantity */
+input.quantity-input {
+  width: 40px;
+}
+
+/* table */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 50%;
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  padding: 8px;
+  align-items: center;
+  white-space: nowrap;
+  max-width: 300px;
+}
+/* product-td */
+
+td.products-cell {
+  display: flex;
+  gap: 2rem;
+}
+.products-cell.div {
+  width: 300px;
+}
+/* remove btn */
+.remove-btn {
+  background-color: transparent;
+  border-radius: 50%;
+  text-align: center;
+}
+/* product price */
+.product-price {
+  font-size: 1rem;
+}
+.content-wrapper {
+  display: flex;
+  padding-top: 100px;
+}
+.order-summary {
+  background-color: rgb(206, 206, 206);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}

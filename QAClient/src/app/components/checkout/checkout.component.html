@@ -1,59 +1,97 @@
 <div class="content-wrapper">
+  <table class="cart-details-table">
+    <thead>
+      <tr>
+        <th>Products</th>
+        <th>Quantity</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let displayedItem of displayedCartItems">
+        <td class="products-cell">
+          <button
+            class="remove-btn"
+            (click)="
+              removeFromCart(displayedItem.cartItem.cartItemId, displayedItem)
+            "
+          >
+            X
+          </button>
 
-    <div class="cart-details-container">
-        <table class="cart-details-table">
-            <tr>
-                <th>Products</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Remove</th>
-            </tr>
-            <tr *ngFor="let displayedItem of displayedCartItems">
-                <td>
-                    <button (click)="removeFromCart(displayedItem.cartItem.cartItemId, displayedItem)">X</button>
-                </td>
-                <td>
-                    <img [src]="constructImageUrl(displayedItem.product.mainImage)"
-                        alt="{{ displayedItem.product.name }} Image" />
-                    <p>{{ displayedItem.product.name }}</p>
-                </td>
-                <td>{{ displayedItem.product.price | currency: 'EUR' }}</td>
-                <td>
-                    <!-- <button (click)="decrementOrDelete(displayedItem.cartItem)">-</button> -->
-                    <button (click)="decrementQuantity(displayedItem.cartItem)"
-                        [disabled]="displayedItem.cartItem.quantity === 1">-</button>
-                    <!-- <input type="number" [(ngModel)]="displayedItem.cartItem.quantity" min="1" /> -->
-                    <input type="number" [(ngModel)]="displayedItem.cartItem.quantity"
-                        (input)="validateQuantity(displayedItem)" min="1" />
-                    <button (click)="incrementQuantity(displayedItem.cartItem)">+</button>
-                </td>
-                <td>{{ (displayedItem.product.price * displayedItem.cartItem.quantity) | currency: 'EUR' }}</td>
-            </tr>
-        </table>
+          <img
+            [src]="constructImageUrl(displayedItem.product.mainImage)"
+            alt="{{ displayedItem.product.name }} Image"
+            width="100"
+            height="100"
+          />
+          <div>
+            <h2>{{ displayedItem.product.name }}</h2>
+            <p class="product-price">
+              {{ displayedItem.product.price | currency : "EUR" }}
+            </p>
+          </div>
+        </td>
 
-        <div class="order-summary">
-            <h2>Order Total</h2>
+        <td>
+          <!-- <button (click)="decrementOrDelete(displayedItem.cartItem)">-</button> -->
+          <button
+            class="btn-quantity"
+            (click)="decrementQuantity(displayedItem.cartItem)"
+            [disabled]="displayedItem.cartItem.quantity === 1"
+          >
+            -
+          </button>
+          <!-- <input type="number" [(ngModel)]="displayedItem.cartItem.quantity" min="1" /> -->
+          <input
+            class="quantity-input"
+            type="number"
+            [(ngModel)]="displayedItem.cartItem.quantity"
+            (input)="validateQuantity(displayedItem)"
+            min="1"
+          />
+          <button
+            class="btn-quantity"
+            (click)="incrementQuantity(displayedItem.cartItem)"
+          >
+            +
+          </button>
+        </td>
+        <td>
+          {{
+            displayedItem.product.price * displayedItem.cartItem.quantity
+              | currency : "EUR"
+          }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="cart-details-container">
+    <div class="order-summary">
+      <h2>Order Total</h2>
 
-            <div class="discount-section">
-                <label for="discountInput">Discount:</label>
-                <!-- FIX input type="text" id="discountInput" [(ngModel)]="discount" />-->
-                <input type="text" id="discountInput" />
-                <button (click)="applyDiscount()">Apply Discount</button>
-            </div>
-
-            <div class="order-details">
-                <p>Subtotal: {{ calculateSubtotal() | currency: 'EUR' }}</p>
-                <p>Transport: {{ transportFee | currency: 'EUR' }}</p>
-                <p>After discount: {{ calculateTotalAfterDiscount() | currency: 'EUR' }}</p>
-            </div>
-
-            <div class="estimated-delivery">
-                <p>Estimated delivery date: {{ estimatedDeliveryDate }}</p>
-            </div>
-
-            <button (click)="proceedToBilling()">Proceed</button>
+      <div class="discount-section">
+        <label for="discountInput">Discount:</label>
+        <!-- FIX input type="text" id="discountInput" [(ngModel)]="discount" />-->
+        <input type="text" id="discountInput" />
+        <button (click)="applyDiscount()">Apply Discount</button>
+      </div>
+      <div>
+        <div class="order-details">
+          <p>Subtotal: {{ calculateSubtotal() | currency : "EUR" }}</p>
+          <p>Transport: {{ transportFee | currency : "EUR" }}</p>
+          <p>
+            After discount:
+            {{ calculateTotalAfterDiscount() | currency : "EUR" }}
+          </p>
         </div>
-    </div>
 
+        <div class="estimated-delivery">
+          <p>Estimated delivery date: {{ estimatedDeliveryDate }}</p>
+        </div>
+
+        <button (click)="proceedToBilling()">Proceed</button>
+      </div>
+    </div>
+  </div>
 </div>
