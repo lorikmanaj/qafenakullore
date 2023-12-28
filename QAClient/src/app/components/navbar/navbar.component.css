@@ -130,3 +130,13 @@ li {
   padding-left: 30px;
   padding-right: 30px;
 }
+
+@media screen and (max-width: 768px) {
+  .mobile-toggle {
+    display: block;
+    cursor: pointer;
+  }
+  .menu-links {
+    display: none;
+  }
+}

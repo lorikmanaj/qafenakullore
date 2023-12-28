@@ -34,16 +34,23 @@
       <a class="nav-link" (click)="onSelectProductType('Home')">Home</a>
     </li>
     <li class="nav-item" *ngFor="let productType of productTypes">
-      <a class="nav-link" (click)="onSelectProductType(productType.type)">{{ productType.type }}</a>
+      <a class="nav-link" (click)="onSelectProductType(productType.type)">{{
+        productType.type
+      }}</a>
     </li>
   </ul>
-  <div class="menu-service">
+  <div class="menu-service" *ngIf="isMenuServiceVisible">
     <ul>
-      <li *ngIf="isAdmin" (click)="navigateToAdmin()"><fa-icon [icon]="faAdmin"></fa-icon></li>
+      <li *ngIf="isAdmin" (click)="navigateToAdmin()">
+        <fa-icon [icon]="faAdmin"></fa-icon>
+      </li>
       <li><fa-icon [icon]="faGlass"></fa-icon></li>
       <li><app-wishlist></app-wishlist></li>
-      <li><app-cart></app-cart>
-      <li><fa-icon [icon]="faBars"></fa-icon></li>
+      <li><app-cart></app-cart></li>
     </ul>
+  </div>
+  <!-- Toggle button for mobile -->
+  <div class="mobile-toggle" (click)="toggleMenuService()">
+    <fa-icon [icon]="faBars"></fa-icon>
   </div>
 </div>

@@ -82,3 +82,12 @@ fa-icon:hover {
   transition: all 0.4s ease-in-out;
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .services-main {
+    align-items: center;
+    background-color: #000;
+    display: grid;
+    grid-template-columns: auto;
+  }
+}
