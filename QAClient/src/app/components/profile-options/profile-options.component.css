@@ -20,3 +20,7 @@
 .profile-icon-container:hover .cart-profile {
     display: block;
 }
+
+.option-item {
+    color: black;
+}

@@ -11,6 +11,7 @@ import { ProfileOption } from 'src/app/models/profileOptions';
 })
 export class ProfileOptionsComponent implements OnInit {
   faUser = faUserAstronaut;
+
   profileOptions: ProfileOption[] = [
     {
       optionId: 1,
