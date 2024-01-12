@@ -28,7 +28,8 @@ public static class Program
         services.AddDi();
         services.AddTokenValidation(configuration);
         services.AddInfrastructure(configuration);
-
+        //services.AddEmailService(configuration);
+        
         // Authorization & Authentication
         var tokenValidationParameters = services.GetTokenValidationParameters();
         services

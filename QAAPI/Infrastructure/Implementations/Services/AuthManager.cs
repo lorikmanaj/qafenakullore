@@ -13,7 +13,6 @@ namespace Infrastructure.Implementations.Services
 {
     public class AuthManager : IAuthManager
     {
-        //
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
@@ -21,13 +20,16 @@ namespace Infrastructure.Implementations.Services
         private readonly IShoppingService _shoppingService;
         private readonly ITokenGenerator _tokenGenerator;
         private readonly ITokenValidator _tokenValidator;
+        //private readonly IEmailService _emailService;
 
         public AuthManager(ApplicationDbContext context,
             UserManager<IdentityUser> userManager,
             IConfiguration configuration,
             IShoppingService shoppingService,
             ITokenGenerator tokenGenerator,
-            ITokenValidator tokenValidator)
+            ITokenValidator tokenValidator
+            //IEmailService emailService
+            )
         {
             this._context = context;
             this._userManager = userManager;
@@ -35,6 +37,7 @@ namespace Infrastructure.Implementations.Services
             this._shoppingService = shoppingService;
             this._tokenGenerator = tokenGenerator;
             this._tokenValidator = tokenValidator;
+            //this._emailService = emailService;
         }
 
         public async Task<AuthResult> Register(UserRegistrationRequest request)
@@ -84,8 +87,28 @@ namespace Infrastructure.Implementations.Services
             await _shoppingService.CreateCartForUser(user.Id);
             await _shoppingService.CreateWishlistForUser(user.Id);
 
-            var authResult = await GenerateTokenResult(user);
+            var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var emailConfirmationResult = await _userManager.ConfirmEmailAsync(user, confirmationToken);
 
+            //send conf email
+            //string receiverEmail = request.Email;
+            //string receiverName = request.Email;
+            //string subject = "Qafen Akullore Registration Confirmation";
+            //string message = "Test message from registration";
+
+           // _emailService.SendEmail("admin@qafenakullore.com", "Admin QA", receiverEmail, receiverName, subject, message);
+
+            if (!emailConfirmationResult.Succeeded)
+            {
+                return new AuthResult
+                {
+                    Success = false,
+                    Errors = new List<string> { "UserManager or TokenGenerator is not available", emailConfirmationResult.Errors.ToString() }
+                };
+            }
+
+            var authResult = await GenerateTokenResult(user);
+            
             return authResult;
         }
 

@@ -1,6 +1,8 @@
 ﻿using Api.Implementations.Token;
 using Api.Interfaces.Token;
 using Domain.Models;
+using Infrastructure.Implementations.Services;
+using Infrastructure.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -15,6 +17,11 @@ public static class Services
     private const string JwtSecret = $"{Jwt}:Secret";
     private const string JwtIssuer = $"{Jwt}:Issuer";
     private const string JwtAudience = $"{Jwt}:Audience";
+
+    public static void AddEmailService(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddTransient<IEmailService, EmailService>();
+    }
 
     public static void AddDi(this IServiceCollection services)
     {
