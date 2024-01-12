@@ -29,6 +29,7 @@ export class NavbarComponent implements OnInit {
   faAdmin = faGamepad;
 
   isAdmin = false;
+  isMenuServiceVisible = true;
 
   productTypes: ProductType[] = [];
 
@@ -69,5 +70,9 @@ export class NavbarComponent implements OnInit {
 
   navigateToAdmin() {
     this.router.navigate(['/admin']);
+  }
+  //menu toggle
+  toggleMenuService() {
+    this.isMenuServiceVisible = !this.isMenuServiceVisible;
   }
 }

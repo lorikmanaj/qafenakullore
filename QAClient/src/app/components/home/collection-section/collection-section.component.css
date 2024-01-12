@@ -79,8 +79,8 @@ p:hover {
   width: 100%;
 }
 
-.personalized>h5,
-.varese>h5 {
+.personalized > h5,
+.varese > h5 {
   inset: auto auto 5rem 5rem;
   font-weight: 600;
   font-size: 3rem;
@@ -125,4 +125,15 @@ button:hover {
   transition: all 0.4s ease-in;
   color: #fff;
   border: none;
+}
+@media screen and (max-width: 768px) {
+  .collection-main {
+    grid-template-columns: auto;
+  }
+  .collection-inner {
+    grid-template-columns: auto;
+  }
+  .promo-product {
+    grid-template-columns: auto;
+  }
 }

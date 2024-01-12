@@ -1,41 +1,57 @@
-<div class="product-card" *ngIf="product" (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()">
-    <div class="product-image">
-        <img [src]="constructImageUrl(product.mainImage)" />
-    </div>
-    <div class="product-details">
-        <a [routerLink]="['/product', product.productId]">
-            <h2>{{ product.name }}</h2>
-        </a>
-        <p class="price">{{ product.price | currency }}</p>
-        <div class="varieties">
-            <div *ngFor="let variety of product.varieties; let i = index" class="variety" (mouseenter)="changeImage(i)"
-                (mouseleave)="resetImage()">
-                <div class="variety-image rounded-element">
-                    <img [src]="constructImageUrl(variety.imageUrl || '')" alt="{{ variety.description }}" />
-                </div>
-            </div>
+<div
+  class="product-card"
+  *ngIf="product"
+  (mouseenter)="handleMouseEnter()"
+  (mouseleave)="handleMouseLeave()"
+>
+  <div class="product-image">
+    <img [src]="constructImageUrl(product.mainImage)" />
+    <a [routerLink]="['/product', product.productId]">
+      <h2>{{ product.name }}</h2>
+    </a>
+  </div>
+  <div class="product-details">
+    <p class="price">{{ product.price | currency }}</p>
+    <div class="varieties">
+      <div
+        *ngFor="let variety of product.varieties; let i = index"
+        class="variety"
+        (mouseenter)="changeImage(i)"
+        (mouseleave)="resetImage()"
+      >
+        <div class="variety-image rounded-element">
+          <img
+            [src]="constructImageUrl(variety.imageUrl || '')"
+            alt="{{ variety.description }}"
+          />
         </div>
+      </div>
     </div>
     <div class="ratings">
-        <app-star-rating [rating]="reviewDetails?.averageRating ?? 0"></app-star-rating>
-        <!-- <p class="star-rating">Star</p> -->
-        <p class="review-count">Reviews {{ reviewDetails?.totalReviews }}</p>
+      <app-star-rating
+        [rating]="reviewDetails?.averageRating ?? 0"
+      ></app-star-rating>
+      <!-- <p class="star-rating">Star</p> -->
+      <p class="review-count">Reviews {{ reviewDetails?.totalReviews }}</p>
     </div>
 
     <div>
-        <div>
+      <div class="add-button">
+        <button (click)="isInCart() ? removeFromCart() : addToCart()">
+          <fa-icon
+            [icon]="isInCart() ? faRemoveFromCart : faAddToCart"
+          ></fa-icon>
+          {{ isInCart() ? "Remove " : "Add to Cart" }}
+        </button>
 
-            <button (click)="isInCart() ? removeFromCart() : addToCart()">
-                <fa-icon [icon]="isInCart() ? faRemoveFromCart : faAddToCart"></fa-icon>
-                {{ isInCart() ? 'Remove from Cart' : 'Add to Cart' }}
-            </button>
-
-            <!-- Update the button in your template -->
-            <button (click)="isInWishList() ? removeFromWishList() : addToWishList()">
-                <fa-icon [icon]="isInWishList() ? faHeartCheck : faHeart"></fa-icon>
-                {{ isInWishList() ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-            </button>
-
-        </div>
+        <!-- Update the button in your template -->
+        <button
+          (click)="isInWishList() ? removeFromWishList() : addToWishList()"
+        >
+          <fa-icon [icon]="isInWishList() ? faHeartCheck : faHeart"></fa-icon>
+          {{ isInWishList() ? "Remove " : "Add to Wishlist" }}
+        </button>
+      </div>
     </div>
+  </div>
 </div>
