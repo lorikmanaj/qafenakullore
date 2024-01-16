@@ -76,6 +76,7 @@ import { EditProductComponent } from './components/products/edit-product/edit-pr
 import { WishlistComponent } from './components/products/wishlist/wishlist.component';
 import { WishlistService } from './services/products/wishlist.service';
 import { BillingDetailsComponent } from './components/billing-details/billing-details.component';
+import { BillingDetailsFormComponent } from './components/billing-details/billing-details-form/billing-details-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -123,6 +124,7 @@ export function tokenGetter() {
     EditProductComponent,
     WishlistComponent,
     BillingDetailsComponent,
+    BillingDetailsFormComponent,
   ],
   imports: [
     BrowserModule,
