@@ -3,7 +3,9 @@
     <!-- Replace with an <img> tag for displaying product images -->
     <img src="{{ product.image }}" alt="{{ product.name }}">
   </div>
-  <a [routerLink]="['/product', product.id]"><h4 class="product-name">{{ product.name }}</h4></a>
+  <a [routerLink]="['/product', product.id]">
+    <h4 class="product-name">{{ product.name }}</h4>
+  </a>
   <div class="product-details">
     <p class="product-description">{{ product.description }}</p>
     <div class="product-price">€ {{ product.price.toFixed(2) }}</div>

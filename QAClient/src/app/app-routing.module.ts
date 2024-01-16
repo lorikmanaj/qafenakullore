@@ -7,12 +7,14 @@ import { ProductDetailsComponent } from './components/products/product-details/p
 import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
 import { LoginComponent } from './auth/login/login.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { BillingDetailsComponent } from './components/billing-details/billing-details.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'products/:type', component: ProductListingComponent },
   { path: 'product/:id', component: ProductDetailsComponent },
   { path: 'checkout', component: CheckoutComponent },
+  { path: 'billing', component: BillingDetailsComponent },
   { path: 'admin', component: AdminPanelComponent },
   { path: 'login', component: LoginComponent },
   //Ignore the register for now focus on Login

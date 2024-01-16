@@ -161,6 +161,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   proceedToBilling() {
-
+    
   }
 }

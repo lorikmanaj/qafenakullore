@@ -12,21 +12,14 @@
       <tbody>
         <tr *ngFor="let displayedItem of displayedCartItems">
           <td class="products-cell">
-            <button
-              class="remove-btn"
-              (click)="
+            <button class="remove-btn" (click)="
                 removeFromCart(displayedItem.cartItem.cartItemId, displayedItem)
-              "
-            >
+              ">
               X
             </button>
 
-            <img
-              [src]="constructImageUrl(displayedItem.product.mainImage)"
-              alt="{{ displayedItem.product.name }} Image"
-              width="100"
-              height="100"
-            />
+            <img [src]="constructImageUrl(displayedItem.product.mainImage)" alt="{{ displayedItem.product.name }} Image"
+              width="100" height="100" />
             <div>
               <h2>{{ displayedItem.product.name }}</h2>
               <p class="product-price">
@@ -37,32 +30,21 @@
 
           <td>
             <!-- <button (click)="decrementOrDelete(displayedItem.cartItem)">-</button> -->
-            <button
-              class="btn-quantity"
-              (click)="decrementQuantity(displayedItem.cartItem)"
-              [disabled]="displayedItem.cartItem.quantity === 1"
-            >
+            <button class="btn-quantity" (click)="decrementQuantity(displayedItem.cartItem)"
+              [disabled]="displayedItem.cartItem.quantity === 1">
               -
             </button>
             <!-- <input type="number" [(ngModel)]="displayedItem.cartItem.quantity" min="1" /> -->
-            <input
-              class="quantity-input"
-              type="number"
-              [(ngModel)]="displayedItem.cartItem.quantity"
-              (input)="validateQuantity(displayedItem)"
-              min="1"
-            />
-            <button
-              class="btn-quantity"
-              (click)="incrementQuantity(displayedItem.cartItem)"
-            >
+            <input class="quantity-input" type="number" [(ngModel)]="displayedItem.cartItem.quantity"
+              (input)="validateQuantity(displayedItem)" min="1" />
+            <button class="btn-quantity" (click)="incrementQuantity(displayedItem.cartItem)">
               +
             </button>
           </td>
           <td>
             {{
-              displayedItem.product.price * displayedItem.cartItem.quantity
-                | currency : "EUR"
+            displayedItem.product.price * displayedItem.cartItem.quantity
+            | currency : "EUR"
             }}
           </td>
         </tr>
@@ -106,4 +88,3 @@
     </div>
   </div>
 </div>
->
