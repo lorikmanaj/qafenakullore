@@ -4,7 +4,9 @@
   margin-left: 20rem;
   margin-bottom: 50px;
 }
-
+.total-container {
+  margin-top: 11rem;
+}
 /* total */
 .total-section {
   margin: 100px 10px;
