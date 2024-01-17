@@ -1,1 +1,51 @@
-<p>billing-details-form works!</p>
+<div class="header-details">
+  <h3>Have a coupon? Click here to enter your code</h3>
+  <h2>Billing Details</h2>
+</div>
+<form>
+  <div>
+    <div class="name-lastn-container">
+      <div class="name-lastname">
+        <label for="firstName">FirstName <span>*</span></label>
+        <input name="firstName" type="text" required />
+      </div>
+      <div class="name-lastname">
+        <label for="lastName">LastName <span>*</span></label>
+        <input name="lastName" type="text" required />
+      </div>
+    </div>
+  </div>
+  <label for="Company">Company Name (Optional)</label>
+  <input name="Company" type="text" required />
+
+  <label for="country">Country/Region<span>*</span></label>
+  <input name="country" type="text" />
+
+  <label for="street">Street Addres<span>*</span></label>
+  <input name="street" type="select" required />
+  <input name="street1" type="text" required />
+
+  <label for="town-city">Town-city<span>*</span></label>
+  <input name="town-city" type="text" />
+
+  <label for="state">State<span>*</span></label>
+  <input name="state" type="text" required />
+
+  <label for="Zip Code">Zip Code<span>*</span></label>
+  <input name="ZipCode" type="text" required />
+
+  <label for="phone">Phone<span>*</span></label>
+  <input name="phone" type="number" required />
+
+  <label for="email">Email address<span>*</span></label>
+  <input name="enail" type="text" required />
+
+  <label for="notes">Order Notes</label>
+  <textarea
+    name="notes"
+    id="notes"
+    cols="10"
+    rows="5"
+    placeholder="Notes about your order, eg special notes for delivery"
+  ></textarea>
+</form>

@@ -7,6 +7,7 @@ import { DisplayedCartItem } from './../../models/displayedCartItem';
 import { Product } from 'src/app/models/product';
 import { ToastrService } from 'ngx-toastr';
 import { CartCheckoutSyncService } from 'src/app/services/shared/cart-checkout-sync.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -26,7 +27,8 @@ export class CheckoutComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private cartSyncService: CartCheckoutSyncService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -161,6 +163,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   proceedToBilling() {
-    
+    this.router.navigate(['/billing']);
   }
 }

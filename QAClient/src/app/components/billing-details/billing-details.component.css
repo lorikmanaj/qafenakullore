@@ -1,0 +1,46 @@
+.billing-details {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-left: 20rem;
+  margin-bottom: 50px;
+}
+
+/* total */
+.total-section {
+  margin: 100px 10px;
+  width: 350px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  background-color: rgb(215, 222, 248);
+}
+.order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.subtotal {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+.estimated-delivery {
+  padding-bottom: 20px;
+}
+.checkout-btn {
+  width: 100%;
+  background-color: #411f1f;
+  color: #ffffff;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+.checkout-btn:hover {
+  background-color: #4e4e4e;
+  transition: all 0.4s;
+}
+span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}

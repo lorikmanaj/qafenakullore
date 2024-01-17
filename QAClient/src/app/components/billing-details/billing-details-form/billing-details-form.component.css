@@ -1,0 +1,61 @@
+.header-details {
+  margin-left: 80px;
+  margin-top: 80px;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  padding-bottom: 2rem;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 40rem;
+  margin-top: 60px;
+  margin-left: 80px;
+}
+.name-lastn-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin: 0 auto;
+  gap: 20px;
+}
+.name-lastname {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+input[type="text"] {
+  margin-bottom: 20px;
+  padding: 7px;
+  border: 1px solid #c5d8fc;
+  border-radius: 3px;
+}
+input[type="number"] {
+  margin-bottom: 20px;
+  padding: 7px;
+  border: 1px solid #c5d8fc;
+  border-radius: 3px;
+}
+input[type="select"] {
+  margin-bottom: 20px;
+  padding: 7px;
+  border: 1px solid #c5d8fc;
+  border-radius: 3px;
+}
+label {
+  margin-bottom: 10px;
+}
+span {
+  color: rgb(255, 0, 0);
+}
+
+textarea {
+  border: 1px solid #c5d8fc;
+}
+textarea::placeholder {
+  padding: 8px;
+  font-size: 18px;
+}
