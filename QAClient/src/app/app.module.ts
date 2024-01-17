@@ -77,6 +77,7 @@ import { WishlistComponent } from './components/products/wishlist/wishlist.compo
 import { WishlistService } from './services/products/wishlist.service';
 import { BillingDetailsComponent } from './components/billing-details/billing-details.component';
 import { BillingDetailsFormComponent } from './components/billing-details/billing-details-form/billing-details-form.component';
+import { CheckoutService } from './services/shared/checkout.service';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -158,7 +159,8 @@ export function tokenGetter() {
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
 
     CartService,
-    WishlistService
+    WishlistService,
+    CheckoutService
   ],
   bootstrap: [AppComponent]
 })
