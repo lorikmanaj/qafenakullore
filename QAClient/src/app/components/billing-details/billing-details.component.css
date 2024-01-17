@@ -44,3 +44,13 @@ span {
   font-size: 1.2rem;
   font-weight: bold;
 }
+
+@media screen and (max-width: 768px) {
+  .billing-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+}

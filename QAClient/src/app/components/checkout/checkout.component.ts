@@ -7,10 +7,7 @@ import { DisplayedCartItem } from './../../models/displayedCartItem';
 import { Product } from 'src/app/models/product';
 import { ToastrService } from 'ngx-toastr';
 import { CartCheckoutSyncService } from 'src/app/services/shared/cart-checkout-sync.service';
-<<<<<<< HEAD
-=======
 import { CheckoutService } from 'src/app/services/shared/checkout.service';
->>>>>>> 22b11a9eb75b67bf9d6e694e92adfecb72a24636
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,10 +29,7 @@ export class CheckoutComponent implements OnInit {
     private cartService: CartService,
     private cartSyncService: CartCheckoutSyncService,
     private toastr: ToastrService,
-<<<<<<< HEAD
-=======
     private checkoutService: CheckoutService,
->>>>>>> 22b11a9eb75b67bf9d6e694e92adfecb72a24636
     private router: Router
   ) { }
 
@@ -171,10 +165,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   proceedToBilling() {
-<<<<<<< HEAD
-=======
     this.checkoutService.setFinalizedItems(this.cartItems);
->>>>>>> 22b11a9eb75b67bf9d6e694e92adfecb72a24636
     this.router.navigate(['/billing']);
   }
 }
