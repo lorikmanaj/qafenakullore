@@ -12,7 +12,7 @@ namespace Api.Implementations.Repositories
 
         public CartItemRepository(ApplicationDbContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         public async Task<CartItem> GetCartItem(int cartItemId)
@@ -91,6 +91,7 @@ namespace Api.Implementations.Repositories
             {
                 _context.CartItems.Remove(existingCartItem);
                 await _context.SaveChangesAsync();
+                
                 return true;
             }
 

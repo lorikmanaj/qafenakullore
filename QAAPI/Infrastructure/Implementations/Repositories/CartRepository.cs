@@ -16,10 +16,7 @@ namespace Application.Implementations.Repositories
 
         public async Task<Cart> CreateCartAsync(string userId)
         {
-            var cart = new Cart
-            {
-                UserId = userId
-            };
+            var cart = new Cart { UserId = userId };
 
             _context.Carts.Add(cart);
             await _context.SaveChangesAsync();

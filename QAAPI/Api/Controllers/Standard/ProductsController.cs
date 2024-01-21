@@ -58,7 +58,7 @@ namespace Api.Controllers.Standard
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Message = "Internal Server Error." });
+                return StatusCode(500, new { Message = "Internal Server Error." + ex.InnerException });
             }
         }
 
@@ -70,6 +70,7 @@ namespace Api.Controllers.Standard
         public async Task<ActionResult<Product>> PostProduct(CreateProductDTO prod)
         {
             var createdProduct = await _productRepository.AddProduct(prod);
+
             return CreatedAtAction("GetProduct", "Products", new { id = createdProduct.ProductId }, createdProduct);
         }
     }

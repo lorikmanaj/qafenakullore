@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/products/product.service';
 import { Product } from 'src/app/models/product';
 import { catchError } from 'rxjs/operators';
+import { SliderItem } from 'src/app/models/sliderItem';
+import { Slider } from 'src/app/models/slider';
 
 @Component({
   selector: 'app-promo-product',
@@ -120,6 +122,9 @@ export class PromoProductComponent implements OnInit {
     }
   ];
 
+  slider: Slider | undefined;
+  sliderItems: SliderItem[] = [];
+
   currentIndex: number = 0;
 
   constructor(private productService: ProductService) { }
@@ -136,6 +141,10 @@ export class PromoProductComponent implements OnInit {
     //     console.log(this.carouselProducts);
     //     this.carouselProducts = products;
     //   });
+
+    //Fetch active slider
+
+    //Fetch active slider items
   }
 
   // goToSlide(index: number): void {

@@ -2,12 +2,7 @@
   <c-carousel-indicators></c-carousel-indicators>
   <c-carousel-inner>
     <c-carousel-item *ngFor="let product of carouselProducts">
-      <img
-        alt="{{ product.name }}"
-        class="d-block w-100"
-        loading="lazy"
-        [src]="product.background"
-      />
+      <img alt="{{ product.name }}" class="d-block w-100" loading="lazy" [src]="product.background" />
       <c-carousel-caption class="d-none d-md-block">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>

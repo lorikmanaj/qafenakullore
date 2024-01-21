@@ -52,6 +52,8 @@ namespace Infrastructure.Extensions
             services.AddScoped<ICartItemRepository, CartItemRepository>();
             services.AddScoped<IWishListRepository, WishListRepository>();
             services.AddScoped<IWishListItemRepository, WishListItemRepository>();
+            services.AddScoped<ISliderRepository, SliderRepository>();
+            
             return services;
         }
 
