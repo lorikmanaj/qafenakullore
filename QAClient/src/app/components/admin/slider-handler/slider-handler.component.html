@@ -1,0 +1,23 @@
+<div class="slider-container" *ngFor="let slider of carouselSliders">
+    <div class="slider-header">
+        <h2>{{ slider.title }}</h2>
+        <div class="toggle-container">
+            <label class="switch">
+                <input type="checkbox" [ngModel]="slider.isActive" (change)="setActive(slider.sliderId)" />
+                <span class="slider round"></span>
+            </label>
+            <!-- qeky toggle switch ne UI po funksionon
+                 po spo qet ngjyr tgjelbert kur osht on -->
+            <p>{{ slider.isActive ? 'Active' : 'Inactive' }}</p>
+        </div>
+    </div>
+    <div class="slider-items-container">
+        <div *ngFor="let sliderItem of slider.sliderItems" class="slider-item">
+            <div class="item-image">
+                <img [src]="constructImageUrl(sliderItem.product?.mainImage || '')"
+                    alt="{{ sliderItem.product?.name }}" />
+            </div>
+            <p>{{ sliderItem.product?.name }}</p>
+        </div>
+    </div>
+</div>

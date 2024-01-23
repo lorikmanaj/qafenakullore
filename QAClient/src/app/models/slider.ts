@@ -6,5 +6,5 @@ export interface Slider {
 
     isActive: boolean;
 
-    sliderItems: SliderItem[];
+    sliderItems?: SliderItem[];
 }
