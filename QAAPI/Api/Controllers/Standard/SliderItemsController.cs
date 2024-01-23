@@ -1,6 +1,8 @@
 ﻿using Domain.Models;
 using Infrastructure.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Api.Controllers.Standard
 {
@@ -15,33 +17,54 @@ namespace Api.Controllers.Standard
             this._sliderItemsRepository = sliderItemRepository;
         }
 
-        [HttpGet("{sliderItemid}")]
-        public async Task<ActionResult<SliderItem>> GetSliderItem(int sliderItemid)
+        [HttpGet("{sliderItemId}")]
+        public async Task<ActionResult<SliderItem>> GetSliderItem(int sliderItemId)
         {
-            var sliderItem = await _sliderItemsRepository.GetSliderItemByIdAsync(sliderItemid);
+            var sliderItem = await _sliderItemsRepository.GetSliderItemByIdAsync(sliderItemId);
 
             if (sliderItem == null)
                 return NotFound();
-            
+
             return sliderItem;
         }
 
-        [HttpGet("{sliderId}")]
+        [HttpGet("slider/{sliderId}")]
         public async Task<ActionResult<IEnumerable<SliderItem>>> GetSliderItems(int sliderId)
         {
             var sliderItems = await _sliderItemsRepository.GetSliderItemsAsync(sliderId);
 
-            if (sliderItems == null) 
+            if (sliderItems == null)
                 return NotFound();
 
             return sliderItems;
         }
 
-        // DELETE: api/SliderItem/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSliderItem(int id)
+        [HttpPost]
+        public async Task<ActionResult<SliderItem>> CreateSliderItem([FromBody] SliderItem sliderItem)
         {
-            if (await _sliderItemsRepository.RemoveSliderItemAsync(id))
+            var createdSliderItem = await _sliderItemsRepository.AddSliderItemAsync(sliderItem);
+
+            return CreatedAtAction(nameof(GetSliderItem), new { sliderItemId = createdSliderItem.SliderItemId }, createdSliderItem);
+        }
+
+        [HttpPut("{sliderItemId}")]
+        public async Task<IActionResult> UpdateSliderItem(int sliderItemId, [FromBody] SliderItem sliderItem)
+        {
+            if (sliderItemId != sliderItem.SliderItemId)
+                return BadRequest();
+
+            var updatedSliderItem = await _sliderItemsRepository.UpdateSliderItemAsync(sliderItem);
+
+            if (updatedSliderItem == null)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{sliderItemId}")]
+        public async Task<IActionResult> DeleteSliderItem(int sliderItemId)
+        {
+            if (await _sliderItemsRepository.RemoveSliderItemAsync(sliderItemId))
                 return NoContent();
 
             return BadRequest();

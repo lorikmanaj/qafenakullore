@@ -12,6 +12,7 @@ namespace Infrastructure.Interfaces.Repositories
         Task<SliderItem> GetSliderItemByIdAsync(int sliderItemId);
         Task<List<SliderItem>> GetSliderItemsAsync(int sliderId);
         Task<SliderItem> AddSliderItemAsync(SliderItem sliderItem);
+        Task<SliderItem> UpdateSliderItemAsync(SliderItem sliderItem);
         Task<bool> RemoveSliderItemAsync(int sliderItemId);
     }
 }

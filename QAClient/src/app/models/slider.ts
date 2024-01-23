@@ -4,5 +4,7 @@ export interface Slider {
     sliderId: number;
     title: string;
 
+    isActive: boolean;
+
     sliderItems: SliderItem[];
 }

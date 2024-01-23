@@ -17,6 +17,17 @@ namespace Api.Controllers.Standard
             this._sliderRepository = sliderRepository;
         }
 
+        [HttpGet("active")]
+        public async Task<ActionResult<Slider>> GetSlider()
+        {
+            var slider = await _sliderRepository.GetActiveSlider();
+
+            if (slider == null)
+                return NotFound();
+
+            return slider;
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<Slider>>> GetSliders()
         {
@@ -60,6 +71,31 @@ namespace Api.Controllers.Standard
             var createdSlider = await _sliderRepository.CreateSliderAsync(request);
 
             return CreatedAtAction("GetSlider", "Sliders", new { id = createdSlider.SliderId }, createdSlider);
+        }
+
+        [HttpPut("{sliderId}")]
+        public async Task<IActionResult> UpdateSlider(int sliderId, [FromBody] Slider slider)
+        {
+            if (sliderId != slider.SliderId)
+                return BadRequest();
+
+            var updatedSliderItem = await _sliderRepository.UpdateSliderAsync(slider);
+
+            if (updatedSliderItem == null)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        [HttpPut("{sliderId}/set-active")]
+        public async Task<IActionResult> SetActive(int sliderId)
+        {
+            var success = await _sliderRepository.SetActive(sliderId);
+
+            if (success)
+                return NoContent();
+
+            return NotFound();
         }
 
         // DELETE: api/Sliders/5

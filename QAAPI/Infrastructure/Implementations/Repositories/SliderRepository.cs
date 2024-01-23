@@ -20,6 +20,16 @@ namespace Infrastructure.Implementations.Repositories
             this._context = context;
         }
 
+        public async Task<Slider> GetActiveSlider()
+        {
+            var slider = await _context.Sliders.Where(_ => _.IsActive == true).Include(si => si.SliderItems).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+
+            if (slider == null)
+                return null;
+
+            return slider;
+        }
+
         public async Task<List<Slider>> GetAllAsync()
         {
             var sliders = await _context.Sliders.ToListAsync();
@@ -37,6 +47,7 @@ namespace Infrastructure.Implementations.Repositories
             return sliders;
         }
 
+        //NOT USED
         public async Task<List<Slider>> GetAll()
         {
             var sliders = await _context.Sliders.ToListAsync();
@@ -103,6 +114,58 @@ namespace Infrastructure.Implementations.Repositories
                 {
                     transaction.Rollback();
                     throw new Exception("Error adding the slider.", ex);
+                }
+            }
+        }
+
+        public async Task<Slider> UpdateSliderAsync(Slider slider)
+        {
+            _context.Entry(slider).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return null; // Handle concurrency exception
+            }
+
+            return slider;
+        }
+
+        public async Task<bool> SetActive(int sliderId)
+        {
+            var slider = await _context.Sliders.FindAsync(sliderId);
+
+            if (slider == null)
+                return false;
+
+            using (var transaction = await _context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    // Deactivate all sliders
+                    //var allSliders = await _context.Sliders.ToListAsync();
+                    //foreach (var s in allSliders)
+                    //{
+                    //    s.IsActive = false;
+                    //}
+                    var activeSlider = await _context.Sliders.FirstOrDefaultAsync(_ => _.IsActive == true);
+                    activeSlider.IsActive = false;
+
+                    // Activate the selected slider
+                    slider.IsActive = true;
+
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error setting slider as active.", ex);
                 }
             }
         }

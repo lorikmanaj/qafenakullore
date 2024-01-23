@@ -9,15 +9,29 @@ import { CreateSliderRequest } from '../models/RequestDTOs/createSliderRequest';
 })
 export class SlidersService {
 
-  private sliders: Slider[] = [];
-
   constructor(private apiService: ApiService) { }
+
+  getActiveSlider(): Observable<Slider> {
+    return this.apiService.get<Slider>('Sliders/active');
+  }
 
   getSliders(): Observable<Slider[]> {
     return this.apiService.get<Slider[]>('Sliders');
   }
 
+  getSlider(sliderId: number): Observable<Slider> {
+    return this.apiService.get<Slider>(`Sliders/${sliderId}`);
+  }
+
   createSlider(sliderData: CreateSliderRequest): Observable<Slider> {
     return this.apiService.post<Slider, CreateSliderRequest>('Sliders', sliderData);
+  }
+
+  setActive(sliderId: number): Observable<any> {
+    return this.apiService.put<any, null>(`Sliders/${sliderId}/set-active`, null);
+  }
+
+  deleteSlider(sliderId: number): Observable<any> {
+    return this.apiService.delete(`Sliders / ${sliderId}`);
   }
 }

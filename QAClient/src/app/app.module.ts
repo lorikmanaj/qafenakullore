@@ -78,6 +78,7 @@ import { WishlistService } from './services/products/wishlist.service';
 import { BillingDetailsComponent } from './components/billing-details/billing-details.component';
 import { BillingDetailsFormComponent } from './components/billing-details/billing-details-form/billing-details-form.component';
 import { CheckoutService } from './services/shared/checkout.service';
+import { SliderHandlerComponent } from './components/admin/slider-handler/slider-handler.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -126,6 +127,7 @@ export function tokenGetter() {
     WishlistComponent,
     BillingDetailsComponent,
     BillingDetailsFormComponent,
+    SliderHandlerComponent,
   ],
   imports: [
     BrowserModule,

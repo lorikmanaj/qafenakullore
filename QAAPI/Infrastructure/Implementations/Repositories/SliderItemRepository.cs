@@ -41,13 +41,26 @@ namespace Infrastructure.Implementations.Repositories
 
         public async Task<SliderItem> AddSliderItemAsync(SliderItem sliderItem)
         {
-            //var sliderItem = await _context.SliderItems.FindAsync(cartItemId);
+            _context.SliderItems.Add(sliderItem);
+            await _context.SaveChangesAsync();
 
-            //if (cartItem == null)
-            //    return null;
+            return sliderItem;
+        }
 
-            //return cartItem;
-            return null;
+        public async Task<SliderItem> UpdateSliderItemAsync(SliderItem sliderItem)
+        {
+            _context.Entry(sliderItem).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return null; // Handle concurrency exception
+            }
+
+            return sliderItem;
         }
 
         public async Task<bool> RemoveSliderItemAsync(int sliderItemId)
