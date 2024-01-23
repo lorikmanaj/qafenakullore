@@ -1,1 +1,30 @@
-<p>billing-details works!</p>
+<div class="billing-details">
+  <div>
+    <app-billing-details-form></app-billing-details-form>
+  </div>
+  <div class="total-container">
+    <!-- total -->
+    <div class="total-section">
+      <h2>Your Order</h2>
+
+      <div>
+        <div class="order-details">
+          <p class="subtotal">Subtotal: <span>EUR</span></p>
+          <p class="subtotal">Transport: <span> EUR</span></p>
+
+          <p class="subtotal">
+            After discount:
+            <span>EUR</span>
+          </p>
+        </div>
+
+        <div class="estimated-delivery">
+          <p>Estimated delivery date:</p>
+        </div>
+        <p class="subtotal">Total <span>70$</span></p>
+
+        <button class="checkout-btn">Place Order</button>
+      </div>
+    </div>
+  </div>
+</div>
