@@ -1,15 +1,19 @@
-<c-carousel>
-  <c-carousel-indicators></c-carousel-indicators>
-  <c-carousel-inner>
-    <c-carousel-item *ngFor="let product of carouselProducts">
-      <img alt="{{ product.name }}" class="d-block w-100" loading="lazy" [src]="product.background" />
-      <c-carousel-caption class="d-none d-md-block">
-        <h3>{{ product.name }}</h3>
+<div class="carousel">
+  <!-- <button (click)="prevSlide()">Previous</button> -->
+  <!-- if u want to show button prev  -->
+  <div *ngFor="let product of carouselProducts; let i = index">
+    <div *ngIf="i === currentIndex">
+      <img
+        [src]="constructImageUrl(product.background)"
+        alt="{{ product.name }}"
+      />
+      <div class="text-sect">
+        <h4>{{ product.name }}</h4>
         <p>{{ product.description }}</p>
-        <p>Price: ${{ product.price }}</p>
-      </c-carousel-caption>
-    </c-carousel-item>
-  </c-carousel-inner>
-  <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
-  <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
-</c-carousel>
+        <p>{{ product.price }}$</p>
+      </div>
+    </div>
+  </div>
+  <!-- <button (click)="nextSlide()">Next</button> -->
+  <!-- if u want to show button next  -->
+</div>

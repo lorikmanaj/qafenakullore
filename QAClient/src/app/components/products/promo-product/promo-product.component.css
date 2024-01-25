@@ -1,3 +1,31 @@
-.c-carousel-item img {
-  max-height: none;
+.carousel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carousel > div {
+  width: auto;
+  text-align: center;
+  margin-right: 10px;
+  position: relative;
+}
+
+.carousel img {
+  max-width: 100%;
+  height: auto;
+}
+
+.carousel h4,
+.carousel p {
+  font-size: 22px;
+  margin: 8px 0;
+  color: rgb(255, 255, 255);
+}
+.text-sect {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
