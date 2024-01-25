@@ -1,4 +1,8 @@
-<div class="cart-icon-container" (mouseenter)="showCartItems()" (mouseleave)="hideCartItems()">
+<div
+  class="cart-icon-container"
+  (mouseenter)="showCartItems()"
+  (mouseleave)="hideCartItems()"
+>
   <div class="cart-icon">
     <fa-icon [icon]="faCart"></fa-icon>
   </div>
@@ -9,30 +13,32 @@
           {{ item.itemName }}
 
           <div class="cart-buttons">
-
             <button class="plus-btn" (click)="incrementQuantity(item)">
               <fa-icon [icon]="faPlus"></fa-icon>
             </button>
 
-            <span *ngIf="item.quantity > 1" class="cart-item-quantity" contenteditable="true"
-              (blur)="editQuantity(item, $event)" (keydown.enter)="$event.preventDefault()">
+            <span
+              *ngIf="item.quantity > 1"
+              class="cart-item-quantity"
+              contenteditable="true"
+              (blur)="editQuantity(item, $event)"
+              (keydown.enter)="$event.preventDefault()"
+            >
               {{ item.quantity }}
-
             </span>
 
             <button class="minus-btn" (click)="decrementOrDelete(item)">
               <ng-container *ngIf="item.quantity > 1; else removeButton">
                 <fa-icon [icon]="faMinus"></fa-icon>
               </ng-container>
-              <ng-template #removeButton>
-                Remove
-              </ng-template>
+              <ng-template #removeButton> Remove </ng-template>
             </button>
-
           </div>
         </div>
         <div class="proceed-to-checkout" *ngIf="cartItems.length > 0">
-          <button (click)="navigateToCheckout()">Proceed to checkout</button>
+          <button class="checkout-btn" (click)="navigateToCheckout()">
+            Proceed to checkout
+          </button>
         </div>
       </ng-container>
       <ng-template #noItems>
@@ -44,6 +50,3 @@
     </ng-template>
   </div>
 </div>
-
-
-
